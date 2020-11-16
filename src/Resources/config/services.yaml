@@ -1,0 +1,17 @@
+# config/services.yaml
+services:
+
+  # makes classes in src/ available to be used as services
+  # this creates a service per class whose id is the fully-qualified class name
+  VentureLeap\LeapOneGlobalBundle\:
+    resource: '../../../src/*'
+
+  VentureLeap\LeapOneGlobalBundle\Services\UserApiProvider:
+    arguments:
+      $userServiceHost: '%env(string:USER_SERVICE_HOST)%'
+      $applicationId: '%env(string:APPLICATION_ID)%'
+      $username: '%env(string:BASIC_AUTH_USERNAME)%'
+      $password: '%env(string:BASIC_AUTH_PASSWORD)%'
+
+  VentureLeap\UserService\Api\UserApi:
+    factory: ['@VentureLeap\LeapOneGlobalBundle\Services\UserApiProvider', 'getUserApi']
