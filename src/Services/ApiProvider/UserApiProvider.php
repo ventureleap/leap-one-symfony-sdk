@@ -1,7 +1,7 @@
 <?php
 
 
-namespace VentureLeap\LeapOneGlobalBundle\Services;
+namespace VentureLeap\LeapOneGlobalBundle\Services\ApiProvider;
 
 
 use VentureLeap\UserService\Api\UserApi;
@@ -9,7 +9,7 @@ use VentureLeap\UserService\Configuration;
 
 class UserApiProvider
 {
-    private const APPLICATION_ID_KEY = 'ApplicationId';
+    const APPLICATION_ID_KEY = 'ApplicationId';
 
     /**
      * @var string

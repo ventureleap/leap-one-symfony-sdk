@@ -1,7 +1,7 @@
 <?php
 
 
-namespace VentureLeap\LeapOneGlobalBundle\Services;
+namespace VentureLeap\LeapOneGlobalBundle\Services\ApiProvider\ApiProvider;
 
 
 use VentureLeap\ConfigurationService\Api\ConfigurationEntryApi;
@@ -9,9 +9,10 @@ use VentureLeap\ConfigurationService\Api\TokenApi;
 use VentureLeap\UserService\Api\UserApi;
 use VentureLeap\UserService\Configuration;
 
-class ConfigurationApiProvider
+class ConfigurationEntryApiProvider
 {
-    private const APPLICATION_ID_KEY = 'ApplicationId';
+
+    const APPLICATION_ID_KEY = 'ApplicationId';
 
     /**
      * @var string
@@ -52,29 +53,5 @@ class ConfigurationApiProvider
         $configuration->setPassword($this->password);
 
         return new ConfigurationEntryApi(null, $configuration);
-    }
-
-
-    public function getToken(string $applicationId, string $applicationSecret): string
-    {
-        $cacheItem = $this->cache->getItem('jwt_token');
-
-        if ($cacheItem->isHit() && $this->isCachedTokenValid($cacheItem)) {
-            return $cacheItem->get();
-        }
-
-        $this->refreshToken($cacheItem, $applicationId, $applicationSecret);
-
-        return $cacheItem->get();
-    }
-
-    protected function getTokenApi(): TokenApi
-    {
-        return new TokenApi(null, $this->getConfiguration());
-    }
-
-    protected function isCachedTokenValid(CacheItem $cacheItem): bool
-    {
-
     }
 }

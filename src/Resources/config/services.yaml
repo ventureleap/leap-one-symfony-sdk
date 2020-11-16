@@ -8,10 +8,18 @@ services:
 
   VentureLeap\LeapOneGlobalBundle\Services\UserApiProvider:
     arguments:
-      $userServiceHost: '%env(string:USER_SERVICE_HOST)%'
-      $applicationId: '%env(string:APPLICATION_ID)%'
-      $username: '%env(string:BASIC_AUTH_USERNAME)%'
-      $password: '%env(string:BASIC_AUTH_PASSWORD)%'
+      $userServiceHost: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
+      $applicationId: '%env(string:LEAP_ONE_APP_ID)%'
+      $applicationSecret: '%env(string:LEAP_ONE_APP_SECRET)%'
 
   VentureLeap\UserService\Api\UserApi:
     factory: ['@VentureLeap\LeapOneGlobalBundle\Services\UserApiProvider', 'getUserApi']
+
+
+  VentureLeap\LeapOneGlobalBundle\Services\ConfigurationApiProvider:
+    class: App\Services\ConfigurationService\ConfigurationServiceConfiguration
+    arguments:
+      $configurationServiceHost: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
+      $applicationId: '%env(string:LEAP_ONE_APP_ID)%'
+      $username: '%env(string:LEAP_ONE_BASIC_USERNAME)%'
+      $password: '%env(string:LEAP_ONE_BASIC_PASSWORD)%'

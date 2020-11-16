@@ -4,10 +4,11 @@
 namespace VentureLeap\LeapOneGlobalBundle\Services\ApiProvider;
 
 
+use VentureLeap\ConfigurationService\Api\TokenApi;
 use VentureLeap\UserService\Api\UserApi;
 use VentureLeap\UserService\Configuration;
 
-class UserApiProvider
+class TokenApiProvider
 {
     const APPLICATION_ID_KEY = 'ApplicationId';
 
@@ -36,13 +37,13 @@ class UserApiProvider
         $this->applicationSecret = $applicationSecret;
     }
 
-    public function getUserApi(): UserApi
+    public function getTokenApi(): TokenApi
     {
         $configuration = new Configuration();
 
         $configuration->setHost($this->userServiceHost);
         $configuration->setApiKey(self::APPLICATION_ID_KEY, $this->applicationId);
 
-        return new UserApi(null, $configuration);
+        return new TokenApi(null, $configuration);
     }
 }
