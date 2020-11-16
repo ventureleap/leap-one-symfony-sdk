@@ -1,7 +1,7 @@
 <?php
 
 
-namespace VentureLeap\LeapOneGlobalBundle\Services;
+namespace VentureLeap\LeapOneGlobalBundle\Services\ApiProvider;
 
 
 use VentureLeap\UserService\Api\UserApi;
@@ -9,7 +9,7 @@ use VentureLeap\UserService\Configuration;
 
 class UserApiProvider
 {
-    private const APPLICATION_ID_KEY = 'ApplicationId';
+    const APPLICATION_ID_KEY = 'ApplicationId';
 
     /**
      * @var string
@@ -19,25 +19,21 @@ class UserApiProvider
      * @var string
      */
     private $applicationId;
+
     /**
      * @var string
      */
-    private $username;
-    /**
-     * @var string
-     */
-    private $password;
+    private $applicationSecret;
+
 
     public function __construct(
         string $userServiceHost,
         string $applicationId,
-        string $username,
-        string $password
+        string $applicationSecret
     ) {
         $this->userServiceHost = $userServiceHost;
         $this->applicationId = $applicationId;
-        $this->username = $username;
-        $this->password = $password;
+        $this->applicationSecret = $applicationSecret;
     }
 
     public function getUserApi(): UserApi
@@ -46,8 +42,6 @@ class UserApiProvider
 
         $configuration->setHost($this->userServiceHost);
         $configuration->setApiKey(self::APPLICATION_ID_KEY, $this->applicationId);
-        $configuration->setUsername($this->username);
-        $configuration->setPassword($this->password);
 
         return new UserApi(null, $configuration);
     }

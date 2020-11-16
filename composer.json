@@ -1,0 +1,30 @@
+{
+    "name": "venture-leap/leap-one-global-bundle",
+    "type": "symfony-bundle",
+    "authors": [
+        {
+            "name": "Venture Leap",
+            "email": "hello@venture-leap.com"
+        }
+    ],
+    "require": {
+        "symfony/framework-bundle": "5.1.*",
+        "ventureleap/leap-one-configuration-sdk": "dev-master",
+        "ventureleap/leap-one-user-sdk": "dev-master"
+    },
+    "repositories": [
+        {
+            "type": "git",
+            "url": "git@github.com:ventureleap/leap-one-user-sdk.git"
+        },
+        {
+            "type": "git",
+            "url": "git@github.com:ventureleap/leap-one-configuration-sdk.git"
+        }
+    ],
+    "autoload": {
+        "psr-4": {
+            "VentureLeap\\LeapOneGlobalBundle\\": "src/"
+        }
+    }
+}
