@@ -1,12 +1,10 @@
 <?php
 
 
-namespace VentureLeap\LeapOneGlobalBundle\Services\ApiProvider\ApiProvider;
+namespace VentureLeap\LeapOnePhpSdk\Services\ApiProvider;
 
 
 use VentureLeap\ConfigurationService\Api\ConfigurationEntryApi;
-use VentureLeap\ConfigurationService\Api\TokenApi;
-use VentureLeap\UserService\Api\UserApi;
 use VentureLeap\UserService\Configuration;
 
 class ConfigurationEntryApiProvider
@@ -33,14 +31,10 @@ class ConfigurationEntryApiProvider
 
     public function __construct(
         string $configurationServiceHost,
-        string $applicationId,
-        string $username,
-        string $password
+        string $applicationId
     ) {
         $this->configurationServiceHost = $configurationServiceHost;
         $this->applicationId = $applicationId;
-        $this->username = $username;
-        $this->password = $password;
     }
 
     public function getConfigurationApi(): ConfigurationEntryApi
@@ -49,8 +43,6 @@ class ConfigurationEntryApiProvider
 
         $configuration->setHost($this->configurationServiceHost);
         $configuration->setApiKey(self::APPLICATION_ID_KEY, $this->applicationId);
-        $configuration->setUsername($this->username);
-        $configuration->setPassword($this->password);
 
         return new ConfigurationEntryApi(null, $configuration);
     }

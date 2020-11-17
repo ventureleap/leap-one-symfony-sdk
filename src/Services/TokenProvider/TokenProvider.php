@@ -1,52 +1,93 @@
 <?php
 
 
-namespace VentureLeap\LeapOneGlobalBundle\Services\TokenProvider;
+namespace VentureLeap\LeapOnePhpSdk\Services\TokenProvider;
 
 
+use Psr\Log\LoggerInterface;
+use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\CacheItem;
 use VentureLeap\ConfigurationService\Api\TokenApi;
 use VentureLeap\ConfigurationService\ApiException;
 use VentureLeap\ConfigurationService\Model\Credentials;
+use VentureLeap\LeapOnePhpSdk\Services\ApiProvider\TokenApiProvider;
 
 class TokenProvider implements TokenProviderInterface
 {
     const CACHE_LIFE_TIME = 900;
 
-
     /**
      * @var TokenApi
      */
     private $tokenApi;
+    /**
+     * @var AdapterInterface
+     */
+    private $cache;
+    /**
+     * @var TokenApiProvider
+     */
+    private $tokenApiProvider;
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
-    public function __construct(TokenApi $tokenApi)
-    {
+    public function __construct(
+        TokenApi $tokenApi,
+        TokenApiProvider $tokenApiProvider,
+        AdapterInterface $cache,
+        LoggerInterface $logger
+    ) {
         $this->tokenApi = $tokenApi;
+        $this->cache = $cache;
+        $this->tokenApiProvider = $tokenApiProvider;
+        $this->logger = $logger;
     }
 
 
     public function getToken(): string
     {
-        $config = $this->tokenApi->getConfig();
-        dd($config);
-
         $cacheItem = $this->cache->getItem('jwt_token');
 
-        if ($cacheItem->isHit() && $this->isCachedTokenValid($cacheItem)) {
+        if ($cacheItem->isHit() && $this->isCachedTokenValid($cacheItem->get())) {
             return $cacheItem->get();
         }
 
-        $this->refreshToken($cacheItem, $applicationId, $applicationSecret);
-
+        return $this->refreshToken(
+            $cacheItem,
+            $this->tokenApiProvider->getApplicationId(),
+            $this->tokenApiProvider->getApplicationSecret()
+        );
     }
 
-    private function refreshToken(CacheItem $cacheItem, string $applicationId, string $applicationSecret): void
-    {
-        $credentials = new Credentials([
-            'app_id' => $applicationId,
-            'app_secret' => $applicationSecret,
-        ]);
 
+    private function isCachedTokenValid(?string $token): bool
+    {
+        if (null === $token) {
+            return false;
+        }
+
+        $tokenParts = explode('.', $token);
+        $decode = json_decode(base64_decode($tokenParts[1]), true);
+
+        $timestamp = time() + (60 * 3); // timestamp with three minutes buffer;
+
+        if ($timestamp > $decode['exp']) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private function refreshToken(CacheItem $cacheItem, string $applicationId, string $applicationSecret): string
+    {
+        $credentials = new Credentials(
+            [
+                'app_id' => $applicationId,
+                'app_secret' => $applicationSecret,
+            ]
+        );
 
         try {
             $response = $this->tokenApi->postCredentialsItem($credentials);
@@ -61,5 +102,7 @@ class TokenProvider implements TokenProviderInterface
         $cacheItem->expiresAfter(self::CACHE_LIFE_TIME);
 
         $this->cache->save($cacheItem);
+
+        return $newToken;
     }
 }

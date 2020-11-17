@@ -1,12 +1,11 @@
 <?php
 
 
-namespace VentureLeap\LeapOneGlobalBundle\Services\ApiProvider;
+namespace VentureLeap\LeapOnePhpSdk\Services\ApiProvider;
 
 
 use VentureLeap\ConfigurationService\Api\TokenApi;
-use VentureLeap\UserService\Api\UserApi;
-use VentureLeap\UserService\Configuration;
+use VentureLeap\ConfigurationService\Configuration;
 
 class TokenApiProvider
 {
@@ -15,7 +14,7 @@ class TokenApiProvider
     /**
      * @var string
      */
-    private $userServiceHost;
+    private $configurationServiceHost;
     /**
      * @var string
      */
@@ -28,20 +27,30 @@ class TokenApiProvider
 
 
     public function __construct(
-        string $userServiceHost,
+        string $configurationServiceHost,
         string $applicationId,
         string $applicationSecret
     ) {
-        $this->userServiceHost = $userServiceHost;
+        $this->configurationServiceHost = $configurationServiceHost;
         $this->applicationId = $applicationId;
         $this->applicationSecret = $applicationSecret;
+    }
+
+    public function getApplicationId(): string
+    {
+        return $this->applicationId;
+    }
+
+    public function getApplicationSecret(): string
+    {
+        return $this->applicationSecret;
     }
 
     public function getTokenApi(): TokenApi
     {
         $configuration = new Configuration();
 
-        $configuration->setHost($this->userServiceHost);
+        $configuration->setHost($this->configurationServiceHost);
         $configuration->setApiKey(self::APPLICATION_ID_KEY, $this->applicationId);
 
         return new TokenApi(null, $configuration);

@@ -1,39 +1,32 @@
 <?php
 
 
-namespace VentureLeap\LeapOneGlobalBundle\Services\ApiProvider;
+namespace VentureLeap\LeapOnePhpSdk\Services\ApiProvider;
 
 
+use VentureLeap\LeapOnePhpSdk\Services\TokenProvider\TokenProvider;
 use VentureLeap\UserService\Api\UserApi;
 use VentureLeap\UserService\Configuration;
 
 class UserApiProvider
 {
-    const APPLICATION_ID_KEY = 'ApplicationId';
-
     /**
      * @var string
      */
     private $userServiceHost;
-    /**
-     * @var string
-     */
-    private $applicationId;
 
     /**
-     * @var string
+     * @var TokenProvider
      */
-    private $applicationSecret;
+    private $tokenProvider;
 
 
     public function __construct(
         string $userServiceHost,
-        string $applicationId,
-        string $applicationSecret
+        TokenProvider $tokenProvider
     ) {
         $this->userServiceHost = $userServiceHost;
-        $this->applicationId = $applicationId;
-        $this->applicationSecret = $applicationSecret;
+        $this->tokenProvider = $tokenProvider;
     }
 
     public function getUserApi(): UserApi
@@ -41,7 +34,8 @@ class UserApiProvider
         $configuration = new Configuration();
 
         $configuration->setHost($this->userServiceHost);
-        $configuration->setApiKey(self::APPLICATION_ID_KEY, $this->applicationId);
+        $configuration->setApiKey('Authorization', $this->tokenProvider->getToken());
+        $configuration->setApiKeyPrefix('Authorization', 'Bearer');
 
         return new UserApi(null, $configuration);
     }

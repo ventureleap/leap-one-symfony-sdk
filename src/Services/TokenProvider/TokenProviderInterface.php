@@ -1,7 +1,7 @@
 <?php
 
 
-namespace VentureLeap\LeapOneGlobalBundle\Services\TokenProvider;
+namespace VentureLeap\LeapOnePhpSdk\Services\TokenProvider;
 
 
 use Symfony\Component\Cache\CacheItem;
