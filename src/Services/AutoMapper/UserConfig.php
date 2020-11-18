@@ -39,6 +39,12 @@ class UserConfig implements AutoMapperConfiguratorInterface
                 function (UserJsonldUserRead $source) {
                     return $source->getEmail();
                 }
+            )
+            ->forMember(
+                'additionalProperties',
+                function (UserJsonldUserRead $source) {
+                    return json_decode($source->getAdditionalProperties());
+                }
             );
 
         $config->registerMapping(User::class, UserJsonldUserWrite::class)

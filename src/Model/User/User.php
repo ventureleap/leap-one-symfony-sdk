@@ -36,6 +36,9 @@ class User implements UserInterface
     /** @var bool */
     private $active;
 
+    /** @var array */
+    private $additionalProperties;
+
     public function getUuid(): ?string
     {
         return $this->uuid;
@@ -132,4 +135,22 @@ class User implements UserInterface
     {
         $this->active = $active;
     }
+
+    /**
+     * @return array
+     */
+    public function getAdditionalProperties(): array
+    {
+        return $this->additionalProperties;
+    }
+
+    /**
+     * @param array $additionalProperties
+     */
+    public function setAdditionalProperties(array $additionalProperties): void
+    {
+        $this->additionalProperties = $additionalProperties;
+    }
+
+
 }

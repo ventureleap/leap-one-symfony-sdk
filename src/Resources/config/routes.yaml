@@ -2,7 +2,6 @@ leap_one_user_login:
   path: '/'
   controller: VentureLeap\LeapOnePhpSdk\Controller\UserController::login
 
-
 leap_one_user_logout:
   path: '/logout'
   controller: VentureLeap\LeapOnePhpSdk\Controller\UserController::logout
