@@ -46,7 +46,7 @@ services:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ConfigurationApiProvider', 'getTokenApi' ]
 
 
-
   leap_one.login_form_authenticator:
     class: VentureLeap\LeapOnePhpSdk\Services\Security\LoginFormAuthenticator
     public: true
+    tags: [ 'leap_one.login_form_authenticators' ]

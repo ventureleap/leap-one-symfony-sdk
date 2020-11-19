@@ -50,8 +50,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         UserManager $userManager,
         UrlGeneratorInterface $urlGenerator,
         CsrfTokenManagerInterface $csrfTokenManager,
-        string $routeAfterLogin
+        string $routeAfterLogin,
+        string $userType = 'admin'
     ) {
+        echo $userType;
         $this->userProvider = $userProvider;
         $this->userManager = $userManager;
         $this->urlGenerator = $urlGenerator;

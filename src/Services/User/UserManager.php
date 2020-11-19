@@ -21,19 +21,22 @@ class UserManager implements UserManagerInterface
      * @var AutoMapperInterface
      */
     private $autoMapper;
+    /**
+     * @var string
+     */
+    private $userType;
 
-    public function __construct(UserApi $userApi, AutoMapperInterface $autoMapper)
+    public function __construct(UserApi $userApi, AutoMapperInterface $autoMapper, string $userType = 'admin')
     {
         $this->userApi = $userApi;
         $this->autoMapper = $autoMapper;
+        $this->userType = $userType;
     }
 
     public function registerUser(User $leapOneUser): User
     {
         $leapOneApiUser = $this->autoMapper->map($leapOneUser, UserJsonldUserWrite::class);
-        /**
-         * @TODO Call the real register route once it is ready.
-         */
+        $leapOneApiUser->setUserType($this->userType);
         $leapOneApiUserResponse = $this->userApi->postUserCollection(
             $leapOneApiUser
         );
@@ -54,12 +57,13 @@ class UserManager implements UserManagerInterface
     public function updateUser(User $leapOneUser): void
     {
         $leapOneApiUser = $this->autoMapper->map($leapOneUser, UserJsonldUserWrite::class);
+        $leapOneApiUser->setUserType($this->userType);
         $this->userApi->putUserItem($leapOneUser->getUuid(), $leapOneApiUser);
     }
 
     public function getUserByUsername(string $username): User
     {
-        $usersForUsername = $this->userApi->getUserCollection($username);
+        $usersForUsername = $this->userApi->getUserCollection($username, null, null, null, null, $this->userType);
 
         $user = $usersForUsername->getHydramember()[0] ?? null;
         if (null === $user) {

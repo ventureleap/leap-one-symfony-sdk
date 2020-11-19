@@ -21,8 +21,6 @@ class LeapOnePhpSdkExtension extends Extension
         $configuration = $this->getConfiguration($configs, $container);
         $config = $this->processConfiguration($configuration, $configs);
 
-        $definition = $container->getDefinition('leap_one.login_form_authenticator');
-        $definition->setArgument('$routeAfterLogin', $config[Configuration::ROUTE_AFTER_LOGIN_KEY]);
-//        dd($definition);
+        $container->setParameter('leap_one_sdk_route_after_login', $config[Configuration::ROUTE_AFTER_LOGIN_KEY]);
     }
 }
