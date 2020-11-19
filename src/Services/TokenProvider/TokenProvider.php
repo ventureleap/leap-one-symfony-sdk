@@ -10,6 +10,7 @@ use Symfony\Component\Cache\CacheItem;
 use VentureLeap\ConfigurationService\Api\TokenApi;
 use VentureLeap\ConfigurationService\ApiException;
 use VentureLeap\ConfigurationService\Model\Credentials;
+use VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ConfigurationApiProvider;
 use VentureLeap\LeapOnePhpSdk\Services\ApiProvider\TokenApiProvider;
 
 class TokenProvider implements TokenProviderInterface
@@ -24,25 +25,26 @@ class TokenProvider implements TokenProviderInterface
      * @var AdapterInterface
      */
     private $cache;
-    /**
-     * @var TokenApiProvider
-     */
-    private $tokenApiProvider;
+
     /**
      * @var LoggerInterface
      */
     private $logger;
+    /**
+     * @var ConfigurationApiProvider
+     */
+    private $configurationApiProvider;
 
     public function __construct(
         TokenApi $tokenApi,
-        TokenApiProvider $tokenApiProvider,
         AdapterInterface $cache,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        ConfigurationApiProvider $configurationApiProvider
     ) {
         $this->tokenApi = $tokenApi;
         $this->cache = $cache;
-        $this->tokenApiProvider = $tokenApiProvider;
         $this->logger = $logger;
+        $this->configurationApiProvider = $configurationApiProvider;
     }
 
 
@@ -56,8 +58,8 @@ class TokenProvider implements TokenProviderInterface
 
         return $this->refreshToken(
             $cacheItem,
-            $this->tokenApiProvider->getApplicationId(),
-            $this->tokenApiProvider->getApplicationSecret()
+            $this->configurationApiProvider->getApplicationId(),
+            $this->configurationApiProvider->getApplicationSecret()
         );
     }
 

@@ -25,9 +25,10 @@ class UserController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render(
-            '@LeapOnePhpSdk/User/Security/login.html.twig',
+            '@LeapOnePhpSdk/User/login.html.twig',
             [
                 'last_username' => $lastUsername,
+                'form' => $form->createView(),
                 'error' => $error,
             ]
         );

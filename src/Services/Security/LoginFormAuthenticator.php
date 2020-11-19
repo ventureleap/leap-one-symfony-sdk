@@ -39,49 +39,56 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
      * @var UserManager
      */
     private $userManager;
+    /**
+     * @var string
+     */
+    private $routeAfterLogin;
 
 
     public function __construct(
         UserProvider $userProvider,
         UserManager $userManager,
         UrlGeneratorInterface $urlGenerator,
-        CsrfTokenManagerInterface $csrfTokenManager
+        CsrfTokenManagerInterface $csrfTokenManager,
+        string $routeAfterLogin
     ) {
         $this->userProvider = $userProvider;
         $this->userManager = $userManager;
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
+        $this->routeAfterLogin = $routeAfterLogin;
     }
 
-    public function supports(Request $request): bool
-    {
+    public function supports(
+        Request $request
+    ): bool {
         return self::LOGIN_ROUTE === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
 
-    public function getCredentials(Request $request): array
-    {
-        $credentials = [
-            'email' => $request->request->get('email'),
-            'password' => $request->request->get('password'),
-            'csrf_token' => $request->request->get('_csrf_token'),
-        ];
+    public function getCredentials(
+        Request $request
+    ): array {
+        $credentials = $request->request->get('user_login');
         $request->getSession()->set(
             Security::LAST_USERNAME,
-            $credentials['email']
+            $credentials['username']
         );
 
         return $credentials;
     }
 
-    public function getUser($credentials, UserProviderInterface $userProvider): User
-    {
+    public function getUser(
+        $credentials,
+        UserProviderInterface $userProvider
+    ): User {
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
+
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
         }
 
-        $user = $this->userProvider->loadUserByUsername($credentials['email']);
+        $user = $this->userProvider->loadUserByUsername($credentials['username']);
 
         if (null === $user) {
             throw new CustomUserMessageAuthenticationException('Email could not be found.');
@@ -90,26 +97,33 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         return $user;
     }
 
-    public function checkCredentials($credentials, UserInterface $user): bool
-    {
+    public function checkCredentials(
+        $credentials,
+        UserInterface $user
+    ): bool {
         return $this->userManager->isPasswordValid($user, $credentials['password']);
     }
 
     /**
      * Used to upgrade (rehash) the user's password automatically over time.
      */
-    public function getPassword($credentials): ?string
-    {
+    public function getPassword(
+        $credentials
+    ): ?string {
         return $credentials['password'];
     }
 
-    public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
-    {
+    public function onAuthenticationSuccess(
+        Request $request,
+        TokenInterface $token,
+        string $providerKey
+    ) {
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
 
-        return new RedirectResponse($this->urlGenerator->generate('account_profile_show'));
+
+        return new RedirectResponse($this->urlGenerator->generate($this->routeAfterLogin));
     }
 
     protected function getLoginUrl(): string

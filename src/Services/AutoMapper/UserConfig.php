@@ -43,7 +43,7 @@ class UserConfig implements AutoMapperConfiguratorInterface
             ->forMember(
                 'additionalProperties',
                 function (UserJsonldUserRead $source) {
-                    return json_decode($source->getAdditionalProperties());
+                    return json_decode($source->getAdditionalProperties(), true);
                 }
             );
 

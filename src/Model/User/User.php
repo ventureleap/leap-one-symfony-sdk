@@ -145,7 +145,7 @@ class User implements UserInterface
     }
 
     /**
-     * @param array $additionalProperties
+     * @param  array  $additionalProperties
      */
     public function setAdditionalProperties(array $additionalProperties): void
     {

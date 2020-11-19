@@ -4,10 +4,11 @@
 namespace VentureLeap\LeapOnePhpSdk\Services\ApiProvider;
 
 
+use VentureLeap\ConfigurationService\Api\ConfigurationEntryApi;
 use VentureLeap\ConfigurationService\Api\TokenApi;
 use VentureLeap\ConfigurationService\Configuration;
 
-class TokenApiProvider
+class ConfigurationApiProvider
 {
     const APPLICATION_ID_KEY = 'ApplicationId';
 
@@ -19,7 +20,6 @@ class TokenApiProvider
      * @var string
      */
     private $applicationId;
-
     /**
      * @var string
      */
@@ -36,6 +36,17 @@ class TokenApiProvider
         $this->applicationSecret = $applicationSecret;
     }
 
+    private function getConfiguration(): Configuration
+    {
+        $configuration = new Configuration();
+
+        $configuration->setHost($this->configurationServiceHost);
+        $configuration->setApiKey(self::APPLICATION_ID_KEY, $this->applicationId);
+
+        return $configuration;
+    }
+
+
     public function getApplicationId(): string
     {
         return $this->applicationId;
@@ -48,11 +59,11 @@ class TokenApiProvider
 
     public function getTokenApi(): TokenApi
     {
-        $configuration = new Configuration();
+        return new TokenApi(null, $this->getConfiguration());
+    }
 
-        $configuration->setHost($this->configurationServiceHost);
-        $configuration->setApiKey(self::APPLICATION_ID_KEY, $this->applicationId);
-
-        return new TokenApi(null, $configuration);
+    public function getConfigurationEntryApi(): ConfigurationEntryApi
+    {
+        return new ConfigurationEntryApi(null, $this->getConfiguration());
     }
 }

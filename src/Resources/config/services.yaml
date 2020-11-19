@@ -10,6 +10,20 @@ services:
   VentureLeap\LeapOnePhpSdk\:
     resource: '../../../src/*'
 
+
+
+  VentureLeap\LeapOnePhpSdk\Services\ApiProvider\MessengerApiProvider:
+    arguments:
+      $messengerServiceHost: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
+
+  VentureLeap\MessengerService\Api\MessageApi:
+    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\MessengerApiProvider', 'getMessageApi' ]
+
+  VentureLeap\MessengerService\Api\TemplateApi:
+    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\MessengerApiProvider', 'getTemplateApi' ]
+
+
+
   VentureLeap\LeapOnePhpSdk\Services\ApiProvider\UserApiProvider:
     arguments:
       $userServiceHost: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
@@ -17,19 +31,22 @@ services:
   VentureLeap\UserService\Api\UserApi:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\UserApiProvider', 'getUserApi' ]
 
-  VentureLeap\LeapOnePhpSdk\Services\ApiProvider\TokenApiProvider:
+
+
+  VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ConfigurationApiProvider:
     arguments:
       $configurationServiceHost: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
       $applicationId: '%env(string:LEAP_ONE_APP_ID)%'
       $applicationSecret: '%env(string:LEAP_ONE_APP_SECRET)%'
 
-  VentureLeap\ConfigurationService\Api\TokenApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\TokenApiProvider', 'getTokenApi' ]
-
-  VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ConfigurationEntryApiProvider:
-    arguments:
-      $configurationServiceHost: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
-      $applicationId: '%env(string:LEAP_ONE_APP_ID)%'
-
   VentureLeap\ConfigurationService\Api\ConfigurationEntryApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ConfigurationEntryApiProvider', 'getConfigurationApi' ]
+    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ConfigurationApiProvider', 'getConfigurationApi' ]
+
+  VentureLeap\ConfigurationService\Api\TokenApi:
+    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ConfigurationApiProvider', 'getTokenApi' ]
+
+
+
+  leap_one.login_form_authenticator:
+    class: VentureLeap\LeapOnePhpSdk\Services\Security\LoginFormAuthenticator
+    public: true
