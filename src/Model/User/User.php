@@ -36,6 +36,9 @@ class User implements UserInterface
     /** @var bool */
     private $active;
 
+    /** @var  */
+    private $userType;
+
     /** @var array */
     private $additionalProperties;
 
@@ -136,17 +139,21 @@ class User implements UserInterface
         $this->active = $active;
     }
 
-    /**
-     * @return array
-     */
+    public function getUserType():string
+    {
+        return $this->userType;
+    }
+
+    public function setUserType(string $userType): void
+    {
+        $this->userType = $userType;
+    }
+
     public function getAdditionalProperties(): array
     {
         return $this->additionalProperties;
     }
 
-    /**
-     * @param  array  $additionalProperties
-     */
     public function setAdditionalProperties(array $additionalProperties): void
     {
         $this->additionalProperties = $additionalProperties;

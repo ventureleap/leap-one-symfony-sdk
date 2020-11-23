@@ -41,6 +41,12 @@ class UserConfig implements AutoMapperConfiguratorInterface
                 }
             )
             ->forMember(
+                'userType',
+                function (UserJsonldUserRead $source) {
+                    return $source->getUserType();
+                }
+            )
+            ->forMember(
                 'additionalProperties',
                 function (UserJsonldUserRead $source) {
                     return json_decode($source->getAdditionalProperties(), true);
@@ -73,6 +79,12 @@ class UserConfig implements AutoMapperConfiguratorInterface
                 }
             )
             ->forMember(
+                'userType',
+                function (\VentureLeap\UserService\Model\User $source) {
+                    return $source->getUserType();
+                }
+            )
+            ->forMember(
                 'additionalProperties',
                 function (\VentureLeap\UserService\Model\User $source) {
                     return json_decode($source->getAdditionalProperties(), true);
@@ -96,7 +108,7 @@ class UserConfig implements AutoMapperConfiguratorInterface
                         'deleted' => $source->isDeleted(),
                         'active' => $source->isActive(),
                         'roles' => $source->getRoles(),
-                        'user_type' => UserTypes::getDefaultUserType(),
+                        'user_type' => $source->getUserType(),
                     ];
                 }
             );
