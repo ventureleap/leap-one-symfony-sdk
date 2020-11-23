@@ -5,9 +5,12 @@ namespace VentureLeap\LeapOnePhpSdk\Services\User;
 
 
 use AutoMapperPlus\AutoMapperInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
 use VentureLeap\LeapOnePhpSdk\Model\User\User;
 use VentureLeap\UserService\Api\UserApi;
+use VentureLeap\UserService\ApiException;
+use VentureLeap\UserService\Model\Credentials;
 use VentureLeap\UserService\Model\UserJsonldUserRead;
 use VentureLeap\UserService\Model\UserJsonldUserWrite;
 
@@ -21,22 +24,23 @@ class UserManager implements UserManagerInterface
      * @var AutoMapperInterface
      */
     private $autoMapper;
-    /**
-     * @var string
-     */
-    private $userType;
 
-    public function __construct(UserApi $userApi, AutoMapperInterface $autoMapper, string $userType = 'admin')
+
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
+
+    public function __construct(UserApi $userApi, AutoMapperInterface $autoMapper, LoggerInterface $logger)
     {
         $this->userApi = $userApi;
         $this->autoMapper = $autoMapper;
-        $this->userType = $userType;
+        $this->logger = $logger;
     }
 
     public function registerUser(User $leapOneUser): User
     {
         $leapOneApiUser = $this->autoMapper->map($leapOneUser, UserJsonldUserWrite::class);
-        $leapOneApiUser->setUserType($this->userType);
         $leapOneApiUserResponse = $this->userApi->postUserCollection(
             $leapOneApiUser
         );
@@ -57,21 +61,29 @@ class UserManager implements UserManagerInterface
     public function updateUser(User $leapOneUser): void
     {
         $leapOneApiUser = $this->autoMapper->map($leapOneUser, UserJsonldUserWrite::class);
-        $leapOneApiUser->setUserType($this->userType);
         $this->userApi->putUserItem($leapOneUser->getUuid(), $leapOneApiUser);
     }
 
-    public function getUserByUsername(string $username): User
+    public function getUserByUsername(string $username): ?User
     {
-        $usersForUsername = $this->userApi->getUserCollection($username, null, null, null, null, $this->userType);
+        $usersForUsername = $this->userApi->getUserCollection($username);
+        $leapOneUser = $usersForUsername->getHydramember()[0] ?? null;
 
-        $user = $usersForUsername->getHydramember()[0] ?? null;
-        if (null === $user) {
-            throw new \Exception('User not found');
+        return $this->autoMapper->map($leapOneUser, User::class);
+    }
+
+    public function authenticate(array $credentials): ?User {
+
+        $credential = new Credentials();
+        $credential->setUsername($credentials['username']);
+        $credential->setPassword($credentials['password']);
+        try {
+            $authResponse = $this->userApi->postCredentialsItem($credential);
+        } catch (ApiException $e) {
+            return null;
         }
-        $uuid = $user->getUuid();
 
-        return $this->getUserByUuid($uuid);
+        return $this->autoMapper->map($authResponse, User::class);
     }
 
     public function isPasswordValid(UserInterface $user, $password): bool

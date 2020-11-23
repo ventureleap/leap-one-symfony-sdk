@@ -9,6 +9,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
+use Symfony\Component\Security\Core\Exception\AuthenticationException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Security;
@@ -50,10 +51,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         UserManager $userManager,
         UrlGeneratorInterface $urlGenerator,
         CsrfTokenManagerInterface $csrfTokenManager,
-        string $routeAfterLogin,
-        string $userType = 'admin'
+        string $routeAfterLogin
     ) {
-        echo $userType;
         $this->userProvider = $userProvider;
         $this->userManager = $userManager;
         $this->urlGenerator = $urlGenerator;
@@ -90,6 +89,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             throw new InvalidCsrfTokenException();
         }
 
+
         $user = $this->userProvider->loadUserByUsername($credentials['username']);
 
         if (null === $user) {
@@ -103,7 +103,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         $credentials,
         UserInterface $user
     ): bool {
-        return $this->userManager->isPasswordValid($user, $credentials['password']);
+        $user = $this->userManager->authenticate($credentials);
+        return $user !== null;
     }
 
     /**
@@ -123,13 +124,12 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
-
-
         return new RedirectResponse($this->urlGenerator->generate($this->routeAfterLogin));
     }
 
+
     protected function getLoginUrl(): string
     {
-        return $this->urlGenerator->generate(self::LOGIN_ROUTE);
+        return $this->urlGenerator->generate(self::LOGIN_ROUTE.'.'.$this->userProvider->getUserType());
     }
 }
