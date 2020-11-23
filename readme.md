@@ -14,7 +14,7 @@ Add the routes
 
 Modify your security config file
 
-    encoders:
+        encoders:
             VentureLeap\LeapOnePhpSdk\Model\User\User:
                 algorithm: auto
         providers:
