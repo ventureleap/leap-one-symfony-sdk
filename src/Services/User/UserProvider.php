@@ -5,7 +5,6 @@ namespace VentureLeap\LeapOnePhpSdk\Services\User;
 
 
 use AutoMapperPlus\AutoMapperInterface;
-use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -31,23 +30,17 @@ class UserProvider implements UserProviderInterface
      */
     private $autoMapper;
     private $userType;
-    /**
-     * @var LoggerInterface
-     */
-    private $logger;
 
     public function __construct(
         UserManager $userManager,
         AutoMapperInterface $autoMapper,
         UserApi $userApi,
-        LoggerInterface $logger,
         string $userType = self::DEFAULT_USER_TYPE
     ) {
         $this->userManager = $userManager;
         $this->userApi = $userApi;
         $this->autoMapper = $autoMapper;
         $this->userType = $userType;
-        $this->logger = $logger;
     }
 
     public function getUserType(): string
@@ -60,7 +53,6 @@ class UserProvider implements UserProviderInterface
         $usersForUsername = $this->userApi->getUserCollection($username, null, null, null, null, $this->userType);
         $leapOneUser = $usersForUsername->getHydramember()[0] ?? null;
 
-        $this->logger->debug('IS GETTING A NEW USER --------- '. $this->getUserType());
         if (null === $leapOneUser) {
             throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
         }
