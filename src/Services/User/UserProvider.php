@@ -4,38 +4,73 @@
 namespace VentureLeap\LeapOnePhpSdk\Services\User;
 
 
+use AutoMapperPlus\AutoMapperInterface;
+use Psr\Log\LoggerInterface;
 use Symfony\Component\Security\Core\Exception\UnsupportedUserException;
 use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use VentureLeap\LeapOnePhpSdk\Model\User\User;
+use VentureLeap\UserService\Api\UserApi;
 
 class UserProvider implements UserProviderInterface
 {
+
+    const DEFAULT_USER_TYPE = 'admin';
 
     /**
      * @var UserManager
      */
     private $userManager;
+    /**
+     * @var UserApi
+     */
+    private $userApi;
+    /**
+     * @var AutoMapperInterface
+     */
+    private $autoMapper;
+    private $userType;
+    /**
+     * @var LoggerInterface
+     */
+    private $logger;
 
-    public function __construct(UserManager $userManager)
-    {
+    public function __construct(
+        UserManager $userManager,
+        AutoMapperInterface $autoMapper,
+        UserApi $userApi,
+        LoggerInterface $logger,
+        string $userType = self::DEFAULT_USER_TYPE
+    ) {
         $this->userManager = $userManager;
+        $this->userApi = $userApi;
+        $this->autoMapper = $autoMapper;
+        $this->userType = $userType;
+        $this->logger = $logger;
+    }
+
+    public function getUserType(): string
+    {
+        return $this->userType;
     }
 
     public function loadUserByUsername(string $username): ?User
     {
-        $user = $this->userManager->getUserByUsername($username);
+        $usersForUsername = $this->userApi->getUserCollection($username, null, null, null, null, $this->userType);
+        $leapOneUser = $usersForUsername->getHydramember()[0] ?? null;
 
-        if (null === $user) {
+        $this->logger->debug('IS GETTING A NEW USER --------- '. $this->getUserType());
+        if (null === $leapOneUser) {
             throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
         }
 
-        return $user;
+        return $this->autoMapper->map($leapOneUser, User::class);
     }
 
     public function refreshUser(UserInterface $user): ?User
     {
+
         if (!$user instanceof User) {
             throw new UnsupportedUserException(sprintf('Instances of "%s" are not supported.', get_class($user)));
         }

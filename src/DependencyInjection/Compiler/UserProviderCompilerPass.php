@@ -17,7 +17,10 @@ class UserProviderCompilerPass implements CompilerPassInterface
 
         foreach ($definitions as $definitionKey => $definitionValue) {
             $definition = $container->getDefinition($definitionKey);
-            $definition->setArgument('$routeAfterLogin', $container->getParameter('leap_one_sdk_route_after_login'));
+
+            if(isset($definition->getArguments()['$routeAfterLogin']) === false) {
+                $definition->setArgument('$routeAfterLogin', $container->getParameter('leap_one_sdk_route_after_login'));
+            }
         }
     }
 }
