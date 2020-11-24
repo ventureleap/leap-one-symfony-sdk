@@ -22,5 +22,7 @@
       "VentureLeap\\LeapOnePhpSdk\\": "src/",
       "AutoMapperPlus\\AutoMapperPlusBundle\\": ""
     }
-  }
+  },
+  "minimum-stability": "dev",
+  "prefer-stable": true
 }
