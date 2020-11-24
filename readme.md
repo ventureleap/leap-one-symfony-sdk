@@ -1,38 +1,27 @@
 # LEAP.one PHP SDK
 
 ## Installation
-1. In your project's composer.json file add the following lines:
-```json
-{
-    "repositories": [
-            {
-                "type": "git",
-                "url": "git@github.com:ventureleap/leap-one-php-sdk.git"
-            }
-        ]
-}
-```
 
-2. Require the bundle via:
+1. Require the bundle via:
 ```bash
-composer require leap-one-php-sdk
+composer require ventureleap/leap-one-php-sdk dev-main
 ```
 
-3. Add the following variables to your .env.local:
+2. Add the following variables to your .env.local:
 ```
 LEAP_ONE_ENDPOINT_URL='https://api-test.leap1.de:8000'
 LEAP_ONE_APP_ID='<your-app-id>'
 LEAP_ONE_APP_SECRET='<your-app-id>'
 ```
 
-4. (optional) Add the routes
+3. (optional) Add the routes
 ```yaml
     leap_one_php_sdk:
         resource: "@LeapOnePhpSdkBundle/Resources/config/routes.yaml"
         prefix:   /
 ``
 
-5. (optional) Modify your security config file
+4. (optional) Modify your security config file
 This part requires that you already implemented the logic for using users from the LEAP.one User Service.
 
 ```yaml
