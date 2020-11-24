@@ -10,6 +10,7 @@ use Symfony\Component\Security\Core\Exception\UsernameNotFoundException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use VentureLeap\LeapOnePhpSdk\Model\User\User;
+use VentureLeap\UserService\Api\AuthApi;
 use VentureLeap\UserService\Api\UserApi;
 
 class UserProvider implements UserProviderInterface
@@ -17,10 +18,6 @@ class UserProvider implements UserProviderInterface
 
     const DEFAULT_USER_TYPE = 'admin';
 
-    /**
-     * @var UserManager
-     */
-    private $userManager;
     /**
      * @var UserApi
      */
@@ -31,13 +28,12 @@ class UserProvider implements UserProviderInterface
     private $autoMapper;
     private $userType;
 
+
     public function __construct(
-        UserManager $userManager,
         AutoMapperInterface $autoMapper,
         UserApi $userApi,
         string $userType = self::DEFAULT_USER_TYPE
     ) {
-        $this->userManager = $userManager;
         $this->userApi = $userApi;
         $this->autoMapper = $autoMapper;
         $this->userType = $userType;

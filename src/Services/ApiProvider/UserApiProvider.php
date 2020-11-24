@@ -5,6 +5,7 @@ namespace VentureLeap\LeapOnePhpSdk\Services\ApiProvider;
 
 
 use VentureLeap\LeapOnePhpSdk\Services\TokenProvider\TokenProvider;
+use VentureLeap\UserService\Api\AuthApi;
 use VentureLeap\UserService\Api\UserApi;
 use VentureLeap\UserService\Configuration;
 
@@ -29,7 +30,7 @@ class UserApiProvider
         $this->tokenProvider = $tokenProvider;
     }
 
-    public function getUserApi(): UserApi
+    public function getConfiguration(): Configuration
     {
         $configuration = new Configuration();
 
@@ -37,6 +38,16 @@ class UserApiProvider
         $configuration->setApiKey('Authorization', $this->tokenProvider->getToken());
         $configuration->setApiKeyPrefix('Authorization', 'Bearer');
 
-        return new UserApi(null, $configuration);
+        return $configuration;
+    }
+
+    public function getUserApi(): UserApi
+    {
+        return new UserApi(null, $this->getConfiguration());
+    }
+
+    public function getAuthApi(): AuthApi
+    {
+        return new AuthApi(null, $this->getConfiguration());
     }
 }

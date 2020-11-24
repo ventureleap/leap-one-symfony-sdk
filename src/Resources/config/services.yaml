@@ -31,6 +31,9 @@ services:
   VentureLeap\UserService\Api\UserApi:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\UserApiProvider', 'getUserApi' ]
 
+  VentureLeap\UserService\Api\AuthApi:
+    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\UserApiProvider', 'getAuthApi' ]
+
 
   VentureLeap\LeapOnePhpSdk\Services\ApiProvider\AuditLogApiProvider:
     arguments:
