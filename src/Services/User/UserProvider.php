@@ -48,7 +48,7 @@ class UserProvider implements UserProviderInterface
         return $this->userType;
     }
 
-    public function loadUserByUsername(string $username): ?User
+    public function loadUserByUsername($username): ?User
     {
         $usersForUsername = $this->userApi->getUserCollection($username, null, null, null, null, $this->userType);
         $leapOneUser = $usersForUsername->getHydramember()[0] ?? null;
