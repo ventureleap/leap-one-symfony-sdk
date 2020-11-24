@@ -13,11 +13,7 @@
     "ventureleap/leap-one-messenger-sdk": "*@dev",
     "ventureleap/leap-one-audit-log-sdk": "*@dev",
     "ventureleap/leap-one-product-sdk": "*@dev",
-    "mark-gerarts/automapper-plus-bundle": "^1.3",
-    "symfony/security-core": ">=4.4",
-    "symfony/security-csrf": ">=4.4",
-    "symfony/security-http": ">=4.4",
-    "symfony/security-guard": ">=4.4"
+    "mark-gerarts/automapper-plus-bundle": "^1.3"
   },
   "repositories": [
     {
