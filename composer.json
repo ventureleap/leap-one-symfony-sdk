@@ -8,34 +8,14 @@
     }
   ],
   "require": {
-    "ventureleap/leap-one-configuration-sdk": "*@dev",
-    "ventureleap/leap-one-user-sdk": "*@dev",
-    "ventureleap/leap-one-messenger-sdk": "*@dev",
-    "ventureleap/leap-one-audit-log-sdk": "*@dev",
-    "ventureleap/leap-one-product-sdk": "*@dev",
+    "ventureleap/leap-one-configuration-sdk": "dev-master",
+    "ventureleap/leap-one-user-sdk": "dev-master",
+    "ventureleap/leap-one-messenger-sdk": "dev-master",
+    "ventureleap/leap-one-audit-log-sdk": "dev-main",
+    "ventureleap/leap-one-product-sdk": "dev-master",
     "mark-gerarts/automapper-plus-bundle": "^1.3"
   },
   "repositories": [
-    {
-      "type": "git",
-      "url": "git@github.com:ventureleap/leap-one-user-sdk.git"
-    },
-    {
-      "type": "git",
-      "url": "git@github.com:ventureleap/leap-one-configuration-sdk.git"
-    },
-    {
-      "type": "git",
-      "url": "git@github.com:ventureleap/leap-one-messenger-sdk.git"
-    },
-    {
-      "type": "git",
-      "url": "git@github.com:ventureleap/leap-one-audit-log-sdk.git"
-    },
-    {
-      "type": "git",
-      "url": "git@github.com:ventureleap/leap-one-product-sdk.git"
-    }
   ],
   "autoload": {
     "psr-4": {
