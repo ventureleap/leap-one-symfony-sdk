@@ -60,4 +60,5 @@ services:
   leap_one.login_form_authenticator:
     class: VentureLeap\LeapOnePhpSdk\Services\Security\LoginFormAuthenticator
     public: true
+    arguments: 'leap_one_user_login'
     tags: [ 'leap_one.login_form_authenticators' ]

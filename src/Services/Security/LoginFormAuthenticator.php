@@ -28,8 +28,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 {
     use TargetPathTrait;
 
-    public const LOGIN_ROUTE = 'leap_one_user_login';
-
     private $urlGenerator;
     private $csrfTokenManager;
     /**
@@ -44,6 +42,10 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
      * @var string
      */
     private $routeAfterLogin;
+    /**
+     * @var string
+     */
+    private $loginRoute;
 
 
     public function __construct(
@@ -51,6 +53,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         UserManager $userManager,
         UrlGeneratorInterface $urlGenerator,
         CsrfTokenManagerInterface $csrfTokenManager,
+        string $loginRoute,
         string $routeAfterLogin
     ) {
         $this->userProvider = $userProvider;
@@ -58,12 +61,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         $this->urlGenerator = $urlGenerator;
         $this->csrfTokenManager = $csrfTokenManager;
         $this->routeAfterLogin = $routeAfterLogin;
+        $this->loginRoute = $loginRoute;
     }
 
     public function supports(
         Request $request
     ): bool {
-        return self::LOGIN_ROUTE === $request->attributes->get('_route')
+        return $this->loginRoute === $request->attributes->get('_route')
             && $request->isMethod('POST');
     }
 
@@ -104,6 +108,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         UserInterface $user
     ): bool {
         $user = $this->userManager->authenticate($credentials);
+
         return $user !== null;
     }
 
@@ -124,12 +129,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
+
         return new RedirectResponse($this->urlGenerator->generate($this->routeAfterLogin));
     }
 
 
     protected function getLoginUrl(): string
     {
-        return $this->urlGenerator->generate(self::LOGIN_ROUTE.'.'.$this->userProvider->getUserType());
+        return $this->urlGenerator->generate($this->loginRoute);
     }
 }
