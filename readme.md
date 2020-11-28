@@ -19,7 +19,7 @@ LEAP_ONE_APP_SECRET='<your-app-id>'
     leap_one_php_sdk:
         resource: "@LeapOnePhpSdkBundle/Resources/config/routes.yaml"
         prefix:   /
-``
+```
 
 4. (optional) Modify your security config file
 This part requires that you already implemented the logic for using users from the LEAP.one User Service.
