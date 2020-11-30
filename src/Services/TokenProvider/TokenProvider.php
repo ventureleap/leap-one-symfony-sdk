@@ -25,7 +25,6 @@ class TokenProvider implements TokenProviderInterface
      * @var AdapterInterface
      */
     private $cache;
-
     /**
      * @var LoggerInterface
      */
@@ -36,17 +35,12 @@ class TokenProvider implements TokenProviderInterface
     private $configurationApiProvider;
 
     public function __construct(
-        TokenApi $tokenApi,
         AdapterInterface $cache,
-        LoggerInterface $logger,
-        ConfigurationApiProvider $configurationApiProvider
+        LoggerInterface $logger
     ) {
-        $this->tokenApi = $tokenApi;
         $this->cache = $cache;
         $this->logger = $logger;
-        $this->configurationApiProvider = $configurationApiProvider;
     }
-
 
     public function getToken(): string
     {
