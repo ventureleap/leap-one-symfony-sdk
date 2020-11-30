@@ -26,7 +26,7 @@ abstract class AbstractLeapOneApiProvider
     /**
      * @var TokenProvider
      */
-    private TokenProvider $tokenProvider;
+    private $tokenProvider;
 
     public function __construct(
         string $endpoint,
