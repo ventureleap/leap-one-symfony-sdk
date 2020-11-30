@@ -18,10 +18,6 @@ class TokenProvider implements TokenProviderInterface
     const CACHE_LIFE_TIME = 900;
 
     /**
-     * @var TokenApi
-     */
-    private $tokenApi;
-    /**
      * @var AdapterInterface
      */
     private $cache;
@@ -30,16 +26,24 @@ class TokenProvider implements TokenProviderInterface
      */
     private $logger;
     /**
-     * @var ConfigurationApiProvider
+     * @var TokenApiProvider
      */
-    private $configurationApiProvider;
+    private TokenApiProvider $tokenApiProvider;
+    private string $applicationId;
+    private string $applicationSecret;
 
     public function __construct(
         AdapterInterface $cache,
-        LoggerInterface $logger
+        LoggerInterface $logger,
+        TokenApiProvider $tokenApiProvider,
+        string $applicationId,
+        string $applicationSecret
     ) {
         $this->cache = $cache;
         $this->logger = $logger;
+        $this->tokenApiProvider = $tokenApiProvider;
+        $this->applicationId = $applicationId;
+        $this->applicationSecret = $applicationSecret;
     }
 
     public function getToken(): string
@@ -52,8 +56,8 @@ class TokenProvider implements TokenProviderInterface
 
         return $this->refreshToken(
             $cacheItem,
-            $this->configurationApiProvider->getApplicationId(),
-            $this->configurationApiProvider->getApplicationSecret()
+            $this->applicationId,
+            $this->applicationSecret
         );
     }
 
@@ -86,7 +90,7 @@ class TokenProvider implements TokenProviderInterface
         );
 
         try {
-            $response = $this->tokenApi->postCredentialsItem($credentials);
+            $response = $this->tokenApiProvider->getTokenApi()->postCredentialsItem($credentials);
         } catch (ApiException $e) {
             $this->logger->error($e->getMessage());
             throw new \Exception($e->getMessage());

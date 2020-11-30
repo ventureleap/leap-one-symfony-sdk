@@ -1,15 +1,20 @@
 <?php
 
 
-namespace AutoMapperPlus\AutoMapperPlusBundle\src\Services\ApiProvider;
+namespace VentureLeap\LeapOnePhpSdk\Services\ApiProvider;
 
 
+use VentureLeap\LeapOnePhpSdk\Model\Configuration\ConfigurationEntry;
 use VentureLeap\LeapOnePhpSdk\Services\TokenProvider\TokenProvider;
 use VentureLeap\UserService\Api\ConfigurationEntryApi;
 use VentureLeap\UserService\Configuration;
 
-abstract class LeapOneApiProvider
+abstract class AbstractLeapOneApiProvider
 {
+    /**
+     * It should be easy to simplify this by using standardized namespaces for the
+     * base classes in the SDK.
+     */
     protected static $CONFIGURATION_CLASS = '';
 
     protected static $CONFIGURATION_ENTRY_API_CLASS = '';
@@ -34,6 +39,11 @@ abstract class LeapOneApiProvider
     public function getConfigurationEntryApi(): object
     {
         return new self::$CONFIGURATION_ENTRY_API_CLASS(null, $this->getConfiguration());
+    }
+
+    public function getName(): string
+    {
+        return static::NAME;
     }
 
     protected function getConfiguration(): object

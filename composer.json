@@ -8,6 +8,7 @@
     }
   ],
   "require": {
+    "ext-json": "*",
     "ventureleap/leap-one-configuration-sdk": "dev-master",
     "ventureleap/leap-one-user-sdk": "dev-master",
     "ventureleap/leap-one-messenger-sdk": "dev-master",

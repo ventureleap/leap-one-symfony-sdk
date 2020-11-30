@@ -7,13 +7,21 @@ use VentureLeap\ConfigurationService\Api\ConfigurationEntryApi;
 use VentureLeap\ConfigurationService\Api\TokenApi;
 use VentureLeap\ConfigurationService\Configuration;
 
-class ConfigurationApiProvider extends AbstractLeapOneApiProvider
+/**
+ * As this initially get's the token, we have to handle it slightly differently.
+ */
+class TokenApiProvider
 {
-    const NAME = 'CONFIGURATION';
+    /**
+     * @var string
+     */
+    private $endpoint;
 
-    protected static $CONFIGURATION_CLASS = Configuration::class;
-
-    protected static $CONFIGURATION_ENTRY_API_CLASS = ConfigurationEntryApi::class;
+    public function __construct(
+        string $endpoint
+    ) {
+        $this->endpoint = $endpoint;
+    }
 
     public function getTokenApi(): TokenApi
     {
@@ -23,9 +31,7 @@ class ConfigurationApiProvider extends AbstractLeapOneApiProvider
     protected function getConfiguration(): Configuration
     {
         $configuration = new Configuration();
-
         $configuration->setHost($this->endpoint);
-        $configuration->setApiKey(self::APPLICATION_ID_KEY, $this->applicationId);
 
         return $configuration;
     }

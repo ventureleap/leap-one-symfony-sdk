@@ -4,13 +4,14 @@
 namespace VentureLeap\LeapOnePhpSdk\Services\ApiProvider;
 
 
-use AutoMapperPlus\AutoMapperPlusBundle\src\Services\ApiProvider\LeapOneApiProvider;
 use VentureLeap\AuditLogService\Api\AuditLogEntryApi;
 use VentureLeap\AuditLogService\Api\ConfigurationEntryApi;
 use VentureLeap\AuditLogService\Configuration;
 
-class AuditLogApiProvider extends LeapOneApiProvider
+class AuditLogApiProvider extends AbstractLeapOneApiProvider
 {
+    const NAME = 'AUDIT_LOG';
+
     protected static $CONFIGURATION_CLASS = Configuration::class;
 
     protected static $CONFIGURATION_ENTRY_API_CLASS = ConfigurationEntryApi::class;

@@ -1,7 +1,7 @@
 <?php
 
 
-namespace AutoMapperPlus\AutoMapperPlusBundle\src\Model\Exception;
+namespace VentureLeap\LeapOnePhpSdk\Model\Exception;
 
 
 class LeapOneException extends \Exception

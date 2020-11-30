@@ -3,14 +3,15 @@
 
 namespace VentureLeap\LeapOnePhpSdk\Services\ApiProvider;
 
-use AutoMapperPlus\AutoMapperPlusBundle\src\Services\ApiProvider\LeapOneApiProvider;
 use VentureLeap\MessengerService\Api\MessageApi;
 use VentureLeap\MessengerService\Api\TemplateApi;
 use VentureLeap\MessengerService\Configuration;
 use VentureLeap\UserService\Api\ConfigurationEntryApi;
 
-class MessengerApiProvider extends LeapOneApiProvider
+class MessengerApiProvider extends AbstractLeapOneApiProvider
 {
+    const NAME = 'MESSENGER';
+
     protected static $CONFIGURATION_CLASS = Configuration::class;
 
     protected static $CONFIGURATION_ENTRY_API_CLASS = ConfigurationEntryApi::class;

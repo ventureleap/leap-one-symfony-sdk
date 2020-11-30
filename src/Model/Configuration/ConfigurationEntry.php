@@ -1,10 +1,7 @@
 <?php
 
 
-namespace AutoMapperPlus\AutoMapperPlusBundle\src\Model\Configuration;
-
-
-use Ramsey\Uuid\Uuid;
+namespace VentureLeap\LeapOnePhpSdk\Model\Configuration;
 
 class ConfigurationEntry
 {
