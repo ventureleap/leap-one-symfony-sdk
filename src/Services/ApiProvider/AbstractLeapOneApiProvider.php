@@ -38,7 +38,7 @@ abstract class AbstractLeapOneApiProvider
 
     public function getConfigurationEntryApi(): object
     {
-        return new self::$CONFIGURATION_ENTRY_API_CLASS(null, $this->getConfiguration());
+        return new static::$CONFIGURATION_ENTRY_API_CLASS(null, $this->getConfiguration());
     }
 
     public function getName(): string
@@ -48,7 +48,7 @@ abstract class AbstractLeapOneApiProvider
 
     protected function getConfiguration(): object
     {
-        $configuration = new self::$CONFIGURATION_CLASS;
+        $configuration = new static::$CONFIGURATION_CLASS;
 
         $configuration->setHost($this->endpoint);
         $configuration->setApiKey('Authorization', $this->tokenProvider->getToken());

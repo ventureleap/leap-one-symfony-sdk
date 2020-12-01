@@ -13,7 +13,7 @@ services:
   # MESSENGER
   VentureLeap\LeapOnePhpSdk\Services\ApiProvider\MessengerApiProvider:
     arguments:
-      $messengerServiceHost: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
+      $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
 
   VentureLeap\MessengerService\Api\MessageApi:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\MessengerApiProvider', 'getMessageApi' ]
@@ -27,7 +27,7 @@ services:
   # USER
   VentureLeap\LeapOnePhpSdk\Services\ApiProvider\UserApiProvider:
     arguments:
-      $userServiceHost: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
+      $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
 
   VentureLeap\UserService\Api\UserApi:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\UserApiProvider', 'getUserApi' ]
@@ -38,7 +38,7 @@ services:
   # AUDIT LOG
   VentureLeap\LeapOnePhpSdk\Services\ApiProvider\AuditLogApiProvider:
     arguments:
-      $auditLogServiceHost: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
+      $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
 
   VentureLeap\AuditLogService\Api\AuditLogEntryApi:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\AuditLogApiProvider', 'getAuditLogEntryApi' ]
@@ -49,7 +49,7 @@ services:
   # CONFIGURATION
   VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ConfigurationApiProvider:
     arguments:
-      $configurationServiceHost: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
+      $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
 
   VentureLeap\ConfigurationService\Api\ConfigurationEntryApi:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ConfigurationApiProvider', 'getConfigurationEntryApi' ]
@@ -57,7 +57,7 @@ services:
   # TOKEN
   VentureLeap\LeapOnePhpSdk\Services\ApiProvider\TokenApiProvider:
     arguments:
-      $configurationServiceHost: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
+      $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
 
   VentureLeap\ConfigurationService\Api\TokenApi:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\TokenApiProvider', 'getTokenApi' ]

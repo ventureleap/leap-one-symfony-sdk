@@ -28,6 +28,13 @@ class ConfigurationApiProvider extends AbstractLeapOneApiProvider
         /** @var ConfigurationEntryApi $configurationEntryApi */
         $configurationEntryApi = $this->getConfigurationEntryApi();
 
+        $existingConfigurationEntry = $this->getConfigurationEntry(
+            $configurationEntry->getKey()
+        );
+        if (false === empty($existingConfigurationEntry->getUuid())) {
+            $configurationEntry->setUuid($existingConfigurationEntry->getUuid());
+        }
+
         $leapOneConfigurationEntry = new ConfigurationEntryJsonldConfigurationWrite();
         $leapOneConfigurationEntry->setKey($configurationEntry->getKey());
         $leapOneConfigurationEntry->setSubKey($configurationEntry->getSubKey());
@@ -46,7 +53,16 @@ class ConfigurationApiProvider extends AbstractLeapOneApiProvider
         }
     }
 
-    public function getConfigurationEntry(string $key, ?string $subKey): ConfigurationEntry
+    public function setConfigurationEntryKeyAndValue(string $key, string $value): void
+    {
+        $configurationEntry = new ConfigurationEntry();
+        $configurationEntry->setKey($key);
+        $configurationEntry->setValue($value);
+
+        $this->setConfigurationEntry($configurationEntry);
+    }
+
+    public function getConfigurationEntry(string $key, ?string $subKey = null): ConfigurationEntry
     {
         $configurationEntry = new ConfigurationEntry();
         $configurationEntry->setKey($key);
@@ -56,7 +72,11 @@ class ConfigurationApiProvider extends AbstractLeapOneApiProvider
         $configurationEntryApi = $this->getConfigurationEntryApi();
 
         /** subKey filter has not yet been provided. */
-        $response = $configurationEntryApi->getConfigurationEntryCollection($key);
+        $response = $configurationEntryApi->getConfigurationEntryCollection(
+            $key,
+            null,
+            $this->tokenProvider->getApplicationId()
+        );
 
         if (0 === $response->getHydratotalItems()) {
             return $configurationEntry;
