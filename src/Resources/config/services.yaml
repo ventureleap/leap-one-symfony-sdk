@@ -43,12 +43,14 @@ services:
   VentureLeap\AuditLogService\Api\AuditLogEntryApi:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\AuditLogApiProvider', 'getAuditLogEntryApi' ]
 
-  VentureLeap\AuditLogService\Api\AuditLogConfigurationEntryApi:
+  VentureLeap\AuditLogService\Api\ConfigurationEntryApi:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\AuditLogApiProvider', 'getConfigurationEntryApi' ]
 
+
+  # Product
   VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ProductApiProvider:
     arguments:
-      $auditLogServiceHost: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
+      $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
 
   VentureLeap\ProductService\Api\ProductApi:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ProductApiProvider', 'getProductApi' ]
