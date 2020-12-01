@@ -5,40 +5,16 @@ namespace VentureLeap\LeapOnePhpSdk\Services\ApiProvider;
 
 
 use VentureLeap\AuditLogService\Api\AuditLogEntryApi;
+use VentureLeap\AuditLogService\Api\ConfigurationEntryApi;
 use VentureLeap\AuditLogService\Configuration;
-use VentureLeap\LeapOnePhpSdk\Services\TokenProvider\TokenProvider;
 
-class AuditLogApiProvider
+class AuditLogApiProvider extends AbstractLeapOneApiProvider
 {
+    const NAME = 'AUDIT_LOG';
 
-    /**
-     * @var TokenProvider
-     */
-    private $tokenProvider;
-    /**
-     * @var string
-     */
-    private $auditLogServiceHost;
+    protected static $CONFIGURATION_CLASS = Configuration::class;
 
-
-    public function __construct(
-        string $auditLogServiceHost,
-        TokenProvider $tokenProvider
-    ) {
-        $this->tokenProvider = $tokenProvider;
-        $this->auditLogServiceHost = $auditLogServiceHost;
-    }
-
-    private function getConfiguration(): Configuration
-    {
-        $configuration = new Configuration();
-
-        $configuration->setHost($this->auditLogServiceHost);
-        $configuration->setApiKey('Authorization', $this->tokenProvider->getToken());
-        $configuration->setApiKeyPrefix('Authorization', 'Bearer');
-
-        return $configuration;
-    }
+    protected static $CONFIGURATION_ENTRY_API_CLASS = ConfigurationEntryApi::class;
 
     public function getAuditLogEntryApi(): AuditLogEntryApi
     {

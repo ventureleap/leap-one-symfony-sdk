@@ -3,51 +3,20 @@
 
 namespace VentureLeap\LeapOnePhpSdk\Services\ApiProvider;
 
-
-use VentureLeap\LeapOnePhpSdk\Services\TokenProvider\TokenProvider;
-use VentureLeap\UserService\Api\AuthApi;
+use VentureLeap\UserService\Api\ConfigurationEntryApi;
 use VentureLeap\UserService\Api\UserApi;
 use VentureLeap\UserService\Configuration;
 
-class UserApiProvider
+class UserApiProvider extends AbstractLeapOneApiProvider
 {
-    /**
-     * @var string
-     */
-    private $userServiceHost;
+    const NAME = 'USER';
 
-    /**
-     * @var TokenProvider
-     */
-    private $tokenProvider;
+    protected static $CONFIGURATION_CLASS = Configuration::class;
 
-
-    public function __construct(
-        string $userServiceHost,
-        TokenProvider $tokenProvider
-    ) {
-        $this->userServiceHost = $userServiceHost;
-        $this->tokenProvider = $tokenProvider;
-    }
-
-    public function getConfiguration(): Configuration
-    {
-        $configuration = new Configuration();
-
-        $configuration->setHost($this->userServiceHost);
-        $configuration->setApiKey('Authorization', $this->tokenProvider->getToken());
-        $configuration->setApiKeyPrefix('Authorization', 'Bearer');
-
-        return $configuration;
-    }
+    protected static $CONFIGURATION_ENTRY_API_CLASS = ConfigurationEntryApi::class;
 
     public function getUserApi(): UserApi
     {
         return new UserApi(null, $this->getConfiguration());
-    }
-
-    public function getAuthApi(): AuthApi
-    {
-        return new AuthApi(null, $this->getConfiguration());
     }
 }

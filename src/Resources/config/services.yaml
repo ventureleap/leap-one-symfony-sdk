@@ -10,11 +10,10 @@ services:
   VentureLeap\LeapOnePhpSdk\:
     resource: '../../../src/*'
 
-
-
+  # MESSENGER
   VentureLeap\LeapOnePhpSdk\Services\ApiProvider\MessengerApiProvider:
     arguments:
-      $messengerServiceHost: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
+      $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
 
   VentureLeap\MessengerService\Api\MessageApi:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\MessengerApiProvider', 'getMessageApi' ]
@@ -22,23 +21,30 @@ services:
   VentureLeap\MessengerService\Api\TemplateApi:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\MessengerApiProvider', 'getTemplateApi' ]
 
+  VentureLeap\MessengerService\Api\ConfigurationEntryApi:
+    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\MessengerApiProvider', 'getConfigurationEntryApi' ]
 
-
+  # USER
   VentureLeap\LeapOnePhpSdk\Services\ApiProvider\UserApiProvider:
     arguments:
-      $userServiceHost: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
+      $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
 
   VentureLeap\UserService\Api\UserApi:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\UserApiProvider', 'getUserApi' ]
 
+  VentureLeap\UserService\Api\ConfigurationEntryApi:
+    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\UserApiProvider', 'getConfigurationEntryApi' ]
 
+  # AUDIT LOG
   VentureLeap\LeapOnePhpSdk\Services\ApiProvider\AuditLogApiProvider:
     arguments:
-      $auditLogServiceHost: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
+      $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
 
   VentureLeap\AuditLogService\Api\AuditLogEntryApi:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\AuditLogApiProvider', 'getAuditLogEntryApi' ]
 
+  VentureLeap\AuditLogService\Api\AuditLogConfigurationEntryApi:
+    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\AuditLogApiProvider', 'getConfigurationEntryApi' ]
 
   VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ProductApiProvider:
     arguments:
@@ -47,23 +53,31 @@ services:
   VentureLeap\ProductService\Api\ProductApi:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ProductApiProvider', 'getProductApi' ]
 
-
   VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ConfigurationApiProvider:
     arguments:
-      $configurationServiceHost: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
+      $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
+
+  VentureLeap\ConfigurationService\Api\ConfigurationEntryApi:
+    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ConfigurationApiProvider', 'getConfigurationEntryApi' ]
+
+  # TOKEN
+  VentureLeap\LeapOnePhpSdk\Services\ApiProvider\TokenApiProvider:
+    arguments:
+      $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
+
+  VentureLeap\ConfigurationService\Api\TokenApi:
+    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\TokenApiProvider', 'getTokenApi' ]
+
+  VentureLeap\LeapOnePhpSdk\Services\TokenProvider\TokenProvider:
+    arguments:
       $applicationId: '%env(string:LEAP_ONE_APP_ID)%'
       $applicationSecret: '%env(string:LEAP_ONE_APP_SECRET)%'
 
-  VentureLeap\ConfigurationService\Api\ConfigurationEntryApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ConfigurationApiProvider', 'getConfigurationApi' ]
-
-  VentureLeap\ConfigurationService\Api\TokenApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ConfigurationApiProvider', 'getTokenApi' ]
-
-
+  # FORM AUTHENTICATION
   leap_one.login_form_authenticator:
     class: VentureLeap\LeapOnePhpSdk\Services\Security\LoginFormAuthenticator
     public: true
     arguments:
       $loginRoute: 'leap_one_user_login'
     tags: [ 'leap_one.login_form_authenticators' ]
+

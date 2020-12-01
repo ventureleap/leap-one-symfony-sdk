@@ -3,42 +3,18 @@
 
 namespace VentureLeap\LeapOnePhpSdk\Services\ApiProvider;
 
-use VentureLeap\LeapOnePhpSdk\Services\TokenProvider\TokenProvider;
 use VentureLeap\MessengerService\Api\MessageApi;
 use VentureLeap\MessengerService\Api\TemplateApi;
 use VentureLeap\MessengerService\Configuration;
+use VentureLeap\UserService\Api\ConfigurationEntryApi;
 
-class MessengerApiProvider
+class MessengerApiProvider extends AbstractLeapOneApiProvider
 {
+    const NAME = 'MESSENGER';
 
-    /**
-     * @var TokenProvider
-     */
-    private $tokenProvider;
-    /**
-     * @var string
-     */
-    private $messengerServiceHost;
+    protected static $CONFIGURATION_CLASS = Configuration::class;
 
-
-    public function __construct(
-        string $messengerServiceHost,
-        TokenProvider $tokenProvider
-    ) {
-        $this->tokenProvider = $tokenProvider;
-        $this->messengerServiceHost = $messengerServiceHost;
-    }
-
-    private function getConfiguration(): Configuration
-    {
-        $configuration = new Configuration();
-
-        $configuration->setHost($this->messengerServiceHost);
-        $configuration->setApiKey('Authorization', $this->tokenProvider->getToken());
-        $configuration->setApiKeyPrefix('Authorization', 'Bearer');
-
-        return $configuration;
-    }
+    protected static $CONFIGURATION_ENTRY_API_CLASS = ConfigurationEntryApi::class;
 
     public function getMessageApi(): MessageApi
     {

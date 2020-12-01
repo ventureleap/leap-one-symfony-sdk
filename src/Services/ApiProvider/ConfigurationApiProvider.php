@@ -3,67 +3,89 @@
 
 namespace VentureLeap\LeapOnePhpSdk\Services\ApiProvider;
 
-
 use VentureLeap\ConfigurationService\Api\ConfigurationEntryApi;
 use VentureLeap\ConfigurationService\Api\TokenApi;
 use VentureLeap\ConfigurationService\Configuration;
+use VentureLeap\ConfigurationService\Model\ConfigurationEntryJsonldConfigurationRead;
+use VentureLeap\ConfigurationService\Model\ConfigurationEntryJsonldConfigurationWrite;
+use VentureLeap\LeapOnePhpSdk\Model\Configuration\ConfigurationEntry;
 
-class ConfigurationApiProvider
+class ConfigurationApiProvider extends AbstractLeapOneApiProvider
 {
-    const APPLICATION_ID_KEY = 'ApplicationId';
+    const NAME = 'CONFIGURATION';
 
-    /**
-     * @var string
-     */
-    private $configurationServiceHost;
-    /**
-     * @var string
-     */
-    private $applicationId;
-    /**
-     * @var string
-     */
-    private $applicationSecret;
+    protected static $CONFIGURATION_CLASS = Configuration::class;
 
-
-    public function __construct(
-        string $configurationServiceHost,
-        string $applicationId,
-        string $applicationSecret
-    ) {
-        $this->configurationServiceHost = $configurationServiceHost;
-        $this->applicationId = $applicationId;
-        $this->applicationSecret = $applicationSecret;
-    }
-
-    private function getConfiguration(): Configuration
-    {
-        $configuration = new Configuration();
-
-        $configuration->setHost($this->configurationServiceHost);
-        $configuration->setApiKey(self::APPLICATION_ID_KEY, $this->applicationId);
-
-        return $configuration;
-    }
-
-
-    public function getApplicationId(): string
-    {
-        return $this->applicationId;
-    }
-
-    public function getApplicationSecret(): string
-    {
-        return $this->applicationSecret;
-    }
+    protected static $CONFIGURATION_ENTRY_API_CLASS = ConfigurationEntryApi::class;
 
     public function getTokenApi(): TokenApi
     {
         return new TokenApi(null, $this->getConfiguration());
     }
 
-    public function getConfigurationEntryApi(): ConfigurationEntryApi
+    public function setConfigurationEntry(ConfigurationEntry $configurationEntry): void
     {
-        return new ConfigurationEntryApi(null, $this->getConfiguration());
+        /** @var ConfigurationEntryApi $configurationEntryApi */
+        $configurationEntryApi = $this->getConfigurationEntryApi();
+
+        $existingConfigurationEntry = $this->getConfigurationEntry(
+            $configurationEntry->getKey()
+        );
+        if (false === empty($existingConfigurationEntry->getUuid())) {
+            $configurationEntry->setUuid($existingConfigurationEntry->getUuid());
+        }
+
+        $leapOneConfigurationEntry = new ConfigurationEntryJsonldConfigurationWrite();
+        $leapOneConfigurationEntry->setKey($configurationEntry->getKey());
+        $leapOneConfigurationEntry->setSubKey($configurationEntry->getSubKey());
+        $leapOneConfigurationEntry->setValue($configurationEntry->getValue());
+
+        if (false === empty($configurationEntry->getUuid())) {
+            $configurationEntryApi->putConfigurationEntryItem(
+                $configurationEntry->getUuid(),
+                $leapOneConfigurationEntry
+            );
+        } else {
+            $configurationEntryApi->postConfigurationEntryCollection(
+                $leapOneConfigurationEntry
+            );
+        }
+    }
+
+    public function setConfigurationEntryKeyAndValue(string $key, ?string $value): void
+    {
+        $configurationEntry = new ConfigurationEntry();
+        $configurationEntry->setKey($key);
+        $configurationEntry->setValue($value);
+
+        $this->setConfigurationEntry($configurationEntry);
+    }
+
+    public function getConfigurationEntry(string $key, ?string $subKey = null): ConfigurationEntry
+    {
+        $configurationEntry = new ConfigurationEntry();
+        $configurationEntry->setKey($key);
+        $configurationEntry->setSubKey($subKey);
+
+        /** @var ConfigurationEntryApi $configurationEntryApi */
+        $configurationEntryApi = $this->getConfigurationEntryApi();
+
+        /** subKey filter has not yet been provided. */
+        $response = $configurationEntryApi->getConfigurationEntryCollection(
+            $key,
+            null,
+            $this->tokenProvider->getApplicationId()
+        );
+
+        if (0 === $response->getHydratotalItems()) {
+            return $configurationEntry;
+        }
+        /** @var ConfigurationEntryJsonldConfigurationRead $leapOneConfigurationEntry */
+        $leapOneConfigurationEntry = $response->getHydramember()[0];
+
+        $configurationEntry->setUuid($leapOneConfigurationEntry->getUuid());
+        $configurationEntry->setValue($leapOneConfigurationEntry->getValue());
+
+        return $configurationEntry;
     }
 }
