@@ -39,7 +39,6 @@ class ConfigurationApiProvider extends AbstractLeapOneApiProvider
         $leapOneConfigurationEntry->setKey($configurationEntry->getKey());
         $leapOneConfigurationEntry->setSubKey($configurationEntry->getSubKey());
         $leapOneConfigurationEntry->setValue($configurationEntry->getValue());
-        $leapOneConfigurationEntry->setApplicationId($this->tokenProvider->getApplicationId());
 
         if (false === empty($configurationEntry->getUuid())) {
             $configurationEntryApi->putConfigurationEntryItem(
