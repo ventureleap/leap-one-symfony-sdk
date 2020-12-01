@@ -25,7 +25,7 @@ class ConfigurationEntry
      */
     private $value;
 
-    public function getUuid(): string
+    public function getUuid(): ?string
     {
         return $this->uuid;
     }

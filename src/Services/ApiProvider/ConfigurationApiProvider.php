@@ -52,7 +52,7 @@ class ConfigurationApiProvider extends AbstractLeapOneApiProvider
         }
     }
 
-    public function setConfigurationEntryKeyAndValue(string $key, string $value): void
+    public function setConfigurationEntryKeyAndValue(string $key, ?string $value): void
     {
         $configurationEntry = new ConfigurationEntry();
         $configurationEntry->setKey($key);
@@ -81,7 +81,7 @@ class ConfigurationApiProvider extends AbstractLeapOneApiProvider
             return $configurationEntry;
         }
         /** @var ConfigurationEntryJsonldConfigurationRead $leapOneConfigurationEntry */
-        $leapOneConfigurationEntry = $response->offsetGet(0);
+        $leapOneConfigurationEntry = $response->getHydramember()[0];
 
         $configurationEntry->setUuid($leapOneConfigurationEntry->getUuid());
         $configurationEntry->setValue($leapOneConfigurationEntry->getValue());
