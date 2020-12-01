@@ -46,6 +46,11 @@ class TokenProvider implements TokenProviderInterface
         $this->applicationSecret = $applicationSecret;
     }
 
+    public function getApplicationId(): string
+    {
+        return $this->applicationId;
+    }
+
     public function getToken(): string
     {
         $cacheItem = $this->cache->getItem('jwt_token');

@@ -11,16 +11,6 @@ class ConfigurationEntry
     private $uuid;
 
     /**
-     * @var \DateTime
-     */
-    protected $createdAt;
-
-    /**
-     * @var \DateTime
-     */
-    protected $updatedAt;
-
-    /**
      * @var string
      */
     private $key;
@@ -43,26 +33,6 @@ class ConfigurationEntry
     public function setUuid(string $uuid): void
     {
         $this->uuid = $uuid;
-    }
-
-    public function getCreatedAt(): \DateTime
-    {
-        return $this->createdAt;
-    }
-
-    public function setCreatedAt(\DateTime $createdAt): void
-    {
-        $this->createdAt = $createdAt;
-    }
-
-    public function getUpdatedAt(): \DateTime
-    {
-        return $this->updatedAt;
-    }
-
-    public function setUpdatedAt(\DateTime $updatedAt): void
-    {
-        $this->updatedAt = $updatedAt;
     }
 
     public function getKey(): string
