@@ -32,8 +32,8 @@ services:
   VentureLeap\OrderService\Api\OrderApi:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\OrderApiProvider', 'getOrderApi' ]
 
-  VentureLeap\OrderService\Api\ProductApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\OrderApiProvider', 'getProductApi' ]
+  VentureLeap\OrderService\Api\OrderProductApi:
+    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\OrderApiProvider', 'getOrderProductApi' ]
 
   VentureLeap\OrderService\Api\ConfigurationEntryApi:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\OrderApiProvider', 'getConfigurationEntryApi' ]
