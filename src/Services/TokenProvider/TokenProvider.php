@@ -28,9 +28,9 @@ class TokenProvider implements TokenProviderInterface
     /**
      * @var TokenApiProvider
      */
-    private TokenApiProvider $tokenApiProvider;
-    private string $applicationId;
-    private string $applicationSecret;
+    private $tokenApiProvider;
+    private $applicationId;
+    private $applicationSecret;
 
     public function __construct(
         AdapterInterface $cache,
