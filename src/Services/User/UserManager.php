@@ -77,6 +77,7 @@ class UserManager implements UserManagerInterface
         $credential = new Credentials();
         $credential->setUsername($credentials['username']);
         $credential->setPassword($credentials['password']);
+        $credential->setUserType($credentials['userType']);
         try {
             $authResponse = $this->userApi->postCredentialsItem($credential);
         } catch (ApiException $e) {

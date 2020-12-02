@@ -76,6 +76,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         Request $request
     ): array {
         $credentials = $request->request->get('user_login');
+        $credentials['userType'] = $this->userProvider->getUserType();
         $request->getSession()->set(
             Security::LAST_USERNAME,
             $credentials['username']
