@@ -36,8 +36,11 @@ class User implements UserInterface
     /** @var bool */
     private $active;
 
-    /** @var  */
+    /** @var string */
     private $userType;
+
+    /** @var array */
+    private $roles;
 
     /** @var array */
     private $additionalProperties;
@@ -95,8 +98,14 @@ class User implements UserInterface
 
     public function getRoles(): array
     {
-        return [self::DEFAULT_ROLE];
+        return $this->roles;
     }
+
+    public function setRoles(array $roles): void
+    {
+        $this->roles = $roles;
+    }
+
 
     public function getPassword(): ?string
     {
@@ -139,7 +148,7 @@ class User implements UserInterface
         $this->active = $active;
     }
 
-    public function getUserType():string
+    public function getUserType(): string
     {
         return $this->userType;
     }

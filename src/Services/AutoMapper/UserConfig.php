@@ -47,6 +47,12 @@ class UserConfig implements AutoMapperConfiguratorInterface
                 }
             )
             ->forMember(
+                'roles',
+                function (UserJsonldUserRead $source) {
+                    return $source->getRoles();
+                }
+            )
+            ->forMember(
                 'additionalProperties',
                 function (UserJsonldUserRead $source) {
                     return json_decode($source->getAdditionalProperties(), true);
@@ -82,6 +88,12 @@ class UserConfig implements AutoMapperConfiguratorInterface
                 'userType',
                 function (\VentureLeap\UserService\Model\User $source) {
                     return $source->getUserType();
+                }
+            )
+            ->forMember(
+                'roles',
+                function (\VentureLeap\UserService\Model\User $source) {
+                    return $source->getRoles();
                 }
             )
             ->forMember(
