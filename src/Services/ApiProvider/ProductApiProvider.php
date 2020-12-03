@@ -5,6 +5,7 @@ namespace VentureLeap\LeapOnePhpSdk\Services\ApiProvider;
 
 
 use VentureLeap\ProductService\Api\ConfigurationEntryApi;
+use VentureLeap\ProductService\Api\PriceListApi;
 use VentureLeap\ProductService\Api\PriceListProductApi;
 use VentureLeap\ProductService\Api\ProductApi;
 use VentureLeap\ProductService\Api\ProductCategoryApi;
@@ -31,5 +32,10 @@ class ProductApiProvider extends AbstractLeapOneApiProvider
     public function getPriceListProductApi(): PriceListProductApi
     {
         return new PriceListProductApi(null, $this->getConfiguration());
+    }
+
+    public function getPriceListApi(): PriceListApi
+    {
+        return new PriceListApi(null, $this->getConfiguration());
     }
 }
