@@ -55,6 +55,12 @@ services:
   VentureLeap\ProductService\Api\ProductApi:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ProductApiProvider', 'getProductApi' ]
 
+  VentureLeap\ProductService\Api\ProductCategoryApi:
+    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ProductApiProvider', 'getProductCategoryApi' ]
+
+  VentureLeap\ProductService\Api\PriceListProductApi:
+    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ProductApiProvider', 'getPriceListProductApi' ]
+
   VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ConfigurationApiProvider:
     arguments:
       $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
