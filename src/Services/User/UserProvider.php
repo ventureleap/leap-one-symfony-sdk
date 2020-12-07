@@ -55,6 +55,13 @@ class UserProvider implements UserProviderInterface
         return $this->autoMapper->map($leapOneUser, User::class);
     }
 
+    public function getUser(string $uuid): ?User
+    {
+        $leapOneUser = $this->userApi->getUserItem($uuid);
+
+        return $this->autoMapper->map($leapOneUser, User::class);
+    }
+
     public function refreshUser(UserInterface $user): ?User
     {
 
