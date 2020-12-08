@@ -57,51 +57,17 @@ class UserConfig implements AutoMapperConfiguratorInterface
                 function (UserJsonldUserRead $source) {
                     return json_decode($source->getAdditionalProperties(), true);
                 }
+            )
+            ->forMember(
+                'active',
+                function (UserJsonldUserRead $source) {
+                    return $source->getActive();
+                }
             );
 
         $config->registerMapping(\VentureLeap\UserService\Model\User::class, User::class)
-            ->forMember(
-                'uuid',
-                function (\VentureLeap\UserService\Model\User $source) {
-                    return $source->getUuid();
-                }
-            )
-            ->forMember(
-                'firstName',
-                function (\VentureLeap\UserService\Model\User $source) {
-                    return $source->getFirstName();
-                }
-            )
-            ->forMember(
-                'lastName',
-                function (\VentureLeap\UserService\Model\User $source) {
-                    return $source->getLastName();
-                }
-            )
-            ->forMember(
-                'email',
-                function (\VentureLeap\UserService\Model\User $source) {
-                    return $source->getEmail();
-                }
-            )
-            ->forMember(
-                'userType',
-                function (\VentureLeap\UserService\Model\User $source) {
-                    return $source->getUserType();
-                }
-            )
-            ->forMember(
-                'roles',
-                function (\VentureLeap\UserService\Model\User $source) {
-                    return $source->getRoles();
-                }
-            )
-            ->forMember(
-                'additionalProperties',
-                function (\VentureLeap\UserService\Model\User $source) {
-                    return json_decode($source->getAdditionalProperties(), true);
-                }
-            );
+            ->copyFrom(UserJsonldUserRead::class, User::class);
+        
 
         $config->registerMapping(User::class, UserJsonldUserWrite::class)
             ->forMember(
