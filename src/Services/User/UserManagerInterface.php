@@ -13,7 +13,7 @@ interface UserManagerInterface
 
     public function getUserByUuid(string $uuid): User;
 
-    public function updateUser(User $customer): void;
+    public function updateUser(User $customer): User;
 
     public function getUserByUsername(string $username): ?User;
 

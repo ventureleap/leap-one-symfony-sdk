@@ -58,10 +58,12 @@ class UserManager implements UserManagerInterface
         return $this->autoMapper->map($leapOneApiUser, User::class);
     }
 
-    public function updateUser(User $leapOneUser): void
+    public function updateUser(User $leapOneUser): User
     {
         $leapOneApiUser = $this->autoMapper->map($leapOneUser, UserJsonldUserWrite::class);
-        $this->userApi->putUserItem($leapOneUser->getUuid(), $leapOneApiUser);
+        $leapOneApiUser = $this->userApi->putUserItem($leapOneUser->getUuid(), $leapOneApiUser);
+
+        return $this->autoMapper->map($leapOneApiUser, User::class);
     }
 
     public function getUserByUsername(string $username): ?User
@@ -72,7 +74,8 @@ class UserManager implements UserManagerInterface
         return $this->autoMapper->map($leapOneUser, User::class);
     }
 
-    public function authenticate(array $credentials): ?User {
+    public function authenticate(array $credentials): ?User
+    {
 
         $credential = new Credentials();
         $credential->setUsername($credentials['username']);
