@@ -68,49 +68,49 @@ class UserConfig implements AutoMapperConfiguratorInterface
         $config->registerMapping(\VentureLeap\UserService\Model\User::class, User::class)
             ->forMember(
                 'uuid',
-                function (UserJsonldUserRead $source) {
+                function (\VentureLeap\UserService\Model\User $source) {
                     return $source->getUuid();
                 }
             )
             ->forMember(
                 'firstName',
-                function (UserJsonldUserRead $source) {
+                function (\VentureLeap\UserService\Model\User $source) {
                     return $source->getFirstName();
                 }
             )
             ->forMember(
                 'lastName',
-                function (UserJsonldUserRead $source) {
+                function (\VentureLeap\UserService\Model\User $source) {
                     return $source->getLastName();
                 }
             )
             ->forMember(
                 'email',
-                function (UserJsonldUserRead $source) {
+                function (\VentureLeap\UserService\Model\User $source) {
                     return $source->getEmail();
                 }
             )
             ->forMember(
                 'userType',
-                function (UserJsonldUserRead $source) {
+                function (\VentureLeap\UserService\Model\User $source) {
                     return $source->getUserType();
                 }
             )
             ->forMember(
                 'roles',
-                function (UserJsonldUserRead $source) {
+                function (\VentureLeap\UserService\Model\User $source) {
                     return $source->getRoles();
                 }
             )
             ->forMember(
                 'additionalProperties',
-                function (UserJsonldUserRead $source) {
+                function (\VentureLeap\UserService\Model\User $source) {
                     return json_decode($source->getAdditionalProperties(), true);
                 }
             )
             ->forMember(
                 'active',
-                function (UserJsonldUserRead $source) {
+                function (\VentureLeap\UserService\Model\User $source) {
                     return $source->getActive();
                 }
             );
