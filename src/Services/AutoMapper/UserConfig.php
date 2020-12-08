@@ -66,7 +66,54 @@ class UserConfig implements AutoMapperConfiguratorInterface
             );
 
         $config->registerMapping(\VentureLeap\UserService\Model\User::class, User::class)
-            ->copyFrom(UserJsonldUserRead::class, User::class);
+            ->forMember(
+                'uuid',
+                function (UserJsonldUserRead $source) {
+                    return $source->getUuid();
+                }
+            )
+            ->forMember(
+                'firstName',
+                function (UserJsonldUserRead $source) {
+                    return $source->getFirstName();
+                }
+            )
+            ->forMember(
+                'lastName',
+                function (UserJsonldUserRead $source) {
+                    return $source->getLastName();
+                }
+            )
+            ->forMember(
+                'email',
+                function (UserJsonldUserRead $source) {
+                    return $source->getEmail();
+                }
+            )
+            ->forMember(
+                'userType',
+                function (UserJsonldUserRead $source) {
+                    return $source->getUserType();
+                }
+            )
+            ->forMember(
+                'roles',
+                function (UserJsonldUserRead $source) {
+                    return $source->getRoles();
+                }
+            )
+            ->forMember(
+                'additionalProperties',
+                function (UserJsonldUserRead $source) {
+                    return json_decode($source->getAdditionalProperties(), true);
+                }
+            )
+            ->forMember(
+                'active',
+                function (UserJsonldUserRead $source) {
+                    return $source->getActive();
+                }
+            );
 
 
         $config->registerMapping(User::class, UserJsonldUserWrite::class)
