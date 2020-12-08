@@ -67,7 +67,7 @@ class UserConfig implements AutoMapperConfiguratorInterface
 
         $config->registerMapping(\VentureLeap\UserService\Model\User::class, User::class)
             ->copyFrom(UserJsonldUserRead::class, User::class);
-        
+
 
         $config->registerMapping(User::class, UserJsonldUserWrite::class)
             ->forMember(
@@ -77,6 +77,9 @@ class UserConfig implements AutoMapperConfiguratorInterface
                         'context' => '',
                         'id' => null,
                         'type' => '',
+                        'auth_code' => null,
+                        'failed_login_attempts' => null,
+                        'failed_login_time' => null,
                         'email' => $source->getEmail(),
                         'username' => $source->getUsername(),
                         'password' => 'default',
