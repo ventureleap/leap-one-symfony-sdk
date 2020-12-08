@@ -14,6 +14,7 @@
     "ventureleap/leap-one-messenger-sdk": "dev-master",
     "ventureleap/leap-one-audit-log-sdk": "dev-main",
     "ventureleap/leap-one-product-sdk": "dev-master",
+    "ventureleap/leap-one-order-sdk": "dev-master",
     "mark-gerarts/automapper-plus-bundle": "^1.3"
   },
   "repositories": [
