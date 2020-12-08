@@ -121,6 +121,7 @@ class UserConfig implements AutoMapperConfiguratorInterface
                         'active' => $source->isActive(),
                         'roles' => $source->getRoles(),
                         'user_type' => $source->getUserType(),
+                        'additional_properties' => json_encode($source->getAdditionalProperties()),
                     ];
                 }
             );
