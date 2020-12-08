@@ -25,18 +25,18 @@ services:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\MessengerApiProvider', 'getConfigurationEntryApi' ]
 
   # ORDER
-  #  VentureLeap\LeapOnePhpSdk\Services\ApiProvider\OrderApiProvider:
-  #    arguments:
-  #      $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
-  #
-  #  VentureLeap\OrderService\Api\OrderApi:
-  #    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\OrderApiProvider', 'getOrderApi' ]
-  #
-  #  VentureLeap\OrderService\Api\OrderProductApi:
-  #    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\OrderApiProvider', 'getOrderProductApi' ]
-  #
-  #  VentureLeap\OrderService\Api\ConfigurationEntryApi:
-  #    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\OrderApiProvider', 'getConfigurationEntryApi' ]
+  VentureLeap\LeapOnePhpSdk\Services\ApiProvider\OrderApiProvider:
+    arguments:
+      $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
+
+  VentureLeap\OrderService\Api\OrderApi:
+    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\OrderApiProvider', 'getOrderApi' ]
+
+  VentureLeap\OrderService\Api\OrderProductApi:
+    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\OrderApiProvider', 'getOrderProductApi' ]
+
+  VentureLeap\OrderService\Api\ConfigurationEntryApi:
+    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\OrderApiProvider', 'getConfigurationEntryApi' ]
 
   # USER
   VentureLeap\LeapOnePhpSdk\Services\ApiProvider\UserApiProvider:
