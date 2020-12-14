@@ -130,7 +130,7 @@ class UserConfig implements AutoMapperConfiguratorInterface
                         'email' => $source->getEmail(),
                         'username' => $source->getUsername(),
                         'password' => null,
-                        'encoded_password' => $source->getPassword(),
+                        'plainPassword' => $source->getPassword(),
                         'first_name' => $source->getFirstName(),
                         'last_name' => $source->getLastName(),
                         'deleted' => $source->isDeleted(),
