@@ -48,6 +48,9 @@ class User implements UserInterface
     /** @var \DateTime */
     private $createdAt;
 
+    /** @var string|null */
+    private $password;
+
     public function getUuid(): ?string
     {
         return $this->uuid;
@@ -112,7 +115,7 @@ class User implements UserInterface
 
     public function getPassword(): ?string
     {
-        return $this->plainPassword;
+        return $this->password;
     }
 
     public function getSalt(): ?string
