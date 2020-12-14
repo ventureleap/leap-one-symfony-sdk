@@ -131,6 +131,7 @@ class UserConfig implements AutoMapperConfiguratorInterface
                         'username' => $source->getUsername(),
                         'password' => null,
                         'plainPassword' => $source->getPassword(),
+                        'encoded_password' => $source->getPassword(),
                         'first_name' => $source->getFirstName(),
                         'last_name' => $source->getLastName(),
                         'deleted' => $source->isDeleted(),
