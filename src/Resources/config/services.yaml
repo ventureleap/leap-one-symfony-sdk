@@ -49,6 +49,9 @@ services:
   VentureLeap\UserService\Api\ConfigurationEntryApi:
     factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\UserApiProvider', 'getConfigurationEntryApi' ]
 
+  VentureLeap\UserService\Api\SocialAuthenticationApi:
+    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\UserApiProvider', 'getSocialAuthenticationApi' ]
+
   # AUDIT LOG
   VentureLeap\LeapOnePhpSdk\Services\ApiProvider\AuditLogApiProvider:
     arguments:

@@ -4,6 +4,7 @@
 namespace VentureLeap\LeapOnePhpSdk\Services\ApiProvider;
 
 use VentureLeap\UserService\Api\ConfigurationEntryApi;
+use VentureLeap\UserService\Api\SocialAuthenticationApi;
 use VentureLeap\UserService\Api\UserApi;
 use VentureLeap\UserService\Configuration;
 
@@ -18,5 +19,10 @@ class UserApiProvider extends AbstractLeapOneApiProvider
     public function getUserApi(): UserApi
     {
         return new UserApi(null, $this->getConfiguration());
+    }
+
+    public function getSocialAuthenticationApi(): SocialAuthenticationApi
+    {
+        return new SocialAuthenticationApi(null, $this->getConfiguration());
     }
 }
