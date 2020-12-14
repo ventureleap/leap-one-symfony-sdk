@@ -63,6 +63,12 @@ class UserConfig implements AutoMapperConfiguratorInterface
                 function (UserJsonldUserRead $source) {
                     return $source->getActive();
                 }
+            )
+            ->forMember(
+                'createdAt',
+                function (UserJsonldUserRead $source) {
+                    return $source->getCreatedAt();
+                }
             );
 
         $config->registerMapping(\VentureLeap\UserService\Model\User::class, User::class)

@@ -45,6 +45,9 @@ class User implements UserInterface
     /** @var array */
     private $additionalProperties;
 
+    /** @var \DateTime */
+    private $createdAt;
+
     public function getUuid(): ?string
     {
         return $this->uuid;
@@ -168,5 +171,19 @@ class User implements UserInterface
         $this->additionalProperties = $additionalProperties;
     }
 
+    /**
+     * @return \DateTime
+     */
+    public function getCreatedAt(): \DateTime
+    {
+        return $this->createdAt;
+    }
 
+    /**
+     * @param  \DateTime  $createdAt
+     */
+    public function setCreatedAt(\DateTime $createdAt): void
+    {
+        $this->createdAt = $createdAt;
+    }
 }
