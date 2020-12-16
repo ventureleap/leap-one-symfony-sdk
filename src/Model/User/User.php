@@ -20,6 +20,10 @@ class User implements UserInterface
     /**
      * @var string|null
      */
+    private $username;
+    /**
+     * @var string|null
+     */
     private $plainPassword;
     /**
      * @var string|null
@@ -125,7 +129,7 @@ class User implements UserInterface
 
     public function getUsername(): string
     {
-        return $this->email;
+        return $this->username;
     }
 
     public function eraseCredentials(): void
@@ -174,19 +178,18 @@ class User implements UserInterface
         $this->additionalProperties = $additionalProperties;
     }
 
-    /**
-     * @return \DateTime
-     */
     public function getCreatedAt(): \DateTime
     {
         return $this->createdAt;
     }
 
-    /**
-     * @param  \DateTime  $createdAt
-     */
     public function setCreatedAt(\DateTime $createdAt): void
     {
         $this->createdAt = $createdAt;
+    }
+
+    public function setUsername(?string $username): void
+    {
+        $this->username = $username;
     }
 }
