@@ -104,7 +104,7 @@ class UserConfig implements AutoMapperConfiguratorInterface
             )
             ->forMember(
                 'username',
-                function (UserJsonldUserRead $source) {
+                function (\VentureLeap\UserService\Model\User $source) {
                     return $source->getUsername();
                 }
             )
