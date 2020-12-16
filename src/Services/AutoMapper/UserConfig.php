@@ -41,6 +41,12 @@ class UserConfig implements AutoMapperConfiguratorInterface
                 }
             )
             ->forMember(
+                'username',
+                function (UserJsonldUserRead $source) {
+                    return $source->getUsername();
+                }
+            )
+            ->forMember(
                 'userType',
                 function (UserJsonldUserRead $source) {
                     return $source->getUserType();
@@ -94,6 +100,12 @@ class UserConfig implements AutoMapperConfiguratorInterface
                 'email',
                 function (\VentureLeap\UserService\Model\User $source) {
                     return $source->getEmail();
+                }
+            )
+            ->forMember(
+                'username',
+                function (UserJsonldUserRead $source) {
+                    return $source->getUsername();
                 }
             )
             ->forMember(
