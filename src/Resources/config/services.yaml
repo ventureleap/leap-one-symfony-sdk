@@ -101,6 +101,14 @@ services:
       $applicationId: '%env(string:LEAP_ONE_APP_ID)%'
       $applicationSecret: '%env(string:LEAP_ONE_APP_SECRET)%'
 
+  # Rating
+  VentureLeap\LeapOnePhpSdk\Services\ApiProvider\RatingApiProvider:
+    arguments:
+      $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
+
+  VentureLeap\RatingService\Api\RatingApi:
+    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\RatingApiProvider', 'getRatingApi' ]
+
   # FORM AUTHENTICATION
   leap_one.login_form_authenticator:
     class: VentureLeap\LeapOnePhpSdk\Services\Security\LoginFormAuthenticator
