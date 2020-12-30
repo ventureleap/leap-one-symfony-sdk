@@ -151,6 +151,7 @@ class UserConfig implements AutoMapperConfiguratorInterface
                         'failed_login_attempts' => null,
                         'failed_login_time' => null,
                         'gender' => null,
+                        'addresses' => [],
                         'email' => $source->getEmail(),
                         'username' => $source->getUsername(),
                         'password' => $source->getPlainPassword(),
