@@ -133,34 +133,71 @@ class UserConfig implements AutoMapperConfiguratorInterface
                 }
             );
 
-        /**
-         * @TODO This array thing does not work, because we have
-         * to update it all the time. Let's use the normal callback style instead.
-         */
         $config->registerMapping(User::class, UserJsonldUserWrite::class)
             ->forMember(
-                'container',
-                function (User $source) {
-                    return [
-                        'context' => '',
-                        'id' => null,
-                        'account' => null,
-                        'type' => '',
-                        'auth_code' => null,
-                        'failed_login_attempts' => null,
-                        'failed_login_time' => null,
-                        'email' => $source->getEmail(),
-                        'username' => $source->getUsername(),
-                        'password' => $source->getPlainPassword(),
-                        'encoded_password' => $source->getPassword(),
-                        'first_name' => $source->getFirstName(),
-                        'last_name' => $source->getLastName(),
-                        'deleted' => $source->isDeleted(),
-                        'active' => $source->isActive(),
-                        'roles' => $source->getRoles(),
-                        'user_type' => $source->getUserType(),
-                        'additional_properties' => json_encode($source->getAdditionalProperties()),
-                    ];
+                'email',
+                function (User $user) {
+                    return $user->getEmail();
+                }
+            )
+            ->forMember(
+                'username',
+                function (User $user) {
+                    return $user->getUsername();
+                }
+            )
+            ->forMember(
+                'password',
+                function (User $user) {
+                    return $user->getPlainPassword();
+                }
+            )
+            ->forMember(
+                'encoded_password',
+                function (User $user) {
+                    return $user->getPassword();
+                }
+            )
+            ->forMember(
+                'first_name',
+                function (User $user) {
+                    return $user->getFirstName();
+                }
+            )
+            ->forMember(
+                'last_name',
+                function (User $user) {
+                    return $user->getLastName();
+                }
+            )
+            ->forMember(
+                'deleted',
+                function (User $user) {
+                    return $user->isDeleted();
+                }
+            )
+            ->forMember(
+                'active',
+                function (User $user) {
+                    return $user->isActive();
+                }
+            )
+            ->forMember(
+                'roles',
+                function (User $user) {
+                    return $user->getRoles();
+                }
+            )
+            ->forMember(
+                'user_type',
+                function (User $user) {
+                    return $user->getUserType();
+                }
+            )
+            ->forMember(
+                'additional_properties',
+                function (User $user) {
+                    return json_encode($user->getAdditionalProperties());
                 }
             );
     }
