@@ -133,7 +133,10 @@ class UserConfig implements AutoMapperConfiguratorInterface
                 }
             );
 
-
+        /**
+         * @TODO This array thing does not work, because we have
+         * to update it all the time. Let's use the normal callback style instead.
+         */
         $config->registerMapping(User::class, UserJsonldUserWrite::class)
             ->forMember(
                 'container',
@@ -141,6 +144,7 @@ class UserConfig implements AutoMapperConfiguratorInterface
                     return [
                         'context' => '',
                         'id' => null,
+                        'account' => null,
                         'type' => '',
                         'auth_code' => null,
                         'failed_login_attempts' => null,
