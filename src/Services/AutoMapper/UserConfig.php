@@ -135,6 +135,12 @@ class UserConfig implements AutoMapperConfiguratorInterface
 
         $config->registerMapping(User::class, UserJsonldUserWrite::class)
             ->forMember(
+                'context',
+                function (User $user) {
+                    return '';
+                }
+            )
+            ->forMember(
                 'email',
                 function (User $user) {
                     return $user->getEmail();
