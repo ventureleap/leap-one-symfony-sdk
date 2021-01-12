@@ -59,9 +59,9 @@ class UserConfig implements AutoMapperConfiguratorInterface
                 }
             )
             ->forMember(
-                'additionalProperties',
+                'customData',
                 function (UserJsonldUserRead $source) {
-                    return json_decode($source->getAdditionalProperties(), true);
+                    return $source->getCustomData();
                 }
             )
             ->forMember(
@@ -74,62 +74,6 @@ class UserConfig implements AutoMapperConfiguratorInterface
                 'createdAt',
                 function (UserJsonldUserRead $source) {
                     return $source->getCreatedAt();
-                }
-            );
-
-        $config->registerMapping(\VentureLeap\UserService\Model\User::class, User::class)
-            ->forMember(
-                'uuid',
-                function (\VentureLeap\UserService\Model\User $source) {
-                    return $source->getUuid();
-                }
-            )
-            ->forMember(
-                'firstName',
-                function (\VentureLeap\UserService\Model\User $source) {
-                    return $source->getFirstName();
-                }
-            )
-            ->forMember(
-                'lastName',
-                function (\VentureLeap\UserService\Model\User $source) {
-                    return $source->getLastName();
-                }
-            )
-            ->forMember(
-                'email',
-                function (\VentureLeap\UserService\Model\User $source) {
-                    return $source->getEmail();
-                }
-            )
-            ->forMember(
-                'username',
-                function (\VentureLeap\UserService\Model\User $source) {
-                    return $source->getUsername();
-                }
-            )
-            ->forMember(
-                'userType',
-                function (\VentureLeap\UserService\Model\User $source) {
-                    return $source->getUserType();
-                }
-            )
-            ->forMember(
-                'roles',
-                function (\VentureLeap\UserService\Model\User $source) {
-                    return $source->getRoles();
-                }
-            )
-            ->forMember(
-                'additionalProperties',
-                function (\VentureLeap\UserService\Model\User $source) {
-                    return json_decode($source->getAdditionalProperties(), true);
-                }
-            )
-            ->forMember(
-                'active',
-                function (\VentureLeap\UserService\Model\User $source) {
-                    return $source->getActive();
                 }
             );
 
@@ -162,7 +106,7 @@ class UserConfig implements AutoMapperConfiguratorInterface
                         'active' => $source->isActive(),
                         'roles' => $source->getRoles(),
                         'user_type' => $source->getUserType(),
-                        'additional_properties' => json_encode($source->getAdditionalProperties()),
+                        'custom_data' => $source->getCustomData(),
                     ];
                 }
             );
