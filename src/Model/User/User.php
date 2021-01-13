@@ -168,7 +168,7 @@ class User implements UserInterface
         $this->userType = $userType;
     }
 
-    public function getCustomData(): array
+    public function getCustomData(): ?array
     {
         return $this->customData;
     }
