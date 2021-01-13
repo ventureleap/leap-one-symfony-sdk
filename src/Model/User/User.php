@@ -47,7 +47,7 @@ class User implements UserInterface
     private $roles;
 
     /** @var array */
-    private $additionalProperties;
+    private $customData;
 
     /** @var \DateTime */
     private $createdAt;
@@ -168,14 +168,26 @@ class User implements UserInterface
         $this->userType = $userType;
     }
 
-    public function getAdditionalProperties(): array
+    public function getCustomData(): array
     {
-        return $this->additionalProperties;
+        return $this->customData;
     }
 
-    public function setAdditionalProperties(array $additionalProperties): void
+    public function setCustomData(array $customData): void
     {
-        $this->additionalProperties = $additionalProperties;
+        $this->customData = $customData;
+    }
+
+    public function getCustomProperty(string $propertyName)
+    {
+        $customData = $this->getCustomData();
+
+        return $customData[$propertyName] ?? null;
+    }
+
+    public function addCustomProperty(string $property, $value): void
+    {
+        $this->customData[$property] = $value;
     }
 
     public function getCreatedAt(): \DateTime
