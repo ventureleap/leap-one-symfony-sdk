@@ -182,19 +182,12 @@ class User implements UserInterface
     {
         $customData = $this->getCustomData();
 
-        if (!array_key_exists($propertyName, $customData)) {
-            return null;
-        }
-
         return $customData[$propertyName] ?? null;
     }
 
     public function addCustomProperty(string $property, $value): void
     {
-        $customData = $this->getCustomData();
-        $customData[$property] = $value;
-
-        $this->setCustomData($customData);
+        $this->customData[$property] = $value;
     }
 
     public function getCreatedAt(): \DateTime
