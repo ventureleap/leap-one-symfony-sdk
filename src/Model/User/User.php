@@ -12,48 +12,48 @@ class User implements UserInterface
     /**
      * @var string|null
      */
-    private $uuid;
+    protected $uuid;
     /**
      * @var string|null
      */
-    private $email;
+    protected $email;
     /**
      * @var string|null
      */
-    private $username;
+    protected $username;
     /**
      * @var string|null
      */
-    private $plainPassword;
+    protected $plainPassword;
     /**
      * @var string|null
      */
-    private $firstName;
+    protected $firstName;
     /**
      * @var string|null
      */
-    private $lastName;
+    protected $lastName;
 
     /** @var bool */
-    private $deleted;
+    protected $deleted;
 
     /** @var bool */
-    private $active;
+    protected $active;
 
     /** @var string */
-    private $userType;
+    protected $userType;
 
     /** @var array */
-    private $roles;
+    protected $roles;
 
     /** @var array */
-    private $customData;
+    protected $customData;
 
     /** @var \DateTime */
-    private $createdAt;
+    protected $createdAt;
 
     /** @var string|null */
-    private $password;
+    protected $password;
 
     public function getUuid(): ?string
     {
@@ -185,7 +185,7 @@ class User implements UserInterface
         return $customData[$propertyName] ?? null;
     }
 
-    public function addCustomProperty(string $property, $value): void
+    public function setCustomProperty(string $property, $value): void
     {
         $this->customData[$property] = $value;
     }
