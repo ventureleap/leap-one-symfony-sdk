@@ -71,6 +71,12 @@ class UserConfig implements AutoMapperConfiguratorInterface
                 }
             )
             ->forMember(
+                'deleted',
+                function (UserJsonldUserRead $source) {
+                    return $source->getDeleted();
+                }
+            )
+            ->forMember(
                 'createdAt',
                 function (UserJsonldUserRead $source) {
                     return $source->getCreatedAt();
