@@ -6,11 +6,13 @@ namespace VentureLeap\LeapOnePhpSdk\Services\User;
 
 use AutoMapperPlus\AutoMapperInterface;
 use Psr\Log\LoggerInterface;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use VentureLeap\LeapOnePhpSdk\Model\User\User;
 use VentureLeap\UserService\Api\UserApi;
 use VentureLeap\UserService\ApiException;
 use VentureLeap\UserService\Model\Credentials;
+use VentureLeap\UserService\Model\UserJsonldPasswordRequest;
 use VentureLeap\UserService\Model\UserJsonldUserRead;
 use VentureLeap\UserService\Model\UserJsonldUserWrite;
 
@@ -98,5 +100,20 @@ class UserManager implements UserManagerInterface
          * For now, we just return true always :-)
          */
         return true;
+    }
+
+    public function requestPasswordReset(User $user): ?User
+    {
+        $passwordRequest = new UserJsonldPasswordRequest();
+        $passwordRequest->setEmail($user->getEmail());
+
+        try {
+            $authResponse = $this->userApi->postPasswordRequest($passwordRequest);
+        } catch (ApiException $e) {
+            $decodedError = json_decode($e->getResponseBody(), true);
+            throw new NotFoundHttpException($decodedError['hydra:description']);
+        }
+
+        return $this->autoMapper->map($authResponse, User::class);
     }
 }

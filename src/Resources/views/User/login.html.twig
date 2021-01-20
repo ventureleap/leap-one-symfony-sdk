@@ -15,6 +15,12 @@
 
         {{ form(form) }}
 
+        <div>
+            <span>
+                <a href="{{ path('leap_one_user_reset_password') }}">{{ 'message.forgotPassword' | trans }}</a>
+            </span>
+        </div>
+
         {# <label for="inputEmail">Email</label> #}
         {# <input type="email" value="{{ last_username }}" name="email" id="inputEmail" class="form-control" required autofocus> #}
         {# <label for="inputPassword">Password</label> #}
