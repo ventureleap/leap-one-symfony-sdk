@@ -6,3 +6,4 @@ message:
     provideEmail: 'Please enter your email'
     forgotPassword: 'Forgot password?'
     passwordResetSuccess: 'We have sent you an email with which you can reset your password'
+    backToLogin: 'Back to login'
