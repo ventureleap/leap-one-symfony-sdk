@@ -116,4 +116,16 @@ class UserManager implements UserManagerInterface
 
         return $this->autoMapper->map($authResponse, User::class);
     }
+
+    public function getUserByToken(string $token): ?User
+    {
+        try {
+            $authResponse = $this->userApi->loginByTokenUserItem($token);
+        } catch (ApiException $e) {
+            $decodedError = json_decode($e->getResponseBody(), true);
+            throw new NotFoundHttpException($decodedError['hydra:description']);
+        }
+
+        return $this->autoMapper->map($authResponse, User::class);
+    }
 }

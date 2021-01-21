@@ -20,4 +20,6 @@ interface UserManagerInterface
     public function isPasswordValid(UserInterface $user, $password): bool;
 
     public function requestPasswordReset(User $user): ?User;
+
+    public function getUserByToken(string $token): ?User;
 }
