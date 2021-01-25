@@ -55,6 +55,9 @@ class User implements UserInterface
     /** @var string|null */
     protected $password;
 
+    /** @var string|null */
+    protected $account;
+
     public function getUuid(): ?string
     {
         return $this->uuid;
@@ -203,5 +206,15 @@ class User implements UserInterface
     public function setUsername(?string $username): void
     {
         $this->username = $username;
+    }
+
+    public function getAccount(): ?string
+    {
+        return $this->account;
+    }
+
+    public function setAccount(?string $account): void
+    {
+        $this->account = $account;
     }
 }

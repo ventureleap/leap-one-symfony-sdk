@@ -81,6 +81,12 @@ class UserConfig implements AutoMapperConfiguratorInterface
                 function (UserJsonldUserRead $source) {
                     return $source->getCreatedAt();
                 }
+            )
+            ->forMember(
+                'account',
+                function (UserJsonldUserRead $source) {
+                    return $source->getAccount();
+                }
             );
 
         /**
@@ -94,7 +100,7 @@ class UserConfig implements AutoMapperConfiguratorInterface
                     return [
                         'context' => '',
                         'id' => null,
-                        'account' => null,
+                        'account' => $source->getAccount(),
                         'type' => '',
                         'auth_code' => null,
                         'date_of_birth' => null,
