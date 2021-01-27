@@ -45,18 +45,7 @@ class UserProvider implements UserProviderInterface
 
     public function loadUserByUsername($username): ?User
     {
-        $usersForUsername = $this->userApi->getUserCollection($username, null, null, null, null, $this->userType);
-
-        if (null === $usersForUsername || null === $usersForUsername->getHydramember()) {
-            throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
-        }
-
-        $leapOneUser = null;
-        foreach ($usersForUsername->getHydramember() as $user) {
-            if ($user->getUsername() === $username) {
-                $leapOneUser = $user;
-            }
-        }
+        $leapOneUser = $this->userApi->getUserByTypeItem($this->userType, $username);
 
         if (null === $leapOneUser) {
             throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
