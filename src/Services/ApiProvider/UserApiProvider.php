@@ -4,6 +4,7 @@
 namespace VentureLeap\LeapOnePhpSdk\Services\ApiProvider;
 
 use VentureLeap\UserService\Api\AccountApi;
+use VentureLeap\UserService\Api\AddressApi;
 use VentureLeap\UserService\Api\ConfigurationEntryApi;
 use VentureLeap\UserService\Api\SocialAuthenticationApi;
 use VentureLeap\UserService\Api\UserApi;
@@ -13,9 +14,9 @@ class UserApiProvider extends AbstractLeapOneApiProvider
 {
     const NAME = 'USER';
 
-    protected static $CONFIGURATION_CLASS = Configuration::class;
+    protected static string $CONFIGURATION_CLASS = Configuration::class;
 
-    protected static $CONFIGURATION_ENTRY_API_CLASS = ConfigurationEntryApi::class;
+    protected static string $CONFIGURATION_ENTRY_API_CLASS = ConfigurationEntryApi::class;
 
     public function getUserApi(): UserApi
     {
@@ -27,8 +28,13 @@ class UserApiProvider extends AbstractLeapOneApiProvider
         return new SocialAuthenticationApi(null, $this->getConfiguration());
     }
 
-    public function getAccountApi()
+    public function getAccountApi(): AccountApi
     {
         return new AccountApi(null, $this->getConfiguration());
+    }
+
+    public function getAddressApi(): AddressApi
+    {
+        return new AddressApi(null, $this->getConfiguration());
     }
 }
