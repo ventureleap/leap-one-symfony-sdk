@@ -15,9 +15,9 @@ abstract class AbstractLeapOneApiProvider
      * It should be easy to simplify this by using standardized namespaces for the
      * base classes in the SDK.
      */
-    protected static string $CONFIGURATION_CLASS = '';
+    protected static $CONFIGURATION_CLASS = '';
 
-    protected static string $CONFIGURATION_ENTRY_API_CLASS = '';
+    protected static $CONFIGURATION_ENTRY_API_CLASS = '';
 
     /**
      * @var string

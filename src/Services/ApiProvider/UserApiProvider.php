@@ -14,9 +14,9 @@ class UserApiProvider extends AbstractLeapOneApiProvider
 {
     const NAME = 'USER';
 
-    protected static string $CONFIGURATION_CLASS = Configuration::class;
+    protected static $CONFIGURATION_CLASS = Configuration::class;
 
-    protected static string $CONFIGURATION_ENTRY_API_CLASS = ConfigurationEntryApi::class;
+    protected static $CONFIGURATION_ENTRY_API_CLASS = ConfigurationEntryApi::class;
 
     public function getUserApi(): UserApi
     {
