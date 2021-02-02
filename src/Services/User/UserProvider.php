@@ -11,6 +11,7 @@ use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use VentureLeap\LeapOnePhpSdk\Model\User\User;
 use VentureLeap\UserService\Api\UserApi;
+use VentureLeap\UserService\ApiException;
 
 class UserProvider implements UserProviderInterface
 {
@@ -45,7 +46,11 @@ class UserProvider implements UserProviderInterface
 
     public function loadUserByUsername($username): ?User
     {
-        $leapOneUser = $this->userApi->getUserByTypeItem($this->userType, $username);
+        try {
+            $leapOneUser = $this->userApi->getUserByTypeItem($this->userType, $username);
+        } catch (ApiException $e) {
+            throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
+        }
 
         if (null === $leapOneUser) {
             throw new UsernameNotFoundException(sprintf('Username "%s" does not exist.', $username));
