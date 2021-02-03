@@ -1,4 +1,5 @@
-# LEAP.one PHP SDK
+# LEAP.one SYMFONY PHP SDK
+To easy up development in Symfony with the help of leap.one PHP SDK
 
 ## Installation
 
@@ -22,7 +23,7 @@ LEAP_ONE_APP_SECRET='<your-app-id>'
 ```
 
 4. (optional) Modify your security config file
-This part requires that you already implemented the logic for using users from the LEAP.one User Service.
+   This part requires that you already implemented the logic for using users from the LEAP.one User Service.
 
 ```yaml
         encoders:
