@@ -9,7 +9,7 @@
   ],
   "require": {
     "ext-json": "*",
-    "ventureleap/leap-one-plain-php-sdk": "dev-master",
+    "ventureleap/leap-one-plain-php-sdk": "dev-main",
     "mark-gerarts/automapper-plus-bundle": "^1.3"
   },
   "repositories": [
