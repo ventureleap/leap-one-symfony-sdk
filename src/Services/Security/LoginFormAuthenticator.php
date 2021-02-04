@@ -1,7 +1,7 @@
 <?php
 
 
-namespace VentureLeap\LeapOnePhpSdk\Services\Security;
+namespace VentureLeap\LeapOneSymfonySdk\Services\Security;
 
 
 use Symfony\Component\HttpFoundation\RedirectResponse;
@@ -20,9 +20,9 @@ use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
-use VentureLeap\LeapOnePhpSdk\Model\User\User;
-use VentureLeap\LeapOnePhpSdk\Services\User\UserManager;
-use VentureLeap\LeapOnePhpSdk\Services\User\UserProvider;
+use VentureLeap\LeapOneSymfonySdk\Model\User\User;
+use VentureLeap\LeapOneSymfonySdk\Services\User\UserManager;
+use VentureLeap\LeapOneSymfonySdk\Services\User\UserProvider;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
 {

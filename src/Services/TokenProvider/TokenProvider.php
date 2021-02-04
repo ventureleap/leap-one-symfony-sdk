@@ -1,7 +1,7 @@
 <?php
 
 
-namespace VentureLeap\LeapOnePhpSdk\Services\TokenProvider;
+namespace VentureLeap\LeapOneSymfonySdk\Services\TokenProvider;
 
 
 use Psr\Log\LoggerInterface;
@@ -10,8 +10,8 @@ use Symfony\Component\Cache\CacheItem;
 use VentureLeap\ConfigurationService\Api\TokenApi;
 use VentureLeap\ConfigurationService\ApiException;
 use VentureLeap\ConfigurationService\Model\Credentials;
-use VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ConfigurationApiProvider;
-use VentureLeap\LeapOnePhpSdk\Services\ApiProvider\TokenApiProvider;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\ConfigurationApiProvider;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\TokenApiProvider;
 
 class TokenProvider implements TokenProviderInterface
 {

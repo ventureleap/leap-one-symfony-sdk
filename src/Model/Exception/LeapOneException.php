@@ -1,7 +1,7 @@
 <?php
 
 
-namespace VentureLeap\LeapOnePhpSdk\Model\Exception;
+namespace VentureLeap\LeapOneSymfonySdk\Model\Exception;
 
 
 class LeapOneException extends \Exception

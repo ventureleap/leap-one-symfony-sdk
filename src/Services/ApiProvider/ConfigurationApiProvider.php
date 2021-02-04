@@ -1,14 +1,14 @@
 <?php
 
 
-namespace VentureLeap\LeapOnePhpSdk\Services\ApiProvider;
+namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 
 use VentureLeap\ConfigurationService\Api\ConfigurationEntryApi;
 use VentureLeap\ConfigurationService\Api\TokenApi;
 use VentureLeap\ConfigurationService\Configuration;
 use VentureLeap\ConfigurationService\Model\ConfigurationEntryJsonldConfigurationRead;
 use VentureLeap\ConfigurationService\Model\ConfigurationEntryJsonldConfigurationWrite;
-use VentureLeap\LeapOnePhpSdk\Model\Configuration\ConfigurationEntry;
+use VentureLeap\LeapOneSymfonySdk\Model\Configuration\ConfigurationEntry;
 
 class ConfigurationApiProvider extends AbstractLeapOneApiProvider
 {

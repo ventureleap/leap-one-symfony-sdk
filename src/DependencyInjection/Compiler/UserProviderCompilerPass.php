@@ -1,12 +1,12 @@
 <?php
 
 
-namespace VentureLeap\LeapOnePhpSdk\DependencyInjection\Compiler;
+namespace VentureLeap\LeapOneSymfonySdk\DependencyInjection\Compiler;
 
 
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
-use VentureLeap\LeapOnePhpSdk\DependencyInjection\Configuration;
+use VentureLeap\LeapOneSymfonySdk\DependencyInjection\Configuration;
 
 class UserProviderCompilerPass implements CompilerPassInterface
 {

@@ -1,16 +1,16 @@
 <?php
 
 
-namespace VentureLeap\LeapOnePhpSdk\DependencyInjection;
+namespace VentureLeap\LeapOneSymfonySdk\DependencyInjection;
 
 
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 use Symfony\Component\HttpKernel\DependencyInjection\Extension;
-use VentureLeap\LeapOnePhpSdk\Controller\UserController;
+use VentureLeap\LeapOneSymfonySdk\Controller\UserController;
 
-class LeapOnePhpSdkExtension extends Extension
+class LeapOneSymfonySdkExtension extends Extension
 {
 
     public function load(array $configs, ContainerBuilder $container)

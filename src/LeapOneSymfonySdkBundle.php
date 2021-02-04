@@ -1,12 +1,12 @@
 <?php
 
-namespace VentureLeap\LeapOnePhpSdk;
+namespace VentureLeap\LeapOneSymfonySdk;
 
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\HttpKernel\Bundle\Bundle;
-use VentureLeap\LeapOnePhpSdk\DependencyInjection\Compiler\UserProviderCompilerPass;
+use VentureLeap\LeapOneSymfonySdk\DependencyInjection\Compiler\UserProviderCompilerPass;
 
-class LeapOnePhpSdkBundle extends Bundle
+class LeapOneSymfonySdkBundle extends Bundle
 {
     public function build(ContainerBuilder $container)
     {

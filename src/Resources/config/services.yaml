@@ -7,114 +7,114 @@ services:
 
   # makes classes in src/ available to be used as services
   # this creates a service per class whose id is the fully-qualified class name
-  VentureLeap\LeapOnePhpSdk\:
+  VentureLeap\LeapOneSymfonySdk\:
     resource: '../../../src/*'
 
   # MESSENGER
-  VentureLeap\LeapOnePhpSdk\Services\ApiProvider\MessengerApiProvider:
+  VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\MessengerApiProvider:
     arguments:
       $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
 
   VentureLeap\MessengerService\Api\MessageApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\MessengerApiProvider', 'getMessageApi' ]
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\MessengerApiProvider', 'getMessageApi' ]
 
   VentureLeap\MessengerService\Api\TemplateApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\MessengerApiProvider', 'getTemplateApi' ]
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\MessengerApiProvider', 'getTemplateApi' ]
 
   VentureLeap\MessengerService\Api\ConfigurationEntryApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\MessengerApiProvider', 'getConfigurationEntryApi' ]
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\MessengerApiProvider', 'getConfigurationEntryApi' ]
 
   # ORDER
-  VentureLeap\LeapOnePhpSdk\Services\ApiProvider\OrderApiProvider:
+  VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\OrderApiProvider:
     arguments:
       $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
 
   VentureLeap\OrderService\Api\OrderApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\OrderApiProvider', 'getOrderApi' ]
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\OrderApiProvider', 'getOrderApi' ]
 
   VentureLeap\OrderService\Api\OrderProductApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\OrderApiProvider', 'getOrderProductApi' ]
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\OrderApiProvider', 'getOrderProductApi' ]
 
   VentureLeap\OrderService\Api\ConfigurationEntryApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\OrderApiProvider', 'getConfigurationEntryApi' ]
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\OrderApiProvider', 'getConfigurationEntryApi' ]
 
   # USER
-  VentureLeap\LeapOnePhpSdk\Services\ApiProvider\UserApiProvider:
+  VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\UserApiProvider:
     arguments:
       $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
 
   VentureLeap\UserService\Api\UserApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\UserApiProvider', 'getUserApi' ]
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\UserApiProvider', 'getUserApi' ]
 
   VentureLeap\UserService\Api\ConfigurationEntryApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\UserApiProvider', 'getConfigurationEntryApi' ]
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\UserApiProvider', 'getConfigurationEntryApi' ]
 
   VentureLeap\UserService\Api\SocialAuthenticationApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\UserApiProvider', 'getSocialAuthenticationApi' ]
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\UserApiProvider', 'getSocialAuthenticationApi' ]
 
   VentureLeap\UserService\Api\AccountApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\UserApiProvider', 'getAccountApi' ]
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\UserApiProvider', 'getAccountApi' ]
 
   # AUDIT LOG
-  VentureLeap\LeapOnePhpSdk\Services\ApiProvider\AuditLogApiProvider:
+  VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\AuditLogApiProvider:
     arguments:
       $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
 
   VentureLeap\AuditLogService\Api\AuditLogEntryApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\AuditLogApiProvider', 'getAuditLogEntryApi' ]
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\AuditLogApiProvider', 'getAuditLogEntryApi' ]
 
   VentureLeap\AuditLogService\Api\ConfigurationEntryApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\AuditLogApiProvider', 'getConfigurationEntryApi' ]
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\AuditLogApiProvider', 'getConfigurationEntryApi' ]
 
 
   # Product
-  VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ProductApiProvider:
+  VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\ProductApiProvider:
     arguments:
       $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
 
   VentureLeap\ProductService\Api\ProductApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ProductApiProvider', 'getProductApi' ]
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\ProductApiProvider', 'getProductApi' ]
 
   VentureLeap\ProductService\Api\ProductCategoryApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ProductApiProvider', 'getProductCategoryApi' ]
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\ProductApiProvider', 'getProductCategoryApi' ]
 
   VentureLeap\ProductService\Api\PriceListProductApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ProductApiProvider', 'getPriceListProductApi' ]
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\ProductApiProvider', 'getPriceListProductApi' ]
 
   VentureLeap\ProductService\Api\PriceListApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ProductApiProvider', 'getPriceListApi' ]
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\ProductApiProvider', 'getPriceListApi' ]
 
-  VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ConfigurationApiProvider:
+  VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\ConfigurationApiProvider:
     arguments:
       $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
 
   VentureLeap\ConfigurationService\Api\ConfigurationEntryApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\ConfigurationApiProvider', 'getConfigurationEntryApi' ]
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\ConfigurationApiProvider', 'getConfigurationEntryApi' ]
 
   # TOKEN
-  VentureLeap\LeapOnePhpSdk\Services\ApiProvider\TokenApiProvider:
+  VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\TokenApiProvider:
     arguments:
       $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
 
   VentureLeap\ConfigurationService\Api\TokenApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\TokenApiProvider', 'getTokenApi' ]
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\TokenApiProvider', 'getTokenApi' ]
 
-  VentureLeap\LeapOnePhpSdk\Services\TokenProvider\TokenProvider:
+  VentureLeap\LeapOneSymfonySdk\Services\TokenProvider\TokenProvider:
     arguments:
       $applicationId: '%env(string:LEAP_ONE_APP_ID)%'
       $applicationSecret: '%env(string:LEAP_ONE_APP_SECRET)%'
 
   # Rating
-  VentureLeap\LeapOnePhpSdk\Services\ApiProvider\RatingApiProvider:
+  VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\RatingApiProvider:
     arguments:
       $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
 
   VentureLeap\RatingService\Api\RatingApi:
-    factory: [ '@VentureLeap\LeapOnePhpSdk\Services\ApiProvider\RatingApiProvider', 'getRatingApi' ]
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\RatingApiProvider', 'getRatingApi' ]
 
   # FORM AUTHENTICATION
   leap_one.login_form_authenticator:
-    class: VentureLeap\LeapOnePhpSdk\Services\Security\LoginFormAuthenticator
+    class: VentureLeap\LeapOneSymfonySdk\Services\Security\LoginFormAuthenticator
     public: true
     arguments:
       $loginRoute: 'leap_one_user_login'

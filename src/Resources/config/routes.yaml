@@ -1,11 +1,11 @@
 leap_one_user_login:
   path: '/login'
-  controller: VentureLeap\LeapOnePhpSdk\Controller\UserController::login
+  controller: VentureLeap\LeapOneSymfonySdk\Controller\UserController::login
 
 leap_one_user_logout:
   path: '/logout'
-  controller: VentureLeap\LeapOnePhpSdk\Controller\UserController::logout
+  controller: VentureLeap\LeapOneSymfonySdk\Controller\UserController::logout
 
 leap_one_user_reset_password:
   path: '/reset-password'
-  controller: VentureLeap\LeapOnePhpSdk\Controller\UserController::resetPasswordAction
+  controller: VentureLeap\LeapOneSymfonySdk\Controller\UserController::resetPasswordAction

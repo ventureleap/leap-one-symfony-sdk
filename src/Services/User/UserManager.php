@@ -1,14 +1,14 @@
 <?php
 
 
-namespace VentureLeap\LeapOnePhpSdk\Services\User;
+namespace VentureLeap\LeapOneSymfonySdk\Services\User;
 
 
 use AutoMapperPlus\AutoMapperInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
-use VentureLeap\LeapOnePhpSdk\Model\User\User;
+use VentureLeap\LeapOneSymfonySdk\Model\User\User;
 use VentureLeap\UserService\Api\UserApi;
 use VentureLeap\UserService\ApiException;
 use VentureLeap\UserService\Model\Credentials;

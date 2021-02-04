@@ -5,7 +5,7 @@ To easy up development in Symfony with the help of leap.one PHP SDK
 
 1. Require the bundle via:
 ```bash
-composer require ventureleap/leap-one-php-sdk dev-main
+composer require ventureleap/leap-one-symfony-sdk dev-main
 ```
 
 2. Add the following variables to your .env.local:
@@ -18,7 +18,7 @@ LEAP_ONE_APP_SECRET='<your-app-id>'
 3. (optional) Add the routes
 ```yaml
     leap_one_php_sdk:
-        resource: "@LeapOnePhpSdkBundle/Resources/config/routes.yaml"
+        resource: "@LeapOneSymfonySdkBundle/Resources/config/routes.yaml"
         prefix:   /
 ```
 
@@ -27,11 +27,11 @@ LEAP_ONE_APP_SECRET='<your-app-id>'
 
 ```yaml
         encoders:
-            VentureLeap\LeapOnePhpSdk\Model\User\User:
+            VentureLeap\LeapOneSymfony\Model\User\User:
                 algorithm: auto
         providers:
             customer_provider:
-                id: VentureLeap\LeapOnePhpSdk\Services\User\UserProvider
+                id: VentureLeap\LeapOneSymfony\Services\User\UserProvider
         firewalls:
             dev:
                 pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -42,7 +42,7 @@ LEAP_ONE_APP_SECRET='<your-app-id>'
                 lazy: true
                 guard:
                     authenticators:
-                        - VentureLeap\LeapOnePhpSdk\Services\Security\LoginFormAuthenticator
+                        - VentureLeap\LeapOneSymfony\Services\Security\LoginFormAuthenticator
                 logout:
                     path: leap_one_user_logout
 ```

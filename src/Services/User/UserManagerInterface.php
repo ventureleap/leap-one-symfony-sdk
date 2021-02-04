@@ -1,11 +1,11 @@
 <?php
 
 
-namespace VentureLeap\LeapOnePhpSdk\Services\User;
+namespace VentureLeap\LeapOneSymfonySdk\Services\User;
 
 
 use Symfony\Component\Security\Core\User\UserInterface;
-use VentureLeap\LeapOnePhpSdk\Model\User\User;
+use VentureLeap\LeapOneSymfonySdk\Model\User\User;
 
 interface UserManagerInterface
 {

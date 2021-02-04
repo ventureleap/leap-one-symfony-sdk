@@ -1,7 +1,7 @@
 <?php
 
 
-namespace VentureLeap\LeapOnePhpSdk\Model\User;
+namespace VentureLeap\LeapOneSymfonySdk\Model\User;
 
 
 use Symfony\Component\Security\Core\User\UserInterface;

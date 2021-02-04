@@ -1,7 +1,7 @@
 <?php
 
 
-namespace VentureLeap\LeapOnePhpSdk\DependencyInjection;
+namespace VentureLeap\LeapOneSymfonySdk\DependencyInjection;
 
 
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;

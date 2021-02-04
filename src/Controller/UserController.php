@@ -1,7 +1,7 @@
 <?php
 
 
-namespace VentureLeap\LeapOnePhpSdk\Controller;
+namespace VentureLeap\LeapOneSymfonySdk\Controller;
 
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -11,10 +11,10 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
-use VentureLeap\LeapOnePhpSdk\Form\Type\UserLoginType;
-use VentureLeap\LeapOnePhpSdk\Form\Type\UserPasswordRequestType;
-use VentureLeap\LeapOnePhpSdk\Model\User\User;
-use VentureLeap\LeapOnePhpSdk\Services\User\UserManager;
+use VentureLeap\LeapOneSymfonySdk\Form\Type\UserLoginType;
+use VentureLeap\LeapOneSymfonySdk\Form\Type\UserPasswordRequestType;
+use VentureLeap\LeapOneSymfonySdk\Model\User\User;
+use VentureLeap\LeapOneSymfonySdk\Services\User\UserManager;
 
 class UserController extends AbstractController
 {
@@ -27,7 +27,7 @@ class UserController extends AbstractController
         $lastUsername = $authenticationUtils->getLastUsername();
 
         return $this->render(
-            '@LeapOnePhpSdk/User/login.html.twig',
+            '@LeapOneSymfonySdk/User/login.html.twig',
             [
                 'last_username' => $lastUsername,
                 'form' => $form->createView(),
@@ -58,14 +58,14 @@ class UserController extends AbstractController
 
             try {
                 $response = $userManager->requestPasswordReset($user);
-                return $this->render('@LeapOnePhpSdk/User/passwordRequestSuccess.html.twig');
+                return $this->render('@LeapOneSymfonySdk/User/passwordRequestSuccess.html.twig');
             } catch (NotFoundHttpException $exception) {
                 $form->addError(new FormError($exception->getMessage()));
             }
         }
 
         return $this->render(
-            '@LeapOnePhpSdk/User/passwordRequest.html.twig',
+            '@LeapOneSymfonySdk/User/passwordRequest.html.twig',
             [
                 'form' => $form->createView()
             ]

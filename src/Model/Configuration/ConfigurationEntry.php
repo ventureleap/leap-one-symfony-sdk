@@ -1,7 +1,7 @@
 <?php
 
 
-namespace VentureLeap\LeapOnePhpSdk\Model\Configuration;
+namespace VentureLeap\LeapOneSymfonySdk\Model\Configuration;
 
 class ConfigurationEntry
 {

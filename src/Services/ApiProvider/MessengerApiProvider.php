@@ -1,7 +1,7 @@
 <?php
 
 
-namespace VentureLeap\LeapOnePhpSdk\Services\ApiProvider;
+namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 
 use VentureLeap\MessengerService\Api\MessageApi;
 use VentureLeap\MessengerService\Api\TemplateApi;

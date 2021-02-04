@@ -1,11 +1,11 @@
 <?php
 
 
-namespace VentureLeap\LeapOnePhpSdk\Services\ApiProvider;
+namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 
 
-use VentureLeap\LeapOnePhpSdk\Model\Configuration\ConfigurationEntry;
-use VentureLeap\LeapOnePhpSdk\Services\TokenProvider\TokenProvider;
+use VentureLeap\LeapOneSymfonySdk\Model\Configuration\ConfigurationEntry;
+use VentureLeap\LeapOneSymfonySdk\Services\TokenProvider\TokenProvider;
 use VentureLeap\UserService\Api\ConfigurationEntryApi;
 use VentureLeap\UserService\Configuration;
 
