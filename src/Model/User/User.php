@@ -62,13 +62,13 @@ class User implements UserInterface
     protected $account;
 
     /** @var string */
-    private $authCode;
+    protected $authCode;
 
     /** @var int */
-    private $failedLoginAttempts = 0;
+    protected $failedLoginAttempts = 0;
 
     /** @var \DateTime */
-    private $failedLoginTime;
+    protected $failedLoginTime;
 
     public function getUuid(): ?string
     {
