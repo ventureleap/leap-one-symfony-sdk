@@ -260,7 +260,7 @@ class User implements UserInterface
         $this->failedLoginAttempts = $failedLoginAttempts;
     }
 
-    public function getFailedLoginTime()
+    public function getFailedLoginTime(): \DateTime
     {
         return $this->failedLoginTime;
     }
