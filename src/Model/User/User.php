@@ -9,6 +9,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 class User implements UserInterface
 {
     public const DEFAULT_ROLE = 'ROLE_USER';
+
+    const EMAIL_AUTHENTICATION_ENABLED = 'email_authentication_enabled';
+
     /**
      * @var string|null
      */
@@ -57,6 +60,15 @@ class User implements UserInterface
 
     /** @var string|null */
     protected $account;
+
+    /** @var string */
+    private $authCode;
+
+    /** @var int */
+    private $failedLoginAttempts = 0;
+
+    /** @var \DateTime */
+    private $failedLoginTime;
 
     public function getUuid(): ?string
     {
@@ -216,5 +228,45 @@ class User implements UserInterface
     public function setAccount(?string $account): void
     {
         $this->account = $account;
+    }
+
+    public function isEmailAuthEnabled(): bool
+    {
+        return $this->getCustomProperty(self::EMAIL_AUTHENTICATION_ENABLED) ?? false;
+    }
+
+    public function getEmailAuthRecipient(): string
+    {
+        return $this->email;
+    }
+
+    public function getEmailAuthCode(): string
+    {
+        return $this->authCode ?? '';
+    }
+
+    public function setEmailAuthCode(string $authCode): void
+    {
+        $this->authCode = $authCode;
+    }
+
+    public function getFailedLoginAttempts(): int
+    {
+        return $this->failedLoginAttempts;
+    }
+
+    public function setFailedLoginAttempts(int $failedLoginAttempts): void
+    {
+        $this->failedLoginAttempts = $failedLoginAttempts;
+    }
+
+    public function getFailedLoginTime()
+    {
+        return $this->failedLoginTime;
+    }
+
+    public function setFailedLoginTime($failedLoginTime): void
+    {
+        $this->failedLoginTime = $failedLoginTime;
     }
 }

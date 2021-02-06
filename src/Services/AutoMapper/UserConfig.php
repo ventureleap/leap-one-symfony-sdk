@@ -87,6 +87,24 @@ class UserConfig implements AutoMapperConfiguratorInterface
                 function (UserJsonldUserRead $source) {
                     return $source->getAccount();
                 }
+            )
+            ->forMember(
+                'authCode',
+                function (UserJsonldUserRead $userRead) {
+                    return $userRead->getAuthCode();
+                }
+            )
+            ->forMember(
+                'failedLoginAttempts',
+                function (UserJsonldUserRead $userRead) {
+                    return $userRead->getFailedLoginAttempts();
+                }
+            )
+            ->forMember(
+                'failedLoginTime',
+                function (UserJsonldUserRead $userRead) {
+                    return $userRead->getFailedLoginTime();
+                }
             );
 
         /**
@@ -102,10 +120,10 @@ class UserConfig implements AutoMapperConfiguratorInterface
                         'id' => null,
                         'account' => $source->getAccount(),
                         'type' => '',
-                        'auth_code' => null,
+                        'auth_code' => $source->getEmailAuthCode(),
                         'date_of_birth' => null,
-                        'failed_login_attempts' => null,
-                        'failed_login_time' => null,
+                        'failed_login_attempts' => $source->getFailedLoginAttempts(),
+                        'failed_login_time' => $source->getFailedLoginTime(),
                         'gender' => null,
                         'addresses' => [],
                         'email' => $source->getEmail(),
