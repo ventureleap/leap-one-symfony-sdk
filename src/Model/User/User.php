@@ -245,7 +245,7 @@ class User implements UserInterface
         return $this->authCode ?? '';
     }
 
-    public function setEmailAuthCode(string $authCode): void
+    public function setEmailAuthCode(?string $authCode): void
     {
         $this->authCode = $authCode;
     }
@@ -260,7 +260,7 @@ class User implements UserInterface
         $this->failedLoginAttempts = $failedLoginAttempts;
     }
 
-    public function getFailedLoginTime(): \DateTime
+    public function getFailedLoginTime(): ?\DateTime
     {
         return $this->failedLoginTime;
     }

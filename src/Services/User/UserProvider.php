@@ -13,7 +13,7 @@ use VentureLeap\LeapOneSymfonySdk\Model\User\User;
 use VentureLeap\UserService\Api\UserApi;
 use VentureLeap\UserService\ApiException;
 
-class UserProvider implements UserProviderInterface
+class UserProvider implements ExtendedUserProviderInterface
 {
 
     const DEFAULT_USER_TYPE = 'admin';
@@ -59,7 +59,7 @@ class UserProvider implements UserProviderInterface
         return $this->autoMapper->map($leapOneUser, User::class);
     }
 
-    public function getUser(string $uuid): ?User
+    public function getUser(string $uuid): ?UserInterface
     {
         $leapOneUser = $this->userApi->getUserItem($uuid);
 

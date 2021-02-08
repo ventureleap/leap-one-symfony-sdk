@@ -21,8 +21,8 @@ use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticato
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
 use VentureLeap\LeapOneSymfonySdk\Model\User\User;
-use VentureLeap\LeapOneSymfonySdk\Services\User\UserManager;
-use VentureLeap\LeapOneSymfonySdk\Services\User\UserProvider;
+use VentureLeap\LeapOneSymfonySdk\Services\User\ExtendedUserProviderInterface;
+use VentureLeap\LeapOneSymfonySdk\Services\User\UserManagerInterface;
 
 class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
 {
@@ -49,8 +49,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
 
 
     public function __construct(
-        UserProvider $userProvider,
-        UserManager $userManager,
+        ExtendedUserProviderInterface $userProvider,
+        UserManagerInterface $userManager,
         UrlGeneratorInterface $urlGenerator,
         CsrfTokenManagerInterface $csrfTokenManager,
         string $loginRoute,
