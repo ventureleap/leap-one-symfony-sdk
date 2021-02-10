@@ -5,6 +5,7 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\User;
 
 
 use AutoMapperPlus\AutoMapperInterface;
+use VentureLeap\LeapOneSymfonySdk\Model\MFA\MFACode;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -12,6 +13,7 @@ use VentureLeap\LeapOneSymfonySdk\Model\User\User;
 use VentureLeap\UserService\Api\UserApi;
 use VentureLeap\UserService\ApiException;
 use VentureLeap\UserService\Model\Credentials;
+use VentureLeap\UserService\Model\UserJsonldMfaCheck;
 use VentureLeap\UserService\Model\UserJsonldPasswordRequest;
 use VentureLeap\UserService\Model\UserJsonldUserRead;
 use VentureLeap\UserService\Model\UserJsonldUserWrite;
@@ -127,5 +129,32 @@ class UserManager implements UserManagerInterface
         }
 
         return $this->autoMapper->map($authResponse, User::class);
+    }
+
+    public function requestMFACode(User $user): ?MFACode
+    {
+        try {
+            $response = $this->userApi->requestMfaCodeUserItem($user->getUuid());
+        } catch (ApiException $e) {
+            $decodedError = json_decode($e->getResponseBody(), true);
+            throw new NotFoundHttpException($decodedError['hydra:description']);
+        }
+
+        return $this->autoMapper->map($response, MFACode::class);
+    }
+
+    public function validateMFACode(User $user, string $mfaCode): ?User
+    {
+        $body = new UserJsonldMfaCheck();
+        $body->setMfaCode($mfaCode);
+
+        try {
+            $response = $this->userApi->validateMfaCodeUserItem($user->getUuid(), $body);
+        } catch (ApiException $e) {
+            $decodedError = json_decode($e->getResponseBody(), true);
+            throw new NotFoundHttpException($decodedError['hydra:description']);
+        }
+
+        return $this->autoMapper->map($response, User::class);
     }
 }

@@ -5,6 +5,7 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\User;
 
 
 use Symfony\Component\Security\Core\User\UserInterface;
+use VentureLeap\LeapOneSymfonySdk\Model\MFA\MFACode;
 use VentureLeap\LeapOneSymfonySdk\Model\User\User;
 
 interface UserManagerInterface
@@ -22,4 +23,8 @@ interface UserManagerInterface
     public function requestPasswordReset(User $user): ?User;
 
     public function getUserByToken(string $token): ?User;
+
+    public function requestMFACode(User $user): ?MFACode;
+
+    public function validateMFACode(User $user, string $mfaCode): ?User;
 }
