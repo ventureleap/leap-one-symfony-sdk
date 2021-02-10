@@ -61,8 +61,11 @@ class ConfigurationApiProvider extends AbstractLeapOneApiProvider
         $this->setConfigurationEntry($configurationEntry);
     }
 
-    public function getConfigurationEntry(string $key, ?string $subKey = null): ConfigurationEntry
-    {
+    public function getConfigurationEntry(
+        string $key,
+        ?string $subKey = null,
+        ?string $value = null
+    ): ConfigurationEntry {
         $configurationEntry = new ConfigurationEntry();
         $configurationEntry->setKey($key);
         $configurationEntry->setSubKey($subKey);
@@ -74,6 +77,7 @@ class ConfigurationApiProvider extends AbstractLeapOneApiProvider
         $response = $configurationEntryApi->getConfigurationEntryCollection(
             $key,
             null,
+            $value,
             $this->tokenProvider->getApplicationId()
         );
 
