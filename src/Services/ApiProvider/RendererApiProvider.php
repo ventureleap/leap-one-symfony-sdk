@@ -3,10 +3,6 @@
 
 namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 
-
-
-use VentureLeap\OrderService\Api\OrderApi;
-use VentureLeap\OrderService\Api\OrderProductApi;
 use VentureLeap\OrderService\Configuration;
 use VentureLeap\RendererService\Api\RenderApi;
 use VentureLeap\RendererService\Api\TemplateApi;
