@@ -230,9 +230,14 @@ class User implements UserInterface
         $this->account = $account;
     }
 
-    public function isEmailAuthEnabled(): bool
+    public function emailAuthEnabled(): bool
     {
         return $this->getCustomProperty(self::EMAIL_AUTHENTICATION_ENABLED) ?? false;
+    }
+    
+    public function setEmailAuthEnabled(bool $emailAuthEnabled)
+    {
+        $this->setCustomProperty(self::EMAIL_AUTHENTICATION_ENABLED, $emailAuthEnabled);
     }
 
     public function getEmailAuthRecipient(): string
