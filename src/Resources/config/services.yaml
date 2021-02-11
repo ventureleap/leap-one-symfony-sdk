@@ -35,8 +35,28 @@ services:
   VentureLeap\OrderService\Api\OrderProductApi:
     factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\OrderApiProvider', 'getOrderProductApi' ]
 
+  VentureLeap\OrderService\Api\VoucherApi:
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\OrderApiProvider', 'getVoucherApi' ]
+
+  VentureLeap\OrderService\Api\OrderVoucherApi:
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\OrderApiProvider', 'getOrderVoucherApi' ]
+
   VentureLeap\OrderService\Api\ConfigurationEntryApi:
     factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\OrderApiProvider', 'getConfigurationEntryApi' ]
+
+  # RENDERER
+  VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\RendererApiProvider:
+    arguments:
+      $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
+
+  VentureLeap\RendererService\Api\RenderApi:
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\RendererApiProvider', 'getRenderApi' ]
+
+  VentureLeap\RendererService\Api\TemplateApi:
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\RendererApiProvider', 'getTemplateApi' ]
+
+  VentureLeap\RendererService\Api\ConfigurationEntryApi:
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\RendererApiProvider', 'getConfigurationEntryApi' ]
 
   # USER
   VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\UserApiProvider:
