@@ -14,6 +14,7 @@ use VentureLeap\UserService\Api\UserApi;
 use VentureLeap\UserService\ApiException;
 use VentureLeap\UserService\Model\Credentials;
 use VentureLeap\UserService\Model\UserJsonldMfaCheck;
+use VentureLeap\UserService\Model\UserJsonldMfaSms;
 use VentureLeap\UserService\Model\UserJsonldPasswordRequest;
 use VentureLeap\UserService\Model\UserJsonldUserRead;
 use VentureLeap\UserService\Model\UserJsonldUserWrite;
@@ -131,10 +132,13 @@ class UserManager implements UserManagerInterface
         return $this->autoMapper->map($authResponse, User::class);
     }
 
-    public function requestMFACode(User $user): ?MFACode
+    public function requestMFACode(User $user, bool $isSMS = false): ?MFACode
     {
+        $body  = new UserJsonldMfaSms();
+        $body->setSms($isSMS);
+
         try {
-            $response = $this->userApi->requestMfaCodeUserItem($user->getUuid());
+            $response = $this->userApi->requestMfaCodeUserItem($user->getUuid(), $body);
         } catch (ApiException $e) {
             $decodedError = json_decode($e->getResponseBody(), true);
             throw new NotFoundHttpException($decodedError['hydra:description']);

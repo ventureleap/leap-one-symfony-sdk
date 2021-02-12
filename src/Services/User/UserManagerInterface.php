@@ -24,7 +24,7 @@ interface UserManagerInterface
 
     public function getUserByToken(string $token): ?User;
 
-    public function requestMFACode(User $user): ?MFACode;
+    public function requestMFACode(User $user, bool $isSMS): ?MFACode;
 
     public function validateMFACode(User $user, string $mfaCode): ?User;
 }
