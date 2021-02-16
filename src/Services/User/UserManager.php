@@ -10,6 +10,7 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use VentureLeap\LeapOneSymfonySdk\Model\User\User;
+use VentureLeap\UserService\Api\SocialAuthenticationApi;
 use VentureLeap\UserService\Api\UserApi;
 use VentureLeap\UserService\ApiException;
 use VentureLeap\UserService\Model\Credentials;
@@ -36,11 +37,17 @@ class UserManager implements UserManagerInterface
      */
     private $logger;
 
-    public function __construct(UserApi $userApi, AutoMapperInterface $autoMapper, LoggerInterface $logger)
+    /**
+     * @var SocialAuthenticationApi
+     */
+    private SocialAuthenticationApi $socialAuthenticationApi;
+
+    public function __construct(UserApi $userApi, SocialAuthenticationApi $socialAuthenticationApi, AutoMapperInterface $autoMapper, LoggerInterface $logger)
     {
         $this->userApi = $userApi;
         $this->autoMapper = $autoMapper;
         $this->logger = $logger;
+        $this->socialAuthenticationApi = $socialAuthenticationApi;
     }
 
     public function registerUser(User $leapOneUser): User
@@ -154,6 +161,29 @@ class UserManager implements UserManagerInterface
 
         try {
             $response = $this->userApi->validateMfaCodeUserItem($user->getUuid(), $body);
+        } catch (ApiException $e) {
+            $decodedError = json_decode($e->getResponseBody(), true);
+            throw new NotFoundHttpException($decodedError['hydra:description']);
+        }
+
+        return $this->autoMapper->map($response, User::class);
+    }
+
+    public function getPlatformAuthUrl(string $platform): string
+    {
+        try {
+            $socialAuthUrl = $this->socialAuthenticationApi->socialLoginGetAuthUrl($platform);
+        } catch (ApiException $e) {
+            $decodedError = json_decode($e->getResponseBody(), true);
+            throw new NotFoundHttpException($decodedError['hydra:description']);
+        }
+        return $socialAuthUrl->getLoginUrl();
+    }
+
+    public function getUserSocial(string $platform, string $state, string $code): ?User
+    {
+        try {
+            $response = $this->socialAuthenticationApi->socialLoginGetUser($platform, $state, $code);
         } catch (ApiException $e) {
             $decodedError = json_decode($e->getResponseBody(), true);
             throw new NotFoundHttpException($decodedError['hydra:description']);
