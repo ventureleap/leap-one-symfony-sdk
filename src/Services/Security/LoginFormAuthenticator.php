@@ -16,7 +16,7 @@ use Symfony\Component\Security\Core\Security;
 use Symfony\Component\Security\Core\User\UserInterface;
 use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
-use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
+use Symfony\Component\Security\Csrf\CsrfTokenManager;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
 use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
 use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
@@ -57,7 +57,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         ExtendedUserProviderInterface $userProvider,
         UserManagerInterface $userManager,
         UrlGeneratorInterface $urlGenerator,
-        CsrfTokenManagerInterface $csrfTokenManager,
+        CsrfTokenManager $csrfTokenManager,
         string $loginRoute,
         string $routeAfterLogin
     ) {
