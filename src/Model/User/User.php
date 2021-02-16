@@ -70,6 +70,9 @@ class User implements UserInterface
     /** @var \DateTime */
     protected $failedLoginTime;
 
+    /** @var string */
+    protected $phoneNumber;
+
     public function getUuid(): ?string
     {
         return $this->uuid;
@@ -273,5 +276,15 @@ class User implements UserInterface
     public function setFailedLoginTime($failedLoginTime): void
     {
         $this->failedLoginTime = $failedLoginTime;
+    }
+
+    public function getPhoneNumber(): ?string
+    {
+        return $this->phoneNumber;
+    }
+
+    public function setPhoneNumber(string $phoneNumber): void
+    {
+        $this->phoneNumber = $phoneNumber;
     }
 }
