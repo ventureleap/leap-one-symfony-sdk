@@ -140,3 +140,11 @@ services:
       $loginRoute: 'leap_one_user_login'
     tags: [ 'leap_one.login_form_authenticators' ]
 
+  # FORM AUTHENTICATION
+  leap_one.mfa_authenticator:
+    class: VentureLeap\LeapOneSymfonySdk\Services\Security\MfaAuthenticator
+    public: true
+    arguments:
+      $loginRoute: 'leap_one_user_login'
+    tags: [ 'leap_one.login_form_authenticators' ]
+

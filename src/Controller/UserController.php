@@ -3,17 +3,19 @@
 
 namespace VentureLeap\LeapOneSymfonySdk\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use VentureLeap\LeapOneSymfonySdk\Form\Type\MfaCheckType;
 use VentureLeap\LeapOneSymfonySdk\Form\Type\UserLoginType;
 use VentureLeap\LeapOneSymfonySdk\Form\Type\UserPasswordRequestType;
 use VentureLeap\LeapOneSymfonySdk\Model\User\User;
+use VentureLeap\LeapOneSymfonySdk\Services\Security\LoginFormAuthenticator;
 use VentureLeap\LeapOneSymfonySdk\Services\User\UserManager;
 
 class UserController extends AbstractController
@@ -30,6 +32,29 @@ class UserController extends AbstractController
             '@LeapOneSymfonySdk/User/login.html.twig',
             [
                 'last_username' => $lastUsername,
+                'form' => $form->createView(),
+                'error' => $error,
+            ]
+        );
+    }
+
+    public function mfaCheck(
+        SessionInterface $session,
+        AuthenticationUtils $authenticationUtils
+    ): Response
+    {
+        /** @var User $mfaUser */
+        $mfaUser = $session->get(LoginFormAuthenticator::MFA_USER_SESSION_KEY);
+        if (!$mfaUser || !$mfaUser->emailAuthEnabled()) {
+            return $this->redirectToRoute('leap_one_user_login');
+        }
+
+        $form = $this->createForm(MfaCheckType::class);
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        return $this->render(
+            '@LeapOneSymfonySdk/User/mfaCheck.html.twig',
+            [
                 'form' => $form->createView(),
                 'error' => $error,
             ]

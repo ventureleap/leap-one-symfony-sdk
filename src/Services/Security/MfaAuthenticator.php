@@ -3,13 +3,13 @@
 
 namespace VentureLeap\LeapOneSymfonySdk\Services\Security;
 
-
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
-use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
 use Symfony\Component\Security\Core\Exception\AuthenticationException;
+use Symfony\Component\Security\Core\Exception\BadCredentialsException;
 use Symfony\Component\Security\Core\Exception\CustomUserMessageAuthenticationException;
 use Symfony\Component\Security\Core\Exception\InvalidCsrfTokenException;
 use Symfony\Component\Security\Core\Security;
@@ -18,20 +18,14 @@ use Symfony\Component\Security\Core\User\UserProviderInterface;
 use Symfony\Component\Security\Csrf\CsrfToken;
 use Symfony\Component\Security\Csrf\CsrfTokenManagerInterface;
 use Symfony\Component\Security\Guard\Authenticator\AbstractFormLoginAuthenticator;
-use Symfony\Component\Security\Guard\PasswordAuthenticatedInterface;
-use Symfony\Component\Security\Guard\Token\PostAuthenticationGuardToken;
-use Symfony\Component\Security\Guard\Token\PreAuthenticationGuardToken;
 use Symfony\Component\Security\Http\Util\TargetPathTrait;
-use VentureLeap\LeapOneSymfonySdk\Exception\MfaAuthenticationException;
 use VentureLeap\LeapOneSymfonySdk\Model\User\User;
 use VentureLeap\LeapOneSymfonySdk\Services\User\ExtendedUserProviderInterface;
 use VentureLeap\LeapOneSymfonySdk\Services\User\UserManagerInterface;
 
-class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements PasswordAuthenticatedInterface
+class MfaAuthenticator extends AbstractFormLoginAuthenticator
 {
     use TargetPathTrait;
-
-    CONST MFA_USER_SESSION_KEY = 'MfaUser';
 
     private $urlGenerator;
     private $csrfTokenManager;
@@ -40,7 +34,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
      */
     private $userProvider;
     /**
-     * @var UserManager
+     * @var UserManagerInterface
      */
     private $userManager;
     /**
@@ -80,12 +74,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
     public function getCredentials(
         Request $request
     ): array {
-        $credentials = $request->request->get('user_login');
-        $credentials['userType'] = $this->userProvider->getUserType();
-        $request->getSession()->set(
-            Security::LAST_USERNAME,
-            $credentials['username']
-        );
+        $credentials = $request->request->get('mfa_check');
+
+        $credentials['username'] = $request->getSession()->get(Security::LAST_USERNAME);
 
         return $credentials;
     }
@@ -100,7 +91,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             throw new InvalidCsrfTokenException();
         }
 
-
         $user = $this->userProvider->loadUserByUsername($credentials['username']);
 
         if (null === $user) {
@@ -114,26 +104,13 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         $credentials,
         UserInterface $user
     ): bool {
-        $user = $this->userManager->authenticate($credentials);
+        try {
+            $user = $this->userManager->validateMFACode($user, $credentials['code']);
 
-        if ($user && $user->emailAuthEnabled()) {
-            $this->userManager->requestMFACode($user);
-
-            $mfaException = new MfaAuthenticationException();
-            $mfaException->setUser($user);
-            throw $mfaException;
+            return $user !== null;
+        } catch (NotFoundHttpException $e) {
+            throw new BadCredentialsException();
         }
-
-        return $user !== null;
-    }
-
-    /**
-     * Used to upgrade (rehash) the user's password automatically over time.
-     */
-    public function getPassword(
-        $credentials
-    ): ?string {
-        return $credentials['password'];
     }
 
     public function onAuthenticationSuccess(
@@ -141,6 +118,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         TokenInterface $token,
         $providerKey
     ) {
+        $request->getSession()->remove(LoginFormAuthenticator::MFA_USER_SESSION_KEY);
+
         if ($targetPath = $this->getTargetPath($request->getSession(), $providerKey)) {
             return new RedirectResponse($targetPath);
         }
@@ -148,18 +127,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         return new RedirectResponse($this->urlGenerator->generate($this->routeAfterLogin));
     }
 
-    public function onAuthenticationFailure(Request $request, AuthenticationException $exception)
-    {
-        if ($exception instanceof MfaAuthenticationException) {
-            $user = $exception->getUser();
-            $request->getSession()->set(self::MFA_USER_SESSION_KEY, $user);
-
-            $mfaUrl = $this->urlGenerator->generate($user->getUserType().'_mfa_check');
-            return new RedirectResponse($mfaUrl);
-        } else {
-            parent::onAuthenticationFailure($request, $exception);
-        }
-    }
 
     protected function getLoginUrl(): string
     {

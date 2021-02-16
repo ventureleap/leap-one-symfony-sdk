@@ -7,3 +7,4 @@ message:
     forgotPassword: 'Forgot password?'
     passwordResetSuccess: 'We have sent you an email with which you can reset your password'
     backToLogin: 'Back to login'
+    codeIsGeneratedLabel: 'We have generated a verification code. Please check your mailbox'
