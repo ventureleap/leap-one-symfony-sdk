@@ -53,9 +53,14 @@ class UserManager implements UserManagerInterface
     public function registerUser(User $leapOneUser): User
     {
         $leapOneApiUser = $this->autoMapper->map($leapOneUser, UserJsonldUserWrite::class);
-        $leapOneApiUserResponse = $this->userApi->postUserCollection(
-            $leapOneApiUser
-        );
+        try {
+            $leapOneApiUserResponse = $this->userApi->postUserCollection(
+                $leapOneApiUser
+            );
+        } catch (ApiException $e) {
+            $decodedError = json_decode($e->getResponseBody(), true);
+            throw new NotFoundHttpException($decodedError['hydra:description']);
+        }
         $leapOneUser->setUuid($leapOneApiUserResponse->getUuid());
 
         return $leapOneUser;
@@ -73,14 +78,24 @@ class UserManager implements UserManagerInterface
     public function updateUser(User $leapOneUser): User
     {
         $leapOneApiUser = $this->autoMapper->map($leapOneUser, UserJsonldUserWrite::class);
-        $leapOneApiUser = $this->userApi->putUserItem($leapOneUser->getUuid(), $leapOneApiUser);
+        try {
+            $leapOneApiUser = $this->userApi->putUserItem($leapOneUser->getUuid(), $leapOneApiUser);
+        } catch (ApiException $e) {
+            $decodedError = json_decode($e->getResponseBody(), true);
+            throw new NotFoundHttpException($decodedError['hydra:description']);
+        }
 
         return $this->autoMapper->map($leapOneApiUser, User::class);
     }
 
     public function getUserByUsername(string $username): ?User
     {
-        $usersForUsername = $this->userApi->getUserCollection($username);
+        try {
+            $usersForUsername = $this->userApi->getUserCollection($username);
+        } catch (ApiException $e) {
+            $decodedError = json_decode($e->getResponseBody(), true);
+            throw new NotFoundHttpException($decodedError['hydra:description']);
+        }
         $leapOneUser = $usersForUsername->getHydramember()[0] ?? null;
 
         return $this->autoMapper->map($leapOneUser, User::class);
