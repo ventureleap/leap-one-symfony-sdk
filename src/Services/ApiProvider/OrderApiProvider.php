@@ -10,7 +10,7 @@ use VentureLeap\OrderService\Api\OrderProductApi;
 use VentureLeap\OrderService\Api\OrderVoucherApi;
 use VentureLeap\OrderService\Api\VoucherApi;
 use VentureLeap\OrderService\Configuration;
-use VentureLeap\UserService\Api\ConfigurationEntryApi;
+use VentureLeap\OrderService\Api\ConfigurationEntryApi;
 
 class OrderApiProvider extends AbstractLeapOneApiProvider
 {

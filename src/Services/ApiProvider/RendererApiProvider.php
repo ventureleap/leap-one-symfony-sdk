@@ -6,7 +6,7 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 use VentureLeap\RendererService\Api\RenderApi;
 use VentureLeap\RendererService\Api\TemplateApi;
 use VentureLeap\RendererService\Configuration;
-use VentureLeap\UserService\Api\ConfigurationEntryApi;
+use VentureLeap\RendererService\Api\ConfigurationEntryApi;
 
 class RendererApiProvider extends AbstractLeapOneApiProvider
 {
