@@ -53,8 +53,14 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
+            /** TODO: This is a real time bomb */
+            $pathInfo = $request->getPathInfo();
+            $userType = explode("/", $pathInfo)[1];
+
             /** @var User $user */
             $user = $form->getData();
+
+            $user->setUserType($userType);
 
             try {
                 $response = $userManager->requestPasswordReset($user);
