@@ -6,7 +6,7 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 use VentureLeap\MessengerService\Api\MessageApi;
 use VentureLeap\MessengerService\Api\TemplateApi;
 use VentureLeap\MessengerService\Configuration;
-use VentureLeap\UserService\Api\ConfigurationEntryApi;
+use VentureLeap\MessengerService\Api\ConfigurationEntryApi;
 
 class MessengerApiProvider extends AbstractLeapOneApiProvider
 {
