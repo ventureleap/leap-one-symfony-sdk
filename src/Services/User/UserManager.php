@@ -131,6 +131,7 @@ class UserManager implements UserManagerInterface
     {
         $passwordRequest = new UserJsonldPasswordRequest();
         $passwordRequest->setEmail($user->getEmail());
+        $passwordRequest->setUserType($user->getUserType());
 
         try {
             $authResponse = $this->userApi->postPasswordRequest($passwordRequest);
