@@ -18,7 +18,7 @@ class Configuration implements ConfigurationInterface
 
         $rootNode
             ->children()
-            ->variableNode(static::ROUTE_AFTER_LOGIN_KEY)->defaultValue('account_profile_show')->end()
+            ->variableNode(static::ROUTE_AFTER_LOGIN_KEY)->defaultValue('leap_one_user_profile_show')->end()
             ->end();
 
         return $treeBuilder;

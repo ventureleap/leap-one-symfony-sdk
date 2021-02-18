@@ -13,3 +13,7 @@ leap_one_user_reset_password:
 leap_one_user_mfa_check:
   path: '/mfa-check'
   controller: VentureLeap\LeapOneSymfonySdk\Controller\UserController::mfaCheck
+
+leap_one_user_profile_show:
+  path: 'profile'
+  controller: VentureLeap\LeapOneSymfonySdk\Controller\UserController::profile

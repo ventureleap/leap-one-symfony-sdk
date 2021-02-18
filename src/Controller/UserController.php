@@ -96,4 +96,13 @@ class UserController extends AbstractController
             ]
         );
     }
+
+    public function profile()
+    {
+//        $user = $this->getUser();
+
+        return $this->render(
+            '@LeapOneSymfonySdk/User/profile.html.twig'
+        );
+    }
 }
