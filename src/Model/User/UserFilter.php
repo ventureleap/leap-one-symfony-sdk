@@ -4,11 +4,11 @@ namespace VentureLeap\LeapOneSymfonySdk\Model\User;
 
 class UserFilter
 {
-    protected ?string $username;
-    protected ?string $email;
-    protected ?string $firstName;
-    protected ?string $lastName;
-    protected ?string $userType;
+    protected ?string $username = null;
+    protected ?string $email = null;
+    protected ?string $firstName = null;
+    protected ?string $lastName = null;
+    protected ?string $userType = null;
     protected bool $active = true;
     protected bool $deleted = false;
     protected int $page = 1;
