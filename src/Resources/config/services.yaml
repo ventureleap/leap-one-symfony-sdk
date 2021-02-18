@@ -132,12 +132,19 @@ services:
   VentureLeap\RatingService\Api\RatingApi:
     factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\RatingApiProvider', 'getRatingApi' ]
 
+  leap_one.user_provider:
+    class: VentureLeap\LeapOneSymfonySdk\Services\User\UserProvider
+    public: true
+    arguments:
+      $userType: 'user'
+
   # FORM AUTHENTICATION
   leap_one.login_form_authenticator:
     class: VentureLeap\LeapOneSymfonySdk\Services\Security\LoginFormAuthenticator
     public: true
     arguments:
       $loginRoute: 'leap_one_user_login'
+      $userProvider: '@leap_one.user_provider'
     tags: [ 'leap_one.login_form_authenticators' ]
 
   # FORM AUTHENTICATION
@@ -146,5 +153,6 @@ services:
     public: true
     arguments:
       $loginRoute: 'leap_one_user_login'
+      $userProvider: '@leap_one.user_provider'
     tags: [ 'leap_one.login_form_authenticators' ]
 
