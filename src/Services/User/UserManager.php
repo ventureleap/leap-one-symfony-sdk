@@ -10,6 +10,8 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use VentureLeap\LeapOneSymfonySdk\Model\User\User;
+use VentureLeap\LeapOneSymfonySdk\Model\User\UserFilter;
+use VentureLeap\LeapOneSymfonySdk\Model\Util\Paginator;
 use VentureLeap\UserService\Api\SocialAuthenticationApi;
 use VentureLeap\UserService\Api\UserApi;
 use VentureLeap\UserService\ApiException;
@@ -206,5 +208,30 @@ class UserManager implements UserManagerInterface
         }
 
         return $this->autoMapper->map($response, User::class);
+    }
+
+    public function getPaginatedUsers(UserFilter $userFilter, string $targetClass = User::class): Paginator
+    {
+        try {
+            $userCollection = $this->userApi->getUserCollection(
+                $userFilter->getUsername(),
+                $userFilter->getEmail(),
+                $userFilter->getFirstName(),
+                $userFilter->getLastName(),
+                null,
+                $userFilter->getUserType(),
+                $userFilter->isActive(),
+                $userFilter->isDeleted(),
+                $userFilter->getPage(),
+                $userFilter->getItemsPerPage()
+            );
+        } catch (ApiException $e) {
+            $decodedError = json_decode($e->getResponseBody(), true);
+            throw new NotFoundHttpException($decodedError['hydra:description']);
+        }
+
+        $mappedUsers = $this->autoMapper->mapMultiple($userCollection->getHydramember(), $targetClass);
+
+        return new Paginator($mappedUsers, $userCollection->getHydratotalItems());
     }
 }
