@@ -135,8 +135,6 @@ services:
   leap_one.user_provider:
     class: VentureLeap\LeapOneSymfonySdk\Services\User\UserProvider
     public: true
-    arguments:
-      $userType: 'admin'
 
   # FORM AUTHENTICATION
   leap_one.login_form_authenticator:
@@ -147,7 +145,7 @@ services:
       $userProvider: '@leap_one.user_provider'
     tags: [ 'leap_one.login_form_authenticators' ]
 
-  # FORM AUTHENTICATION
+  # MFA AUTHENTICATION
   leap_one.mfa_authenticator:
     class: VentureLeap\LeapOneSymfonySdk\Services\Security\MfaAuthenticator
     public: true
