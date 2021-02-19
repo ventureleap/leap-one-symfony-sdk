@@ -150,7 +150,7 @@ services:
     class: VentureLeap\LeapOneSymfonySdk\Services\Security\MfaAuthenticator
     public: true
     arguments:
-      $loginRoute: 'leap_one_user_mfa_check'
+      $loginRoute: 'admin_mfa_check'
       $userProvider: '@leap_one.user_provider'
     tags: [ 'leap_one.login_form_authenticators' ]
 
