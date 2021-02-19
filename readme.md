@@ -30,8 +30,8 @@ LEAP_ONE_APP_SECRET='<your-app-id>'
             VentureLeap\LeapOneSymfony\Model\User\User:
                 algorithm: auto
         providers:
-            customer_provider:
-                id: VentureLeap\LeapOneSymfony\Services\User\UserProvider
+            user_provider:
+                id: leap_one.user_provider
         firewalls:
             dev:
                 pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -41,8 +41,10 @@ LEAP_ONE_APP_SECRET='<your-app-id>'
                 anonymous: true
                 lazy: true
                 guard:
-                    authenticators:
-                        - VentureLeap\LeapOneSymfony\Services\Security\LoginFormAuthenticator
+                   authenticators:
+                      - leap_one.login_form_authenticator
+                      - leap_one.mfa_authenticator
+                   entry_point: leap_one.login_form_authenticator
                 logout:
                     path: leap_one_user_logout
 ```
