@@ -4,7 +4,8 @@
     <div class="col-md-6 mx-auto">
         <h1>Profile</h1>
             {% if app.user %}
-                {{ app.user.name }}
+                Welcome
+                {{ app.user.username }}
             {% endif %}
     </div>
 {% endblock %}
