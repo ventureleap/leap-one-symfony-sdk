@@ -53,3 +53,60 @@ LEAP_ONE_APP_SECRET='<your-app-id>'
            - { path: ^/reset-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
            - { path: ^/, roles: ROLE_ADMIN }
 ```
+
+5. (optional) To allow multiple user types
+
+To allow your application to handle multiple types of users you'll need 3 steps.
+
+5.1 Create new services for the authenticators
+```yaml
+    leap_one_user.user_provider:
+        class: VentureLeap\LeapOneSymfonySdk\Services\User\UserProvider
+        public: true
+        arguments:
+            $userType: 'user'
+
+    leap_one_user.login_form_authenticator:
+        parent: leap_one.login_form_authenticator
+        arguments:
+            $loginRoute: 'leap_one_user_login.user'
+            $userProvider: '@leap_one_user.user_provider'
+
+    leap_one_user.mfa_authenticator:
+        parent: leap_one.mfa_authenticator
+        arguments:
+            $loginRoute: 'leap_one_user_mfa_check'
+            $userProvider: '@leap_one_user.user_provider'
+```
+
+5.2 Use the defined services in your security layer
+Add a new corresponding section to the firewall of your security.yaml, eg.:
+```yaml
+    user:
+        pattern: ^/user
+        lazy: true
+        anonymous: true
+        provider: user_user_provider
+        guard:
+            authenticators:
+                - leap_one_user.login_form_authenticator
+                - leap_one_user.mfa_authenticator
+            entry_point: leap_one_user.login_form_authenticator
+        logout:
+            path: leap_one_user_logout
+```
+Of course, you also need to complete your `access_control` logic covering the new routes.
+
+5.3 Your routes should have an additional section.
+This should contain the logic for a route prefix on which 
+you want to authenticate your users. The example below demonstrates how to add a new user type
+called `user`, which will be available under yourdomain.com/user 
+``````yaml
+  leap_one_php_sdk_user:
+    resource: "@LeapOneSymfonySdkBundle/Resources/config/routes.yaml"
+    defaults:
+      user_type: 'user'
+    prefix:
+      user: '/{user_type}'
+``````
+
