@@ -105,6 +105,12 @@ class UserConfig implements AutoMapperConfiguratorInterface
                 function (UserJsonldUserRead $userRead) {
                     return $userRead->getFailedLoginTime();
                 }
+            )
+            ->forMember(
+                'phoneNumber',
+                function (UserJsonldUserRead $userRead) {
+                    return $userRead->getPhoneNumber();
+                }
             );
 
         /**
@@ -137,6 +143,7 @@ class UserConfig implements AutoMapperConfiguratorInterface
                         'roles' => $source->getRoles(),
                         'user_type' => $source->getUserType(),
                         'custom_data' => $source->getCustomData(),
+                        'phone_number' => $source->getPhoneNumber()
                     ];
                 }
             );

@@ -10,6 +10,9 @@ use Psr\Log\LoggerInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Security\Core\User\UserInterface;
 use VentureLeap\LeapOneSymfonySdk\Model\User\User;
+use VentureLeap\LeapOneSymfonySdk\Model\User\UserFilter;
+use VentureLeap\LeapOneSymfonySdk\Model\Util\Paginator;
+use VentureLeap\UserService\Api\SocialAuthenticationApi;
 use VentureLeap\UserService\Api\UserApi;
 use VentureLeap\UserService\ApiException;
 use VentureLeap\UserService\Model\Credentials;
@@ -36,19 +39,30 @@ class UserManager implements UserManagerInterface
      */
     private $logger;
 
-    public function __construct(UserApi $userApi, AutoMapperInterface $autoMapper, LoggerInterface $logger)
+    /**
+     * @var SocialAuthenticationApi
+     */
+    private SocialAuthenticationApi $socialAuthenticationApi;
+
+    public function __construct(UserApi $userApi, SocialAuthenticationApi $socialAuthenticationApi, AutoMapperInterface $autoMapper, LoggerInterface $logger)
     {
         $this->userApi = $userApi;
         $this->autoMapper = $autoMapper;
         $this->logger = $logger;
+        $this->socialAuthenticationApi = $socialAuthenticationApi;
     }
 
     public function registerUser(User $leapOneUser): User
     {
         $leapOneApiUser = $this->autoMapper->map($leapOneUser, UserJsonldUserWrite::class);
-        $leapOneApiUserResponse = $this->userApi->postUserCollection(
-            $leapOneApiUser
-        );
+        try {
+            $leapOneApiUserResponse = $this->userApi->postUserCollection(
+                $leapOneApiUser
+            );
+        } catch (ApiException $e) {
+            $decodedError = json_decode($e->getResponseBody(), true);
+            throw new NotFoundHttpException($decodedError['hydra:description']);
+        }
         $leapOneUser->setUuid($leapOneApiUserResponse->getUuid());
 
         return $leapOneUser;
@@ -66,14 +80,24 @@ class UserManager implements UserManagerInterface
     public function updateUser(User $leapOneUser): User
     {
         $leapOneApiUser = $this->autoMapper->map($leapOneUser, UserJsonldUserWrite::class);
-        $leapOneApiUser = $this->userApi->putUserItem($leapOneUser->getUuid(), $leapOneApiUser);
+        try {
+            $leapOneApiUser = $this->userApi->putUserItem($leapOneUser->getUuid(), $leapOneApiUser);
+        } catch (ApiException $e) {
+            $decodedError = json_decode($e->getResponseBody(), true);
+            throw new NotFoundHttpException($decodedError['hydra:description']);
+        }
 
         return $this->autoMapper->map($leapOneApiUser, User::class);
     }
 
     public function getUserByUsername(string $username): ?User
     {
-        $usersForUsername = $this->userApi->getUserCollection($username);
+        try {
+            $usersForUsername = $this->userApi->getUserCollection($username);
+        } catch (ApiException $e) {
+            $decodedError = json_decode($e->getResponseBody(), true);
+            throw new NotFoundHttpException($decodedError['hydra:description']);
+        }
         $leapOneUser = $usersForUsername->getHydramember()[0] ?? null;
 
         return $this->autoMapper->map($leapOneUser, User::class);
@@ -109,6 +133,7 @@ class UserManager implements UserManagerInterface
     {
         $passwordRequest = new UserJsonldPasswordRequest();
         $passwordRequest->setEmail($user->getEmail());
+        $passwordRequest->setUserType($user->getUserType());
 
         try {
             $authResponse = $this->userApi->postPasswordRequest($passwordRequest);
@@ -160,5 +185,53 @@ class UserManager implements UserManagerInterface
         }
 
         return $this->autoMapper->map($response, User::class);
+    }
+
+    public function getPlatformAuthUrl(string $platform): string
+    {
+        try {
+            $socialAuthUrl = $this->socialAuthenticationApi->socialLoginGetAuthUrl($platform);
+        } catch (ApiException $e) {
+            $decodedError = json_decode($e->getResponseBody(), true);
+            throw new NotFoundHttpException($decodedError['hydra:description']);
+        }
+        return $socialAuthUrl->getLoginUrl();
+    }
+
+    public function getUserSocial(string $platform, string $state, string $code): ?User
+    {
+        try {
+            $response = $this->socialAuthenticationApi->socialLoginGetUser($platform, $state, $code);
+        } catch (ApiException $e) {
+            $decodedError = json_decode($e->getResponseBody(), true);
+            throw new NotFoundHttpException($decodedError['hydra:description']);
+        }
+
+        return $this->autoMapper->map($response, User::class);
+    }
+
+    public function getPaginatedUsers(UserFilter $userFilter, string $targetClass = User::class): Paginator
+    {
+        try {
+            $userCollection = $this->userApi->getUserCollection(
+                $userFilter->getUsername(),
+                $userFilter->getEmail(),
+                $userFilter->getFirstName(),
+                $userFilter->getLastName(),
+                null,
+                $userFilter->getUserType(),
+                $userFilter->isActive(),
+                $userFilter->isDeleted(),
+                $userFilter->getPage(),
+                $userFilter->getItemsPerPage()
+            );
+        } catch (ApiException $e) {
+            $decodedError = json_decode($e->getResponseBody(), true);
+            throw new NotFoundHttpException($decodedError['hydra:description']);
+        }
+
+        $mappedUsers = $this->autoMapper->mapMultiple($userCollection->getHydramember(), $targetClass);
+
+        return new Paginator($mappedUsers, $userCollection->getHydratotalItems());
     }
 }
