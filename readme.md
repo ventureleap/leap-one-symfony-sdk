@@ -30,8 +30,8 @@ LEAP_ONE_APP_SECRET='<your-app-id>'
             VentureLeap\LeapOneSymfony\Model\User\User:
                 algorithm: auto
         providers:
-            user_provider:
-                id: leap_one.user_provider
+           user_provider:
+              id: leap_one.user_provider
         firewalls:
             dev:
                 pattern: ^/(_(profiler|wdt)|css|images|js)/
@@ -40,6 +40,7 @@ LEAP_ONE_APP_SECRET='<your-app-id>'
                 pattern: /
                 anonymous: true
                 lazy: true
+                provider: user_provider
                 guard:
                    authenticators:
                       - leap_one.login_form_authenticator
@@ -80,7 +81,15 @@ To allow your application to handle multiple types of users you'll need 3 steps.
 ```
 
 5.2 Use the defined services in your security layer
-Add a new corresponding section to the firewall of your security.yaml, eg.:
+Add the new user provider to your security.yaml:
+```yaml
+    providers:
+        user_provider:
+            id: leap_one.user_provider
+        user_user_provider:
+            id: leap_one_user.user_provider
+```
+Add also the new corresponding section to the firewall, eg.:
 ```yaml
     user:
         pattern: ^/user
