@@ -47,4 +47,9 @@ LEAP_ONE_APP_SECRET='<your-app-id>'
                    entry_point: leap_one.login_form_authenticator
                 logout:
                     path: leap_one_user_logout
+        access_control:
+           - { path: ^/login, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+           - { path: ^/mfa-check, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+           - { path: ^/reset-password, roles: IS_AUTHENTICATED_ANONYMOUSLY }
+           - { path: ^/, roles: ROLE_ADMIN }
 ```
