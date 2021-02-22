@@ -81,6 +81,10 @@ class UserController extends AbstractController
             /** @var User $user */
             $user = $form->getData();
 
+            $routeParameters = $request->attributes->get('_route_params');
+            $userType = $routeParameters['user_type'] ?? User::DEFAULT_TYPE;
+            $user->setUserType($userType);
+
             try {
                 $userManager->requestPasswordReset($user);
                 return $this->render('@LeapOneSymfonySdk/User/passwordRequestSuccess.html.twig');
