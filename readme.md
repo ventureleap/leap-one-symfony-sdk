@@ -59,7 +59,20 @@ LEAP_ONE_APP_SECRET='<your-app-id>'
 
 To allow your application to handle multiple types of users you'll need 3 steps.
 
-5.1 Create new services for the authenticators
+5.1 Your routes should have an additional section.
+This should contain the logic for a route prefix on which
+you want to authenticate your users. The example below demonstrates how to add a new user type
+called `user`, which will be available under yourdomain.com/user
+``````yaml
+  leap_one_php_sdk_user:
+    resource: "@LeapOneSymfonySdkBundle/Resources/config/routes.yaml"
+    defaults:
+      user_type: 'user'
+    prefix:
+      user: '/{user_type}'
+``````
+
+5.2 Create new services for the authenticators
 ```yaml
     leap_one_user.user_provider:
         class: VentureLeap\LeapOneSymfonySdk\Services\User\UserProvider
@@ -80,7 +93,7 @@ To allow your application to handle multiple types of users you'll need 3 steps.
             $userProvider: '@leap_one_user.user_provider'
 ```
 
-5.2 Use the defined services in your security layer
+5.3 Use the defined services in your security layer
 Add the new user provider to your security.yaml:
 ```yaml
     providers:
@@ -105,17 +118,4 @@ Add also the new corresponding section to the firewall, eg.:
             path: leap_one_user_logout
 ```
 Of course, you also need to complete your `access_control` logic covering the new routes.
-
-5.3 Your routes should have an additional section.
-This should contain the logic for a route prefix on which 
-you want to authenticate your users. The example below demonstrates how to add a new user type
-called `user`, which will be available under yourdomain.com/user 
-``````yaml
-  leap_one_php_sdk_user:
-    resource: "@LeapOneSymfonySdkBundle/Resources/config/routes.yaml"
-    defaults:
-      user_type: 'user'
-    prefix:
-      user: '/{user_type}'
-``````
 
