@@ -154,7 +154,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
             $user = $exception->getUser();
             $request->getSession()->set(self::MFA_USER_SESSION_KEY, $user);
 
-            $mfaUrl = $this->urlGenerator->generate($user->getUserType().'_mfa_check');
+            $mfaUrl = $this->urlGenerator->generate('leapone_user_mfa_check');
             return new RedirectResponse($mfaUrl);
         } else {
             parent::onAuthenticationFailure($request, $exception);
