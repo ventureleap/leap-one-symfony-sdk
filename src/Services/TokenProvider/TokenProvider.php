@@ -60,12 +60,17 @@ class TokenProvider implements TokenProviderInterface
         }
 
         return $this->refreshToken(
-            $cacheItem,
-            $this->applicationId,
-            $this->applicationSecret
+            $cacheItem
         );
     }
 
+    public function updateCredentials(string $applicationId, string $applicationSecret): void
+    {
+        $this->applicationId = $applicationId;
+        $this->applicationSecret = $applicationSecret;
+
+        $this->cache->deleteItem('jwt_token');
+    }
 
     private function isCachedTokenValid(?string $token): bool
     {
@@ -85,12 +90,12 @@ class TokenProvider implements TokenProviderInterface
         return true;
     }
 
-    private function refreshToken(CacheItem $cacheItem, string $applicationId, string $applicationSecret): string
+    private function refreshToken(CacheItem $cacheItem): string
     {
         $credentials = new Credentials(
             [
-                'app_id' => $applicationId,
-                'app_secret' => $applicationSecret,
+                'app_id' => $this->applicationId,
+                'app_secret' => $this->applicationSecret,
             ]
         );
 
