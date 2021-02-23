@@ -113,7 +113,8 @@ class UserManager implements UserManagerInterface
         try {
             $authResponse = $this->userApi->postCredentialsItem($credential);
         } catch (ApiException $e) {
-            return null;
+            $decodedError = json_decode($e->getResponseBody(), true);
+            throw new NotFoundHttpException($decodedError['hydra:description']);
         }
 
         return $this->autoMapper->map($authResponse, User::class);

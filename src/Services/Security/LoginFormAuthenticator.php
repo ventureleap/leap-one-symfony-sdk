@@ -4,8 +4,10 @@
 namespace VentureLeap\LeapOneSymfonySdk\Services\Security;
 
 
+use AutoMapperPlus\Exception\UnregisteredMappingException;
 use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 use Symfony\Component\Security\Core\Authentication\Token\TokenInterface;
 use Symfony\Component\Security\Core\Encoder\UserPasswordEncoderInterface;
@@ -109,7 +111,11 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator implements P
         $credentials,
         UserInterface $user
     ): bool {
-        $user = $this->userManager->authenticate($credentials);
+        try {
+            $user = $this->userManager->authenticate($credentials);
+        } catch (NotFoundHttpException $e) {
+            throw new CustomUserMessageAuthenticationException($e->getMessage());
+        }
 
         return $user !== null;
     }
