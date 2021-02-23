@@ -3,6 +3,7 @@
 
 namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 
+use VentureLeap\ConfigurationService\Api\ApplicationApi;
 use VentureLeap\ConfigurationService\Api\ConfigurationEntryApi;
 use VentureLeap\ConfigurationService\Api\TokenApi;
 use VentureLeap\ConfigurationService\Configuration;
@@ -21,6 +22,11 @@ class ConfigurationApiProvider extends AbstractLeapOneApiProvider
     public function getTokenApi(): TokenApi
     {
         return new TokenApi(null, $this->getConfiguration());
+    }
+
+    public function getApplicationApi(): ApplicationApi
+    {
+        return new ApplicationApi(null, $this->getConfiguration());
     }
 
     public function setConfigurationEntry(ConfigurationEntry $configurationEntry): void
