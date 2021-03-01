@@ -1,6 +1,9 @@
 
 label:
     login: 'Login'
+    password: 'Password'
+    repeatPassword: 'Repeat Password'
+    resetPassword: 'Reset Password'
 
 message:
     provideEmail: 'Please enter your email'
@@ -8,3 +11,5 @@ message:
     passwordResetSuccess: 'We have sent you an email with which you can reset your password'
     backToLogin: 'Back to login'
     codeIsGeneratedLabel: 'We have generated a verification code. Please check your mailbox'
+    passwordsMustMatch: 'The given passwords are not identical'
+

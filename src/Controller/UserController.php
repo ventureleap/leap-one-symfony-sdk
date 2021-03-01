@@ -4,15 +4,19 @@
 namespace VentureLeap\LeapOneSymfonySdk\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security\FirewallConfig;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use VentureLeap\LeapOneSymfonySdk\Form\Type\MfaCheckType;
 use VentureLeap\LeapOneSymfonySdk\Form\Type\UserLoginType;
+use VentureLeap\LeapOneSymfonySdk\Form\Type\PasswordResetType;
 use VentureLeap\LeapOneSymfonySdk\Form\Type\UserPasswordRequestType;
 use VentureLeap\LeapOneSymfonySdk\Model\User\User;
 use VentureLeap\LeapOneSymfonySdk\Services\Security\LoginFormAuthenticator;
@@ -99,6 +103,46 @@ class UserController extends AbstractController
                 'form' => $form->createView()
             ]
         );
+    }
+
+    public function passwordResetByToken(
+        Request $request,
+        string $token,
+        UserManager $userManager,
+        LoginFormAuthenticator $authenticator,
+        GuardAuthenticatorHandler $guardHandler,
+        FirewallConfig $firewallConfig
+    ): Response
+    {
+        if (strlen($token) < 10) {
+            throw new NotFoundHttpException();
+        }
+
+        $user = $userManager->getUserByToken($token);
+
+        if (null === $user) {
+            throw new NotFoundHttpException();
+        }
+
+        $passwordEditForm = $this->createForm(PasswordResetType::class, $user);
+        $passwordEditForm->handleRequest($request);
+
+        if ($passwordEditForm->isSubmitted() && $passwordEditForm->isValid()) {
+            $userManager->updateUser($user);
+
+            $this->addFlash('success', 'flash.passwordSaved');
+
+            return $guardHandler->authenticateUserAndHandleSuccess(
+                $user,
+                $request,
+                $authenticator,
+                $firewallConfig->getName()
+            );
+        }
+
+        return $this->render('user/passwordReset.html.twig', [
+            'form' => $passwordEditForm->createView(),
+        ]);
     }
 
     public function profile()
