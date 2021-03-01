@@ -4,7 +4,7 @@
 namespace VentureLeap\LeapOneSymfonySdk\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Bundle\SecurityBundle\Security\FirewallConfig;
+use Symfony\Bundle\SecurityBundle\Security\FirewallMap;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
@@ -111,7 +111,7 @@ class UserController extends AbstractController
         UserManager $userManager,
         LoginFormAuthenticator $authenticator,
         GuardAuthenticatorHandler $guardHandler,
-        FirewallConfig $firewallConfig
+        FirewallMap $firewallMap
     ): Response
     {
         if (strlen($token) < 10) {
@@ -132,6 +132,8 @@ class UserController extends AbstractController
 
             $this->addFlash('success', 'flash.passwordSaved');
 
+            $firewallConfig = $firewallMap->getFirewallConfig($request);
+
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
                 $request,
@@ -140,7 +142,7 @@ class UserController extends AbstractController
             );
         }
 
-        return $this->render('user/passwordReset.html.twig', [
+        return $this->render('@LeapOneSymfonySdk/User/passwordReset.html.twig', [
             'form' => $passwordEditForm->createView(),
         ]);
     }

@@ -154,3 +154,9 @@ services:
       $userProvider: '@leap_one.user_provider'
     tags: [ 'leap_one.login_form_authenticators' ]
 
+  VentureLeap\LeapOneSymfonySdk\Services\Security\LoginFormAuthenticator: '@leap_one.login_form_authenticator'
+
+  VentureLeap\LeapOneSymfonySdk\Services\Security\MfaAuthenticator: '@leap_one.mfa_authenticator'
+
+  Symfony\Bundle\SecurityBundle\Security\FirewallMap: '@security.firewall.map'
+
