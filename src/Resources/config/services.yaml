@@ -141,6 +141,7 @@ services:
     class: VentureLeap\LeapOneSymfonySdk\Services\Security\LoginFormAuthenticator
     public: true
     arguments:
+      $routeAfterLogin: 'leap_one_user_profile_show'
       $loginRoute: 'leap_one_user_login'
       $userProvider: '@leap_one.user_provider'
     tags: [ 'leap_one.login_form_authenticators' ]
@@ -150,13 +151,9 @@ services:
     class: VentureLeap\LeapOneSymfonySdk\Services\Security\MfaAuthenticator
     public: true
     arguments:
+      $routeAfterLogin: 'leap_one_user_profile_show'
       $loginRoute: 'leap_one_user_mfa_check'
       $userProvider: '@leap_one.user_provider'
     tags: [ 'leap_one.login_form_authenticators' ]
 
-  VentureLeap\LeapOneSymfonySdk\Services\Security\LoginFormAuthenticator: '@leap_one.login_form_authenticator'
-
-  VentureLeap\LeapOneSymfonySdk\Services\Security\MfaAuthenticator: '@leap_one.mfa_authenticator'
-
   Symfony\Bundle\SecurityBundle\Security\FirewallMap: '@security.firewall.map'
-
