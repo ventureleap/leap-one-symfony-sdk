@@ -3,6 +3,8 @@
 
 namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\Messenger\Message;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\Messenger\Template;
 use VentureLeap\MessengerService\Api\MessageApi;
 use VentureLeap\MessengerService\Api\TemplateApi;
 use VentureLeap\MessengerService\Configuration;
@@ -16,13 +18,13 @@ class MessengerApiProvider extends AbstractLeapOneApiProvider
 
     protected static $CONFIGURATION_ENTRY_API_CLASS = ConfigurationEntryApi::class;
 
-    public function getMessageApi(): MessageApi
+    public function getMessageApi(): Message
     {
-        return new MessageApi(null, $this->getConfiguration());
+        return new Message(null, $this->getConfiguration());
     }
 
-    public function getTemplateApi(): TemplateApi
+    public function getTemplateApi(): Template
     {
-        return new TemplateApi(null, $this->getConfiguration());
+        return new Template(null, $this->getConfiguration());
     }
 }
