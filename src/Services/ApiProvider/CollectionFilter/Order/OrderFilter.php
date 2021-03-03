@@ -30,7 +30,7 @@ class OrderFilter
     private ?string $orderOrderCode;
     private ?string $orderCustomerUuid;
     private int $page = 1;
-    private int $itemsPerPage = 30;
+    private ?int $itemsPerPage;
     private ?string $pagination;
 
     public function getProperties(): ?array
@@ -273,12 +273,12 @@ class OrderFilter
         $this->page = $page;
     }
 
-    public function getItemsPerPage(): int
+    public function getItemsPerPage(): ?int
     {
         return $this->itemsPerPage;
     }
 
-    public function setItemsPerPage(int $itemsPerPage): void
+    public function setItemsPerPage(?int $itemsPerPage): void
     {
         $this->itemsPerPage = $itemsPerPage;
     }
