@@ -16,8 +16,6 @@ use VentureLeap\UserService\ApiException;
 class UserProvider implements ExtendedUserProviderInterface
 {
 
-    const DEFAULT_USER_TYPE = 'admin';
-
     /**
      * @var UserApi
      */
@@ -32,7 +30,7 @@ class UserProvider implements ExtendedUserProviderInterface
     public function __construct(
         AutoMapperInterface $autoMapper,
         UserApi $userApi,
-        string $userType = self::DEFAULT_USER_TYPE
+        string $userType = User::DEFAULT_TYPE
     ) {
         $this->userApi = $userApi;
         $this->autoMapper = $autoMapper;

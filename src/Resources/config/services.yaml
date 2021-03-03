@@ -132,11 +132,28 @@ services:
   VentureLeap\RatingService\Api\RatingApi:
     factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\RatingApiProvider', 'getRatingApi' ]
 
+  leap_one.user_provider:
+    class: VentureLeap\LeapOneSymfonySdk\Services\User\UserProvider
+    public: true
+
   # FORM AUTHENTICATION
   leap_one.login_form_authenticator:
     class: VentureLeap\LeapOneSymfonySdk\Services\Security\LoginFormAuthenticator
     public: true
     arguments:
+      $routeAfterLogin: 'leap_one_user_profile_show'
       $loginRoute: 'leap_one_user_login'
+      $userProvider: '@leap_one.user_provider'
     tags: [ 'leap_one.login_form_authenticators' ]
 
+  # MFA AUTHENTICATION
+  leap_one.mfa_authenticator:
+    class: VentureLeap\LeapOneSymfonySdk\Services\Security\MfaAuthenticator
+    public: true
+    arguments:
+      $routeAfterLogin: 'leap_one_user_profile_show'
+      $loginRoute: 'leap_one_user_mfa_check'
+      $userProvider: '@leap_one.user_provider'
+    tags: [ 'leap_one.login_form_authenticators' ]
+
+  Symfony\Bundle\SecurityBundle\Security\FirewallMap: '@security.firewall.map'

@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="col-md-6 mx-auto">
+        <div class="card">
+            <div class="card-body">
+                <h4 class="card-title text-center py-3 font-weight-bold">
+                {{ 'label.codeIsGeneratedLabel' | trans }}
+                </h4>
+                {% if error %}
+                    <div class="alert alert-danger">{{ error.messageKey|trans(error.messageData, 'security') }}</div>
+                {% endif %}
+                {{ form(form) }}
+            </div>
+        </div>
+    </div>
+{% endblock %}
