@@ -1,6 +1,7 @@
 {
   "name": "ventureleap/leap-one-symfony-sdk",
   "type": "symfony-bundle",
+  "description": "Venture Leap Symfony SDK - connect to Leap.ONE APIs and authenticate easily",
   "authors": [
     {
       "name": "Venture Leap",
@@ -9,7 +10,7 @@
   ],
   "config": {
     "platform": {
-      "php": "~7.4"
+      "php": "7.4.13"
     }
   },
   "require": {
