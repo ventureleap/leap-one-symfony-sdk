@@ -7,6 +7,11 @@
       "email": "hello@venture-leap.com"
     }
   ],
+  "config": {
+    "platform": {
+      "php": "~7.4"
+    }
+  },
   "require": {
     "ext-json": "*",
     "ventureleap/leap-one-plain-php-sdk": "dev-main",
