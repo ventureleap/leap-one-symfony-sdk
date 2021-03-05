@@ -7,21 +7,21 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\CollectionFilter\Or
 class OrderVoucherFilter
 {
     private ?array $properties;
-    private ?string $custom_data; 
+    private ?string $customData;
     private ?bool $active;
     private ?bool $deleted;
-    private ?string $created_at_before; 
-    private ?string $created_at_strictly_before; 
-    private ?string $created_at_after; 
-    private ?string $created_at_strictly_after; 
-    private ?string $updated_at_before; 
-    private ?string $updated_at_strictly_before; 
-    private ?string $updated_at_after; 
-    private ?string $updated_at_strictly_after; 
-    private ?string $order_created_at; 
-    private ?string $order_updated_at; 
-    private ?string $order_active; 
-    private ?string $order_deleted; 
+    private ?string $createdAtBefore;
+    private ?string $createdAtStrictlyBefore;
+    private ?string $createdAtAfter;
+    private ?string $createdAtStrictlyAfter;
+    private ?string $updatedAtBefore;
+    private ?string $updatedAtStrictlyBefore;
+    private ?string $updatedAtAfter;
+    private ?string $updatedAtStrictlyAfter;
+    private ?string $orderCreatedAt;
+    private ?string $orderUpdatedAt;
+    private ?string $orderActive;
+    private ?string $orderDeleted;
     private int $page = 1;
 
     public function getProperties(): ?array
@@ -36,12 +36,12 @@ class OrderVoucherFilter
 
     public function getCustomData(): ?string
     {
-        return $this->custom_data;
+        return $this->customData;
     }
 
-    public function setCustomData(?string $custom_data): void
+    public function setCustomData(?string $customData): void
     {
-        $this->custom_data = $custom_data;
+        $this->customData = $customData;
     }
 
     public function getActive(): ?bool
@@ -66,122 +66,122 @@ class OrderVoucherFilter
 
     public function getCreatedAtBefore(): ?string
     {
-        return $this->created_at_before;
+        return $this->createdAtBefore;
     }
 
-    public function setCreatedAtBefore(?string $created_at_before): void
+    public function setCreatedAtBefore(?string $createdAtBefore): void
     {
-        $this->created_at_before = $created_at_before;
+        $this->createdAtBefore = $createdAtBefore;
     }
 
     public function getCreatedAtStrictlyBefore(): ?string
     {
-        return $this->created_at_strictly_before;
+        return $this->createdAtStrictlyBefore;
     }
 
-    public function setCreatedAtStrictlyBefore(?string $created_at_strictly_before): void
+    public function setCreatedAtStrictlyBefore(?string $createdAtStrictlyBefore): void
     {
-        $this->created_at_strictly_before = $created_at_strictly_before;
+        $this->createdAtStrictlyBefore = $createdAtStrictlyBefore;
     }
 
     public function getCreatedAtAfter(): ?string
     {
-        return $this->created_at_after;
+        return $this->createdAtAfter;
     }
 
-    public function setCreatedAtAfter(?string $created_at_after): void
+    public function setCreatedAtAfter(?string $createdAtAfter): void
     {
-        $this->created_at_after = $created_at_after;
+        $this->createdAtAfter = $createdAtAfter;
     }
 
     public function getCreatedAtStrictlyAfter(): ?string
     {
-        return $this->created_at_strictly_after;
+        return $this->createdAtStrictlyAfter;
     }
 
-    public function setCreatedAtStrictlyAfter(?string $created_at_strictly_after): void
+    public function setCreatedAtStrictlyAfter(?string $createdAtStrictlyAfter): void
     {
-        $this->created_at_strictly_after = $created_at_strictly_after;
+        $this->createdAtStrictlyAfter = $createdAtStrictlyAfter;
     }
 
     public function getUpdatedAtBefore(): ?string
     {
-        return $this->updated_at_before;
+        return $this->updatedAtBefore;
     }
 
-    public function setUpdatedAtBefore(?string $updated_at_before): void
+    public function setUpdatedAtBefore(?string $updatedAtBefore): void
     {
-        $this->updated_at_before = $updated_at_before;
+        $this->updatedAtBefore = $updatedAtBefore;
     }
 
     public function getUpdatedAtStrictlyBefore(): ?string
     {
-        return $this->updated_at_strictly_before;
+        return $this->updatedAtStrictlyBefore;
     }
 
-    public function setUpdatedAtStrictlyBefore(?string $updated_at_strictly_before): void
+    public function setUpdatedAtStrictlyBefore(?string $updatedAtStrictlyBefore): void
     {
-        $this->updated_at_strictly_before = $updated_at_strictly_before;
+        $this->updatedAtStrictlyBefore = $updatedAtStrictlyBefore;
     }
 
     public function getUpdatedAtAfter(): ?string
     {
-        return $this->updated_at_after;
+        return $this->updatedAtAfter;
     }
 
-    public function setUpdatedAtAfter(?string $updated_at_after): void
+    public function setUpdatedAtAfter(?string $updatedAtAfter): void
     {
-        $this->updated_at_after = $updated_at_after;
+        $this->updatedAtAfter = $updatedAtAfter;
     }
 
     public function getUpdatedAtStrictlyAfter(): ?string
     {
-        return $this->updated_at_strictly_after;
+        return $this->updatedAtStrictlyAfter;
     }
 
-    public function setUpdatedAtStrictlyAfter(?string $updated_at_strictly_after): void
+    public function setUpdatedAtStrictlyAfter(?string $updatedAtStrictlyAfter): void
     {
-        $this->updated_at_strictly_after = $updated_at_strictly_after;
+        $this->updatedAtStrictlyAfter = $updatedAtStrictlyAfter;
     }
 
     public function getOrderCreatedAt(): ?string
     {
-        return $this->order_created_at;
+        return $this->orderCreatedAt;
     }
 
-    public function setOrderCreatedAt(?string $order_created_at): void
+    public function setOrderCreatedAt(?string $orderCreatedAt): void
     {
-        $this->order_created_at = $order_created_at;
+        $this->orderCreatedAt = $orderCreatedAt;
     }
 
     public function getOrderUpdatedAt(): ?string
     {
-        return $this->order_updated_at;
+        return $this->orderUpdatedAt;
     }
 
-    public function setOrderUpdatedAt(?string $order_updated_at): void
+    public function setOrderUpdatedAt(?string $orderUpdatedAt): void
     {
-        $this->order_updated_at = $order_updated_at;
+        $this->orderUpdatedAt = $orderUpdatedAt;
     }
 
     public function getOrderActive(): ?string
     {
-        return $this->order_active;
+        return $this->orderActive;
     }
 
-    public function setOrderActive(?string $order_active): void
+    public function setOrderActive(?string $orderActive): void
     {
-        $this->order_active = $order_active;
+        $this->orderActive = $orderActive;
     }
 
     public function getOrderDeleted(): ?string
     {
-        return $this->order_deleted;
+        return $this->orderDeleted;
     }
 
-    public function setOrderDeleted(?string $order_deleted): void
+    public function setOrderDeleted(?string $orderDeleted): void
     {
-        $this->order_deleted = $order_deleted;
+        $this->orderDeleted = $orderDeleted;
     }
 
     public function getPage(): int
