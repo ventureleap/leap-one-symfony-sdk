@@ -5,10 +5,10 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 
 
 use VentureLeap\ProductService\Api\ConfigurationEntryApi;
-use VentureLeap\ProductService\Api\PriceListApi;
-use VentureLeap\ProductService\Api\PriceListProductApi;
-use VentureLeap\ProductService\Api\ProductApi;
-use VentureLeap\ProductService\Api\ProductCategoryApi;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\Product\Product;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\Product\ProductCategory;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\Product\PriceList;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\Product\PriceListProduct;
 use VentureLeap\ProductService\Configuration;
 
 class ProductApiProvider extends AbstractLeapOneApiProvider
@@ -19,23 +19,23 @@ class ProductApiProvider extends AbstractLeapOneApiProvider
 
     protected static $CONFIGURATION_ENTRY_API_CLASS = ConfigurationEntryApi::class;
 
-    public function getProductApi(): ProductApi
+    public function getProductApi(): Product
     {
-        return new ProductApi(null, $this->getConfiguration());
+        return new Product(null, $this->getConfiguration());
     }
 
-    public function getProductCategoryApi(): ProductCategoryApi
+    public function getProductCategoryApi(): ProductCategory
     {
-        return new ProductCategoryApi(null, $this->getConfiguration());
+        return new ProductCategory(null, $this->getConfiguration());
     }
 
-    public function getPriceListProductApi(): PriceListProductApi
+    public function getPriceListProductApi(): PriceListProduct
     {
-        return new PriceListProductApi(null, $this->getConfiguration());
+        return new PriceListProduct(null, $this->getConfiguration());
     }
 
-    public function getPriceListApi(): PriceListApi
+    public function getPriceListApi(): PriceList
     {
-        return new PriceListApi(null, $this->getConfiguration());
+        return new PriceList(null, $this->getConfiguration());
     }
 }
