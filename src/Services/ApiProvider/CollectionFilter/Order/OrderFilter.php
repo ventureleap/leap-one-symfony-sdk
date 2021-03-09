@@ -16,8 +16,12 @@ class OrderFilter
     private ?string $status;
     private ?string $paymentStatus;
     private ?string $customerUuid;
+    private ?string $payment_provider;
+    private ?string $payment_method;
+    private ?string $payment_comment;
     private ?bool $active;
     private ?bool $deleted;
+    private ?bool $isBToB;
     private ?string $dateOfValidityBefore;
     private ?string $dateOfValidityStrictlyBefore;
     private ?string $dateOfValidityAfter;
@@ -133,6 +137,36 @@ class OrderFilter
         $this->customerUuid = $customerUuid;
     }
 
+    public function getPaymentProvider(): ?string
+    {
+        return $this->payment_provider;
+    }
+
+    public function setPaymentProvider(?string $payment_provider): void
+    {
+        $this->payment_provider = $payment_provider;
+    }
+
+    public function getPaymentMethod(): ?string
+    {
+        return $this->payment_method;
+    }
+
+    public function setPaymentMethod(?string $payment_method): void
+    {
+        $this->payment_method = $payment_method;
+    }
+
+    public function getPaymentComment(): ?string
+    {
+        return $this->payment_comment;
+    }
+
+    public function setPaymentComment(?string $payment_comment): void
+    {
+        $this->payment_comment = $payment_comment;
+    }
+
     public function getActive(): ?bool
     {
         return $this->active;
@@ -151,6 +185,16 @@ class OrderFilter
     public function setDeleted(?bool $deleted): void
     {
         $this->deleted = $deleted;
+    }
+
+    public function getIsBToB(): ?bool
+    {
+        return $this->isBToB;
+    }
+
+    public function setIsBToB(?bool $isBToB): void
+    {
+        $this->isBToB = $isBToB;
     }
 
     public function getDateOfValidityBefore(): ?string
