@@ -3,11 +3,11 @@
 
 namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 
-use VentureLeap\UserService\Api\AccountApi;
-use VentureLeap\UserService\Api\AddressApi;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\User\User;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\User\Account;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\User\Address;
 use VentureLeap\UserService\Api\ConfigurationEntryApi;
 use VentureLeap\UserService\Api\SocialAuthenticationApi;
-use VentureLeap\UserService\Api\UserApi;
 use VentureLeap\UserService\Configuration;
 
 class UserApiProvider extends AbstractLeapOneApiProvider
@@ -18,9 +18,9 @@ class UserApiProvider extends AbstractLeapOneApiProvider
 
     protected static $CONFIGURATION_ENTRY_API_CLASS = ConfigurationEntryApi::class;
 
-    public function getUserApi(): UserApi
+    public function getUserApi(): User
     {
-        return new UserApi(null, $this->getConfiguration());
+        return new User(null, $this->getConfiguration());
     }
 
     public function getSocialAuthenticationApi(): SocialAuthenticationApi
@@ -28,13 +28,13 @@ class UserApiProvider extends AbstractLeapOneApiProvider
         return new SocialAuthenticationApi(null, $this->getConfiguration());
     }
 
-    public function getAccountApi(): AccountApi
+    public function getAccountApi(): Account
     {
-        return new AccountApi(null, $this->getConfiguration());
+        return new Account(null, $this->getConfiguration());
     }
 
-    public function getAddressApi(): AddressApi
+    public function getAddressApi(): Address
     {
-        return new AddressApi(null, $this->getConfiguration());
+        return new Address(null, $this->getConfiguration());
     }
 }

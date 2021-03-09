@@ -3,8 +3,8 @@
 
 namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 
-use VentureLeap\RendererService\Api\RenderApi;
-use VentureLeap\RendererService\Api\TemplateApi;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\Renderer\Render;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\Renderer\Template;
 use VentureLeap\RendererService\Configuration;
 use VentureLeap\RendererService\Api\ConfigurationEntryApi;
 
@@ -16,13 +16,13 @@ class RendererApiProvider extends AbstractLeapOneApiProvider
 
     protected static $CONFIGURATION_ENTRY_API_CLASS = ConfigurationEntryApi::class;
 
-    public function getTemplateApi(): TemplateApi
+    public function getTemplateApi(): Template
     {
-        return new TemplateApi(null, $this->getConfiguration());
+        return new Template(null, $this->getConfiguration());
     }
 
-    public function getRenderApi(): RenderApi
+    public function getRenderApi(): Render
     {
-        return new RenderApi(null, $this->getConfiguration());
+        return new Render(null, $this->getConfiguration());
     }
 }

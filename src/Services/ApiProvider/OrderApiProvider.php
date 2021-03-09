@@ -4,11 +4,10 @@
 namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 
 
-
-use VentureLeap\OrderService\Api\OrderApi;
-use VentureLeap\OrderService\Api\OrderProductApi;
-use VentureLeap\OrderService\Api\OrderVoucherApi;
-use VentureLeap\OrderService\Api\VoucherApi;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\Order\Order;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\Order\OrderProduct;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\Order\OrderVoucher;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\Order\Voucher;
 use VentureLeap\OrderService\Configuration;
 use VentureLeap\OrderService\Api\ConfigurationEntryApi;
 
@@ -20,23 +19,23 @@ class OrderApiProvider extends AbstractLeapOneApiProvider
 
     protected static $CONFIGURATION_ENTRY_API_CLASS = ConfigurationEntryApi::class;
 
-    public function getOrderApi(): OrderApi
+    public function getOrderApi(): Order
     {
-        return new OrderApi(null, $this->getConfiguration());
+        return new Order(null, $this->getConfiguration());
     }
 
-    public function getOrderProductApi(): OrderProductApi
+    public function getOrderProductApi(): OrderProduct
     {
-        return new OrderProductApi(null, $this->getConfiguration());
+        return new OrderProduct(null, $this->getConfiguration());
     }
 
-    public function getVoucherApi(): VoucherApi
+    public function getVoucherApi(): Voucher
     {
-        return new VoucherApi(null, $this->getConfiguration());
+        return new Voucher(null, $this->getConfiguration());
     }
 
-    public function getOrderVoucherApi(): OrderVoucherApi
+    public function getOrderVoucherApi(): OrderVoucher
     {
-        return new OrderVoucherApi(null, $this->getConfiguration());
+        return new OrderVoucher(null, $this->getConfiguration());
     }
 }

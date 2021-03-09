@@ -6,6 +6,7 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 use VentureLeap\RatingService\Configuration;
 use VentureLeap\RatingService\Api\RatingApi;
 use VentureLeap\RatingService\Api\ConfigurationEntryApi;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\Rating\Rating;
 
 class RatingApiProvider extends AbstractLeapOneApiProvider
 {
@@ -15,8 +16,8 @@ class RatingApiProvider extends AbstractLeapOneApiProvider
 
     protected static $CONFIGURATION_ENTRY_API_CLASS = ConfigurationEntryApi::class;
 
-    public function getRatingApi(): RatingApi
+    public function getRatingApi(): Rating
     {
-        return new RatingApi(null, $this->getConfiguration());
+        return new Rating(null, $this->getConfiguration());
     }
 }

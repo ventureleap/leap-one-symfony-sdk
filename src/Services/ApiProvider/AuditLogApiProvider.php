@@ -7,6 +7,7 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 use VentureLeap\AuditLogService\Api\AuditLogEntryApi;
 use VentureLeap\AuditLogService\Api\ConfigurationEntryApi;
 use VentureLeap\AuditLogService\Configuration;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\AuditLog\AuditLogEntry;
 
 class AuditLogApiProvider extends AbstractLeapOneApiProvider
 {
@@ -16,8 +17,8 @@ class AuditLogApiProvider extends AbstractLeapOneApiProvider
 
     protected static $CONFIGURATION_ENTRY_API_CLASS = ConfigurationEntryApi::class;
 
-    public function getAuditLogEntryApi(): AuditLogEntryApi
+    public function getAuditLogEntryApi(): AuditLogEntry
     {
-        return new AuditLogEntryApi(null, $this->getConfiguration());
+        return new AuditLogEntry(null, $this->getConfiguration());
     }
 }
