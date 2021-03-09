@@ -9,7 +9,7 @@ class OrderProduct extends OrderProductApi
 {
     public function getFilteredCollectionWithHttpInfo(OrderProductFilter $filter)
     {
-        $this->getOrderProductCollectionWithHttpInfo(
+        return $this->getOrderProductCollectionWithHttpInfo(
             $filter->getProperties(),
             $filter->getName(),
             $filter->getUom(),
@@ -20,7 +20,7 @@ class OrderProduct extends OrderProductApi
 
     public function  getFilteredCollection(OrderProductFilter $filter)
     {
-        $this->getOrderProductCollection(
+        return $this->getOrderProductCollection(
             $filter->getProperties(),
             $filter->getName(),
             $filter->getUom(),

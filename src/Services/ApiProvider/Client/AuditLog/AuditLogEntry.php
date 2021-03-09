@@ -9,7 +9,7 @@ class AuditLogEntry extends AuditLogEntryApi
 {
     public function getFilteredCollectionWithHttpInfo(AuditLogEntryFilter $filter)
     {
-        $this->getAuditLogEntryCollectionWithHttpInfo(
+        return $this->getAuditLogEntryCollectionWithHttpInfo(
             $filter->getEntityUuid(),
             $filter->getUserUuid(),
             $filter->getEntityType(),
@@ -29,7 +29,7 @@ class AuditLogEntry extends AuditLogEntryApi
 
     public function getFilteredCollection(AuditLogEntryFilter $filter)
     {
-        $this->getAuditLogEntryCollection(
+        return $this->getAuditLogEntryCollection(
             $filter->getEntityUuid(),
             $filter->getUserUuid(),
             $filter->getEntityType(),

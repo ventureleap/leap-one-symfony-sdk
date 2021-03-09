@@ -9,7 +9,7 @@ class Render extends RenderApi
 {
     public function getFilteredCollectionWithHttpInfo(RenderFilter $filter)
     {
-        $this->getRenderCollectionWithHttpInfo(
+        return $this->getRenderCollectionWithHttpInfo(
             $filter->getProperties(),
             $filter->getCustomData(),
             $filter->getFileName(),
@@ -28,7 +28,7 @@ class Render extends RenderApi
 
     public function getFilteredCollection(RenderFilter $filter)
     {
-        $this->getRenderCollection(
+        return $this->getRenderCollection(
             $filter->getProperties(),
             $filter->getCustomData(),
             $filter->getFileName(),

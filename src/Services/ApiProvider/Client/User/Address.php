@@ -9,7 +9,7 @@ class Address extends AddressApi
 {
     public function getFilteredCollectionWithHttpInfo(AddressFilter $filter)
     {
-        $this->getAddressCollectionWithHttpInfo(
+        return $this->getAddressCollectionWithHttpInfo(
             $filter->getPage(),
             $filter->getItemsPerPage(),
             $filter->getPagination()
@@ -18,8 +18,10 @@ class Address extends AddressApi
 
     public function  getFilteredCollection(AddressFilter $filter)
     {
-        $this->getUserCollection(
-
+        return $this->getAddressCollection(
+            $filter->getPage(),
+            $filter->getItemsPerPage(),
+            $filter->getPagination()
         );
     }
 }
