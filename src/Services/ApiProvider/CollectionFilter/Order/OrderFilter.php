@@ -16,9 +16,9 @@ class OrderFilter
     private ?string $status = null;
     private ?string $paymentStatus = null;
     private ?string $customerUuid = null;
-    private ?string $payment_provider = null;
-    private ?string $payment_method = null;
-    private ?string $payment_comment = null;
+    private ?string $paymentProvider = null;
+    private ?string $paymentMethod = null;
+    private ?string $paymentComment = null;
     private ?bool $active = null;
     private ?bool $deleted = null;
     private ?bool $isBToB = null;
@@ -139,32 +139,32 @@ class OrderFilter
 
     public function getPaymentProvider(): ?string
     {
-        return $this->payment_provider;
+        return $this->paymentProvider;
     }
 
-    public function setPaymentProvider(?string $payment_provider): void
+    public function setPaymentProvider(?string $paymentProvider): void
     {
-        $this->payment_provider = $payment_provider;
+        $this->paymentProvider = $paymentProvider;
     }
 
     public function getPaymentMethod(): ?string
     {
-        return $this->payment_method;
+        return $this->paymentMethod;
     }
 
-    public function setPaymentMethod(?string $payment_method): void
+    public function setPaymentMethod(?string $paymentMethod): void
     {
-        $this->payment_method = $payment_method;
+        $this->paymentMethod = $paymentMethod;
     }
 
     public function getPaymentComment(): ?string
     {
-        return $this->payment_comment;
+        return $this->paymentComment;
     }
 
-    public function setPaymentComment(?string $payment_comment): void
+    public function setPaymentComment(?string $paymentComment): void
     {
-        $this->payment_comment = $payment_comment;
+        $this->paymentComment = $paymentComment;
     }
 
     public function getActive(): ?bool
