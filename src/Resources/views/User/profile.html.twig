@@ -1,0 +1,11 @@
+{% extends 'base.html.twig' %}
+
+{% block content %}
+    <div class="col-md-6 mx-auto">
+        <h1>Profile</h1>
+            {% if app.user %}
+                Welcome
+                {{ app.user.username }}
+            {% endif %}
+    </div>
+{% endblock %}

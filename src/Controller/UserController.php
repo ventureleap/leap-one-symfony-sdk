@@ -3,17 +3,23 @@
 
 namespace VentureLeap\LeapOneSymfonySdk\Controller;
 
-
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Bundle\SecurityBundle\Security\FirewallMap;
 use Symfony\Component\Form\FormError;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpFoundation\Session\SessionInterface;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Core\Authentication\Token\UsernamePasswordToken;
+use Symfony\Component\Security\Guard\GuardAuthenticatorHandler;
 use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
+use VentureLeap\LeapOneSymfonySdk\Form\Type\MfaCheckType;
 use VentureLeap\LeapOneSymfonySdk\Form\Type\UserLoginType;
+use VentureLeap\LeapOneSymfonySdk\Form\Type\PasswordResetType;
 use VentureLeap\LeapOneSymfonySdk\Form\Type\UserPasswordRequestType;
 use VentureLeap\LeapOneSymfonySdk\Model\User\User;
+use VentureLeap\LeapOneSymfonySdk\Services\Security\LoginFormAuthenticator;
 use VentureLeap\LeapOneSymfonySdk\Services\User\UserManager;
 
 class UserController extends AbstractController
@@ -30,6 +36,29 @@ class UserController extends AbstractController
             '@LeapOneSymfonySdk/User/login.html.twig',
             [
                 'last_username' => $lastUsername,
+                'form' => $form->createView(),
+                'error' => $error,
+            ]
+        );
+    }
+
+    public function mfaCheck(
+        SessionInterface $session,
+        AuthenticationUtils $authenticationUtils
+    ): Response
+    {
+        /** @var User $mfaUser */
+        $mfaUser = $session->get(LoginFormAuthenticator::MFA_USER_SESSION_KEY);
+        if (!$mfaUser || !$mfaUser->emailAuthEnabled()) {
+            return $this->redirectToRoute('leap_one_user_login');
+        }
+
+        $form = $this->createForm(MfaCheckType::class);
+        $error = $authenticationUtils->getLastAuthenticationError();
+
+        return $this->render(
+            '@LeapOneSymfonySdk/User/mfaCheck.html.twig',
+            [
                 'form' => $form->createView(),
                 'error' => $error,
             ]
@@ -53,17 +82,15 @@ class UserController extends AbstractController
 
         if ($form->isSubmitted() && $form->isValid()) {
 
-            /** TODO: This is a real time bomb */
-            $pathInfo = $request->getPathInfo();
-            $userType = explode("/", $pathInfo)[1];
-
             /** @var User $user */
             $user = $form->getData();
 
+            $routeParameters = $request->attributes->get('_route_params');
+            $userType = $routeParameters['user_type'] ?? User::DEFAULT_TYPE;
             $user->setUserType($userType);
 
             try {
-                $response = $userManager->requestPasswordReset($user);
+                $userManager->requestPasswordReset($user);
                 return $this->render('@LeapOneSymfonySdk/User/passwordRequestSuccess.html.twig');
             } catch (NotFoundHttpException $exception) {
                 $form->addError(new FormError($exception->getMessage()));
@@ -75,6 +102,55 @@ class UserController extends AbstractController
             [
                 'form' => $form->createView()
             ]
+        );
+    }
+
+    public function passwordResetByToken(
+        Request $request,
+        string $token,
+        UserManager $userManager,
+        LoginFormAuthenticator $authenticator,
+        GuardAuthenticatorHandler $guardHandler,
+        FirewallMap $firewallMap
+    ): Response
+    {
+        if (strlen($token) < 10) {
+            throw new NotFoundHttpException();
+        }
+
+        $user = $userManager->getUserByToken($token);
+
+        if (null === $user) {
+            throw new NotFoundHttpException();
+        }
+
+        $passwordEditForm = $this->createForm(PasswordResetType::class, $user);
+        $passwordEditForm->handleRequest($request);
+
+        if ($passwordEditForm->isSubmitted() && $passwordEditForm->isValid()) {
+            $userManager->updateUser($user);
+
+            $this->addFlash('success', 'flash.passwordSaved');
+
+            $firewallConfig = $firewallMap->getFirewallConfig($request);
+
+            return $guardHandler->authenticateUserAndHandleSuccess(
+                $user,
+                $request,
+                $authenticator,
+                $firewallConfig->getName()
+            );
+        }
+
+        return $this->render('@LeapOneSymfonySdk/User/passwordReset.html.twig', [
+            'form' => $passwordEditForm->createView(),
+        ]);
+    }
+
+    public function profile()
+    {
+        return $this->render(
+            '@LeapOneSymfonySdk/User/profile.html.twig'
         );
     }
 }

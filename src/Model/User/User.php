@@ -8,7 +8,9 @@ use Symfony\Component\Security\Core\User\UserInterface;
 
 class User implements UserInterface
 {
-    public const DEFAULT_ROLE = 'ROLE_USER';
+    public const DEFAULT_ROLE = 'ROLE_ADMIN';
+
+    public const DEFAULT_TYPE = 'admin';
 
     const EMAIL_AUTHENTICATION_ENABLED = 'email_authentication_enabled';
 
@@ -38,10 +40,10 @@ class User implements UserInterface
     protected $lastName;
 
     /** @var bool */
-    protected $deleted;
+    protected $deleted = false;
 
     /** @var bool */
-    protected $active;
+    protected $active = true;
 
     /** @var string */
     protected $userType;
@@ -126,7 +128,7 @@ class User implements UserInterface
 
     public function getRoles(): array
     {
-        return $this->roles;
+        return $this->roles ?? [static::DEFAULT_ROLE];
     }
 
     public function setRoles(array $roles): void
@@ -178,7 +180,7 @@ class User implements UserInterface
 
     public function getUserType(): string
     {
-        return $this->userType;
+        return $this->userType ?? static::DEFAULT_TYPE;
     }
 
     public function setUserType(string $userType): void
