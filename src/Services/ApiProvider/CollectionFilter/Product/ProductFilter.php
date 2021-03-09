@@ -6,15 +6,15 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\CollectionFilter\Pr
 
 class ProductFilter
 {
-    private ?string $customData;
-    private ?string $name;
-    private ?string $categories;
-    private ?string $orderName;
-    private ?bool $active;
+    private ?string $customData = null;
+    private ?string $name = null;
+    private ?string $categories = null;
+    private ?string $orderName = null;
+    private ?bool $active = null;
     private int $page = 1;
-    private ?int $itemsPerPage;
-    private ?bool $pagination;
-    private ?string $acceptLanguage;
+    private ?int $itemsPerPage = null;
+    private ?bool $pagination = null;
+    private ?string $acceptLanguage = null;
 
     public function getCustomData(): ?string
     {
