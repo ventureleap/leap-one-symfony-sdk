@@ -9,7 +9,7 @@ class Template extends TemplateApi
 {
     public function getFilteredCollectionWithHttpInfo(TemplateFilter $filter)
     {
-        $this->getTemplateCollectionWithHttpInfo(
+        return $this->getTemplateCollectionWithHttpInfo(
             $filter->getProperties(),
             $filter->getCustomData(),
             $filter->getFileName(),
@@ -29,7 +29,7 @@ class Template extends TemplateApi
 
     public function getFilteredCollection(TemplateFilter $filter)
     {
-        $this->getTemplateCollection(
+        return $this->getTemplateCollection(
             $filter->getProperties(),
             $filter->getCustomData(),
             $filter->getFileName(),

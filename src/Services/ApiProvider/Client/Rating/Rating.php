@@ -9,7 +9,7 @@ class Rating extends RatingApi
 {
     public function getFilteredCollectionWithHttpInfo(RatingFilter $filter)
     {
-        $this->getRatingCollectionWithHttpInfo(
+        return $this->getRatingCollectionWithHttpInfo(
             $filter->getProductUuid(),
             $filter->getExistsReview(),
             $filter->getCustomData(),
@@ -19,7 +19,7 @@ class Rating extends RatingApi
 
     public function getFilteredCollection(RatingFilter $filter)
     {
-        $this->getRatingCollection(
+        return $this->getRatingCollection(
             $filter->getProductUuid(),
             $filter->getExistsReview(),
             $filter->getCustomData(),

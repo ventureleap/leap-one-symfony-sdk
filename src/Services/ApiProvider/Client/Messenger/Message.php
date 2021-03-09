@@ -9,7 +9,7 @@ class Message extends MessageApi
 {
     public function getFilteredCollectionWithHttpInfo(MessageFilter $filter)
     {
-        $this->getMessageCollectionWithHttpInfo(
+        return $this->getMessageCollectionWithHttpInfo(
             $filter->getProperties(),
             $filter->getCustomData(),
             $filter->getSubject(),
@@ -39,7 +39,7 @@ class Message extends MessageApi
 
     public function  getFilteredCollection(MessageFilter $filter)
     {
-        $this->getMessageCollection(
+        return $this->getMessageCollection(
             $filter->getProperties(),
             $filter->getCustomData(),
             $filter->getSubject(),

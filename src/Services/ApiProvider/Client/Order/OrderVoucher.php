@@ -9,7 +9,7 @@ class OrderVoucher extends OrderVoucherApi
 {
     public function getFilteredCollectionWithHttpInfo(OrderVoucherFilter $filter)
     {
-        $this->getOrderVoucherCollectionWithHttpInfo(
+        return $this->getOrderVoucherCollectionWithHttpInfo(
             $filter->getProperties(),
             $filter->getCustomData(),
             $filter->getActive(),
@@ -32,7 +32,7 @@ class OrderVoucher extends OrderVoucherApi
 
     public function  getFilteredCollection(OrderVoucherFilter $filter)
     {
-        $this->getOrderVoucherCollection(
+        return $this->getOrderVoucherCollection(
             $filter->getProperties(),
             $filter->getCustomData(),
             $filter->getActive(),

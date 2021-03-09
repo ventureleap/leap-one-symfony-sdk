@@ -9,7 +9,7 @@ class PriceList extends PriceListApi
 {
     public function getFilteredCollectionWithHttpInfo(PriceListFilter $filter)
     {
-        $this->getPriceListCollectionWithHttpInfo(
+        return $this->getPriceListCollectionWithHttpInfo(
             $filter->getName(),
             $filter->getCustomData(),
             $filter->getPagination()
@@ -18,7 +18,7 @@ class PriceList extends PriceListApi
 
     public function getFilteredCollection(PriceListFilter $filter)
     {
-        $this->getPriceListCollection(
+        return $this->getPriceListCollection(
             $filter->getName(),
             $filter->getCustomData(),
             $filter->getPagination()

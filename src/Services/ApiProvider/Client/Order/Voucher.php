@@ -9,7 +9,7 @@ class Voucher extends VoucherApi
 {
     public function getFilteredCollectionWithHttpInfo(VoucherFilter $filter)
     {
-        $this->getVoucherCollectionWithHttpInfo(
+        return $this->getVoucherCollectionWithHttpInfo(
             $filter->getProperties(),
             $filter->getCustomData(),
             $filter->getVoucherCode(),
@@ -49,7 +49,7 @@ class Voucher extends VoucherApi
 
     public function  getFilteredCollection(VoucherFilter $filter)
     {
-        $this->getVoucherCollection(
+        return $this->getVoucherCollection(
             $filter->getProperties(),
             $filter->getCustomData(),
             $filter->getVoucherCode(),

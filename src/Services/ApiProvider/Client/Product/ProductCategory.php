@@ -9,7 +9,7 @@ class ProductCategory extends ProductCategoryApi
 {
     public function getFilteredCollectionWithHttpInfo(ProductCategoryFilter $filter)
     {
-        $this->getProductCategoryCollectionWithHttpInfo(
+        return $this->getProductCategoryCollectionWithHttpInfo(
             $filter->getName(),
             $filter->getProducts(),
             $filter->getCustomData(),
@@ -22,7 +22,7 @@ class ProductCategory extends ProductCategoryApi
 
     public function getFilteredCollection(ProductCategoryFilter $filter)
     {
-        $this->getProductCategoryCollection(
+        return $this->getProductCategoryCollection(
             $filter->getName(),
             $filter->getProducts(),
             $filter->getCustomData(),

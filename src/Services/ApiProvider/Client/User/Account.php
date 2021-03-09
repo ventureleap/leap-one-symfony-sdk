@@ -9,7 +9,7 @@ class Account extends AccountApi
 {
     public function getFilteredCollectionWithHttpInfo(AccountFilter $filter)
     {
-        $this->getAccountCollectionWithHttpInfo(
+        return $this->getAccountCollectionWithHttpInfo(
             $filter->getAccountNumber(),
             $filter->getActive(),
             $filter->getDeleted(),
@@ -21,7 +21,7 @@ class Account extends AccountApi
 
     public function  getFilteredCollection(AccountFilter $filter)
     {
-        $this->getAccountCollection(
+        return $this->getAccountCollection(
             $filter->getAccountNumber(),
             $filter->getActive(),
             $filter->getDeleted(),

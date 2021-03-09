@@ -9,8 +9,7 @@ class Order extends OrderApi
 {
     public function getFilteredCollectionWithHttpInfo(OrderFilter $filter)
     {
-
-        $this->getOrderCollectionWithHttpInfo(
+        return $this->getOrderCollectionWithHttpInfo(
             $filter->getProperties(),
             $filter->getCustomData(),
             $filter->getInternalComment(),
@@ -46,7 +45,7 @@ class Order extends OrderApi
 
     public function  getFilteredCollection(OrderFilter $filter)
     {
-        $this->getOrderCollection(
+        return $this->getOrderCollection(
             $filter->getProperties(),
             $filter->getCustomData(),
             $filter->getInternalComment(),

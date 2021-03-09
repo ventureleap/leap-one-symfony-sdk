@@ -9,7 +9,7 @@ class User extends UserApi
 {
     public function getFilteredCollectionWithHttpInfo(UserFilter $filter)
     {
-        $this->getUserCollectionWithHttpInfo(
+        return $this->getUserCollectionWithHttpInfo(
             $filter->getUsername(),
             $filter->getEmail(),
             $filter->getFirstName(),
@@ -26,7 +26,7 @@ class User extends UserApi
 
     public function  getFilteredCollection(UserFilter $filter)
     {
-        $this->getUserCollection(
+        return $this->getUserCollection(
             $filter->getUsername(),
             $filter->getEmail(),
             $filter->getFirstName(),
