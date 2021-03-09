@@ -6,13 +6,13 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\CollectionFilter\Pr
 
 class ProductCategoryFilter
 {
-    private ?string  $name;
-    private ?string $products;
-    private ?string $customData;
+    private ?string  $name = null;
+    private ?string $products = null;
+    private ?string $customData = null;
     private int $page = 1;
-    private ?int $itemsPerPage;
-    private ?bool $pagination;
-    private ?string $acceptLanguage;
+    private ?int $itemsPerPage = null;
+    private ?bool $pagination = null;
+    private ?string $acceptLanguage = null;
 
     public function getName(): ?string
     {

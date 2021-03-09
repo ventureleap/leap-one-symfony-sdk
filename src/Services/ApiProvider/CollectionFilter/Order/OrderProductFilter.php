@@ -6,10 +6,10 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\CollectionFilter\Or
 
 class OrderProductFilter
 {
-    private ?array $properties;
-    private ?string $name;
-    private ?string $uom;
-    private ?string $productId;
+    private ?array $properties = null;
+    private ?string $name = null;
+    private ?string $uom = null;
+    private ?string $productId = null;
     private int $page = 1;
 
     public function getProperties(): ?array

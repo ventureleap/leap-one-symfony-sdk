@@ -6,9 +6,9 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\CollectionFilter\Pr
 
 class PriceListFilter
 {
-    private ?string $name;
-    private ?string $customData;
-    private ?bool $pagination;
+    private ?string $name = null;
+    private ?string $customData = null;
+    private ?bool $pagination = null;
 
     public function getName(): ?string
     {

@@ -8,7 +8,7 @@ class AddressFilter
 {
     private int $page = 1;
     private int $itemsPerPage = 10;
-    private ?bool $pagination;
+    private ?bool $pagination = null;
 
     public function getPage(): int
     {

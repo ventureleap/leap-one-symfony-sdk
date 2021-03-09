@@ -6,17 +6,17 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\CollectionFilter\Us
 
 class UserFilter
 {
-    private ?string $username;
-    private ?string $email;
-    private ?string $firstName;
-    private ?string $lastName;
-    private ?string $customData;
-    private ?string $userType;
-    private ?bool $active;
-    private ?bool $deleted;
+    private ?string $username = null;
+    private ?string $email = null;
+    private ?string $firstName = null;
+    private ?string $lastName = null;
+    private ?string $customData = null;
+    private ?string $userType = null;
+    private ?bool $active = null;
+    private ?bool $deleted = null;
     private int $page = 1;
     private ?int $itemsPerPage = 10;
-    private ?bool $pagination;
+    private ?bool $pagination = null;
 
     public function getUsername(): ?string
     {

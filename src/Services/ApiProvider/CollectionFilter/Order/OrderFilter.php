@@ -6,36 +6,36 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\CollectionFilter\Or
 
 class OrderFilter
 {
-    private ?array $properties;
-    private ?string $customData;
-    private ?string $internalComment;
-    private ?string $customerComment;
-    private ?string $billingAddressFullName;
-    private ?string $billingAddressCompanyName;
-    private ?string $orderCode;
-    private ?string $status;
-    private ?string $paymentStatus;
-    private ?string $customerUuid;
-    private ?string $payment_provider;
-    private ?string $payment_method;
-    private ?string $payment_comment;
-    private ?bool $active;
-    private ?bool $deleted;
-    private ?bool $isBToB;
-    private ?string $dateOfValidityBefore;
-    private ?string $dateOfValidityStrictlyBefore;
-    private ?string $dateOfValidityAfter;
-    private ?string $dateOfValidityStrictlyAfter;
-    private ?string $orderStatus;
-    private ?string $orderPaymentStatus;
-    private ?string $orderCreatedAt;
-    private ?string $orderUpdatedAt;
-    private ?string $orderPaymentDate;
-    private ?string $orderOrderCode;
-    private ?string $orderCustomerUuid;
+    private ?array $properties = null;
+    private ?string $customData = null;
+    private ?string $internalComment = null;
+    private ?string $customerComment = null;
+    private ?string $billingAddressFullName = null;
+    private ?string $billingAddressCompanyName = null;
+    private ?string $orderCode = null;
+    private ?string $status = null;
+    private ?string $paymentStatus = null;
+    private ?string $customerUuid = null;
+    private ?string $paymentProvider = null;
+    private ?string $paymentMethod = null;
+    private ?string $paymentComment = null;
+    private ?bool $active = null;
+    private ?bool $deleted = null;
+    private ?bool $isBToB = null;
+    private ?string $dateOfValidityBefore = null;
+    private ?string $dateOfValidityStrictlyBefore = null;
+    private ?string $dateOfValidityAfter = null;
+    private ?string $dateOfValidityStrictlyAfter = null;
+    private ?string $orderStatus = null;
+    private ?string $orderPaymentStatus = null;
+    private ?string $orderCreatedAt = null;
+    private ?string $orderUpdatedAt = null;
+    private ?string $orderPaymentDate = null;
+    private ?string $orderOrderCode = null;
+    private ?string $orderCustomerUuid = null;
     private int $page = 1;
-    private ?int $itemsPerPage;
-    private ?string $pagination;
+    private ?int $itemsPerPage = null;
+    private ?string $pagination = null;
 
     public function getProperties(): ?array
     {
@@ -139,32 +139,32 @@ class OrderFilter
 
     public function getPaymentProvider(): ?string
     {
-        return $this->payment_provider;
+        return $this->paymentProvider;
     }
 
-    public function setPaymentProvider(?string $payment_provider): void
+    public function setPaymentProvider(?string $paymentProvider): void
     {
-        $this->payment_provider = $payment_provider;
+        $this->paymentProvider = $paymentProvider;
     }
 
     public function getPaymentMethod(): ?string
     {
-        return $this->payment_method;
+        return $this->paymentMethod;
     }
 
-    public function setPaymentMethod(?string $payment_method): void
+    public function setPaymentMethod(?string $paymentMethod): void
     {
-        $this->payment_method = $payment_method;
+        $this->paymentMethod = $paymentMethod;
     }
 
     public function getPaymentComment(): ?string
     {
-        return $this->payment_comment;
+        return $this->paymentComment;
     }
 
-    public function setPaymentComment(?string $payment_comment): void
+    public function setPaymentComment(?string $paymentComment): void
     {
-        $this->payment_comment = $payment_comment;
+        $this->paymentComment = $paymentComment;
     }
 
     public function getActive(): ?bool

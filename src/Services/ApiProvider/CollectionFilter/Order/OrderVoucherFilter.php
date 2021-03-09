@@ -6,22 +6,22 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\CollectionFilter\Or
 
 class OrderVoucherFilter
 {
-    private ?array $properties;
-    private ?string $customData;
-    private ?bool $active;
-    private ?bool $deleted;
-    private ?string $createdAtBefore;
-    private ?string $createdAtStrictlyBefore;
-    private ?string $createdAtAfter;
-    private ?string $createdAtStrictlyAfter;
-    private ?string $updatedAtBefore;
-    private ?string $updatedAtStrictlyBefore;
-    private ?string $updatedAtAfter;
-    private ?string $updatedAtStrictlyAfter;
-    private ?string $orderCreatedAt;
-    private ?string $orderUpdatedAt;
-    private ?string $orderActive;
-    private ?string $orderDeleted;
+    private ?array $properties = null;
+    private ?string $customData = null;
+    private ?bool $active = null;
+    private ?bool $deleted = null;
+    private ?string $createdAtBefore = null;
+    private ?string $createdAtStrictlyBefore = null;
+    private ?string $createdAtAfter = null;
+    private ?string $createdAtStrictlyAfter = null;
+    private ?string $updatedAtBefore = null;
+    private ?string $updatedAtStrictlyBefore = null;
+    private ?string $updatedAtAfter = null;
+    private ?string $updatedAtStrictlyAfter = null;
+    private ?string $orderCreatedAt = null;
+    private ?string $orderUpdatedAt = null;
+    private ?string $orderActive = null;
+    private ?string $orderDeleted = null;
     private int $page = 1;
 
     public function getProperties(): ?array

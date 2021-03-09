@@ -6,19 +6,19 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\CollectionFilter\Au
 
 class AuditLogEntryFilter
 {
-    private ?string $entityUuid;
-    private ?string $userUuid;
-    private ?string $entityType;
-    private ?string $orderUuid;
-    private ?string $orderUserUuid;
-    private ?string $orderEntityUuid;
-    private ?string $orderEntityType;
-    private ?string $orderUrl;
-    private ?string $orderBody;
-    private ?string $orderEntryType;
-    private ?string $orderApplicationId;
-    private ?string $orderCreatedAt;
-    private ?string $orderUpdatedAt;
+    private ?string $entityUuid = null;
+    private ?string $userUuid = null;
+    private ?string $entityType = null;
+    private ?string $orderUuid = null;
+    private ?string $orderUserUuid = null;
+    private ?string $orderEntityUuid = null;
+    private ?string $orderEntityType = null;
+    private ?string $orderUrl = null;
+    private ?string $orderBody = null;
+    private ?string $orderEntryType = null;
+    private ?string $orderApplicationId = null;
+    private ?string $orderCreatedAt = null;
+    private ?string $orderUpdatedAt = null;
     private int $page = 1;
 
 

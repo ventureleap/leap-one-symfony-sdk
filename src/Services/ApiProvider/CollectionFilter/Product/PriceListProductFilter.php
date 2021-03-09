@@ -6,11 +6,11 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\CollectionFilter\Pr
 
 class PriceListProductFilter
 {
-    private ?string $product;
-    private ?string $priceList;
+    private ?string $product = null;
+    private ?string $priceList = null;
     private int $page = 1;
-    private ?int $itemsPerPage;
-    private ?bool $pagination;
+    private ?int $itemsPerPage = null;
+    private ?bool $pagination = null;
 
     public function getProduct(): ?string
     {

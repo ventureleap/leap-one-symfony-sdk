@@ -6,9 +6,9 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\CollectionFilter\Ra
 
 class RatingFilter
 {
-    private ?string $productUuid;
-    private ?bool $existsReview;
-    private ?string $customData;
+    private ?string $productUuid = null;
+    private ?bool $existsReview = null;
+    private ?string $customData = null;
     private int $page = 1;
 
     public function getProductUuid(): ?string

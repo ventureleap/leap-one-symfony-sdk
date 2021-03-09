@@ -6,30 +6,30 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\CollectionFilter\Me
 
 class MessageFilter
 {
-    private ?array $properties;
-    private ?string $customData;
-    private ?string $subject;
-    private ?string $content;
-    private ?string $messageType;
-    private ?string $status;
-    private ?bool $active;
-    private ?bool $deleted;
-    private ?string $createdAtBefore;
-    private ?string $createdAtStrictlyBefore;
-    private ?string $createdAtAfter;
-    private ?string $createdAtStrictlyAfter;
-    private ?string $updatedAtBefore;
-    private ?string $updatedAtStrictlyBefore;
-    private ?string $updatedAtAfter;
-    private ?string $updatedAtStrictlyAfter;
-    private ?string $orderStatus;
-    private ?string $orderMessageType;
-    private ?string $orderCreatedAt;
-    private ?string $orderUpdatedAt;
-    private ?string $orderSubject;
+    private ?array $properties = null;
+    private ?string $customData = null;
+    private ?string $subject = null;
+    private ?string $content = null;
+    private ?string $messageType = null;
+    private ?string $status = null;
+    private ?bool $active = null;
+    private ?bool $deleted = null;
+    private ?string $createdAtBefore = null;
+    private ?string $createdAtStrictlyBefore = null;
+    private ?string $createdAtAfter = null;
+    private ?string $createdAtStrictlyAfter = null;
+    private ?string $updatedAtBefore = null;
+    private ?string $updatedAtStrictlyBefore = null;
+    private ?string $updatedAtAfter = null;
+    private ?string $updatedAtStrictlyAfter = null;
+    private ?string $orderStatus = null;
+    private ?string $orderMessageType = null;
+    private ?string $orderCreatedAt = null;
+    private ?string $orderUpdatedAt = null;
+    private ?string $orderSubject = null;
     private int $page = 1;
-    private ?int $itemsPerPage;
-    private ?bool $pagination;
+    private ?int $itemsPerPage = null;
+    private ?bool $pagination = null;
 
     public function getProperties(): ?array
     {

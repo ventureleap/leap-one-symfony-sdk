@@ -6,31 +6,31 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\CollectionFilter\Me
 
 class TemplateFilter
 {
-    private ?array $properties;
-    private ?string $customData;
-    private ?string $emailTemplate;
-    private ?string $smsTemplate;
-    private ?string $subject;
-    private ?string $language;
-    private ?string $templateType;
-    private ?bool $active;
-    private ?bool $deleted;
-    private ?string $createdAtBefore;
-    private ?string $createdAtStrictlyBefore;
-    private ?string $createdAtAfter;
-    private ?string $createdAtStrictlyAfter;
-    private ?string $updatedAtBefore;
-    private ?string $updatedAtStrictlyBefore;
-    private ?string $updatedAtAfter;
-    private ?string $updatedAtStrictlyAfter;
-    private ?string $orderTemplateType;
-    private ?string $orderLanguage;
-    private ?string $orderCreatedAt;
-    private ?string $orderUpdatedAt;
-    private ?string $orderSubject;
+    private ?array $properties = null;
+    private ?string $customData = null;
+    private ?string $emailTemplate = null;
+    private ?string $smsTemplate = null;
+    private ?string $subject = null;
+    private ?string $language = null;
+    private ?string $templateType = null;
+    private ?bool $active = null;
+    private ?bool $deleted = null;
+    private ?string $createdAtBefore = null;
+    private ?string $createdAtStrictlyBefore = null;
+    private ?string $createdAtAfter = null;
+    private ?string $createdAtStrictlyAfter = null;
+    private ?string $updatedAtBefore = null;
+    private ?string $updatedAtStrictlyBefore = null;
+    private ?string $updatedAtAfter = null;
+    private ?string $updatedAtStrictlyAfter = null;
+    private ?string $orderTemplateType = null;
+    private ?string $orderLanguage = null;
+    private ?string $orderCreatedAt = null;
+    private ?string $orderUpdatedAt = null;
+    private ?string $orderSubject = null;
     private int $page = 1;
-    private ?int $itemsPerPage;
-    private ?string $pagination;
+    private ?int $itemsPerPage = null;
+    private ?string $pagination = null;
 
     public function getProperties(): ?array
     {

@@ -6,12 +6,12 @@ namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\CollectionFilter\Us
 
 class AccountFilter
 {
-    private ?string $accountNumber;
-    private ?bool $active;
-    private ?bool $deleted;
+    private ?string $accountNumber = null;
+    private ?bool $active = null;
+    private ?bool $deleted = null;
     private int $page = 1;
     private int $itemsPerPage = 10;
-    private ?bool $pagination;
+    private ?bool $pagination = null;
 
     public function getAccountNumber(): ?string
     {
