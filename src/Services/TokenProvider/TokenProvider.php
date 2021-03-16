@@ -4,6 +4,7 @@
 namespace VentureLeap\LeapOneSymfonySdk\Services\TokenProvider;
 
 
+use AutoMapperPlus\AutoMapperPlusBundle\src\Services\ApiProvider\LeapOneConnectionCredentialsProviderInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\CacheItem;
@@ -36,14 +37,13 @@ class TokenProvider implements TokenProviderInterface
         AdapterInterface $cache,
         LoggerInterface $logger,
         TokenApiProvider $tokenApiProvider,
-        string $applicationId,
-        string $applicationSecret
+        LeapOneConnectionCredentialsProviderInterface $leapOneConnectionCredentialsProvider
     ) {
         $this->cache = $cache;
         $this->logger = $logger;
         $this->tokenApiProvider = $tokenApiProvider;
-        $this->applicationId = $applicationId;
-        $this->applicationSecret = $applicationSecret;
+        $this->applicationId = $leapOneConnectionCredentialsProvider->getApplicationId();
+        $this->applicationSecret = $leapOneConnectionCredentialsProvider->getApplicationSecret();
     }
 
     public function getApplicationId(): string

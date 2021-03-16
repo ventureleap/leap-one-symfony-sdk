@@ -4,6 +4,7 @@
 namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 
 
+use AutoMapperPlus\AutoMapperPlusBundle\src\Services\ApiProvider\LeapOneConnectionCredentialsProviderInterface;
 use VentureLeap\LeapOneSymfonySdk\Model\Configuration\ConfigurationEntry;
 use VentureLeap\LeapOneSymfonySdk\Services\TokenProvider\TokenProvider;
 use VentureLeap\UserService\Api\ConfigurationEntryApi;
@@ -29,10 +30,10 @@ abstract class AbstractLeapOneApiProvider
     protected $tokenProvider;
 
     public function __construct(
-        string $endpoint,
+        LeapOneConnectionCredentialsProviderInterface $leapOneConnectionCredentialsProvider,
         TokenProvider $tokenProvider
     ) {
-        $this->endpoint = $endpoint;
+        $this->endpoint = $leapOneConnectionCredentialsProvider->getEndpoint();
         $this->tokenProvider = $tokenProvider;
     }
 
