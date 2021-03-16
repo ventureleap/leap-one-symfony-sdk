@@ -96,8 +96,8 @@ services:
     public: true
 
   # General credentials (to make it possible to override this logic in an application)
-  leap_one.credentials_provider:
-    class: VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\LeapOneConnectionCredentialsProvider
+  VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\LeapOneConnectionCredentialsProviderInterface:
+    class: VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\LeapOneConnectionCredentialsProviderInterface
     public: true
     arguments:
       $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
