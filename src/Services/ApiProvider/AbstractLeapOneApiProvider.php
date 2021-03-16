@@ -29,10 +29,10 @@ abstract class AbstractLeapOneApiProvider
     protected $tokenProvider;
 
     public function __construct(
-        string $endpoint,
+        LeapOneConnectionCredentialsProviderInterface $leapOneConnectionCredentialsProvider,
         TokenProvider $tokenProvider
     ) {
-        $this->endpoint = $endpoint;
+        $this->endpoint = $leapOneConnectionCredentialsProvider->getEndpoint();
         $this->tokenProvider = $tokenProvider;
     }
 

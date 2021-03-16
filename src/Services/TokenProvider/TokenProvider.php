@@ -11,6 +11,7 @@ use VentureLeap\ConfigurationService\Api\TokenApi;
 use VentureLeap\ConfigurationService\ApiException;
 use VentureLeap\ConfigurationService\Model\Credentials;
 use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\ConfigurationApiProvider;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\LeapOneConnectionCredentialsProviderInterface;
 use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\TokenApiProvider;
 
 class TokenProvider implements TokenProviderInterface
@@ -36,14 +37,13 @@ class TokenProvider implements TokenProviderInterface
         AdapterInterface $cache,
         LoggerInterface $logger,
         TokenApiProvider $tokenApiProvider,
-        string $applicationId,
-        string $applicationSecret
+        LeapOneConnectionCredentialsProviderInterface $leapOneConnectionCredentialsProvider
     ) {
         $this->cache = $cache;
         $this->logger = $logger;
         $this->tokenApiProvider = $tokenApiProvider;
-        $this->applicationId = $applicationId;
-        $this->applicationSecret = $applicationSecret;
+        $this->applicationId = $leapOneConnectionCredentialsProvider->getApplicationId();
+        $this->applicationSecret = $leapOneConnectionCredentialsProvider->getApplicationSecret();
     }
 
     public function getApplicationId(): string
@@ -53,7 +53,7 @@ class TokenProvider implements TokenProviderInterface
 
     public function getToken(): string
     {
-        $cacheItem = $this->cache->getItem('jwt_token');
+        $cacheItem = $this->cache->getItem($this->getItemKey());
 
         if ($cacheItem->isHit() && $this->isCachedTokenValid($cacheItem->get())) {
             return $cacheItem->get();
@@ -69,7 +69,7 @@ class TokenProvider implements TokenProviderInterface
         $this->applicationId = $applicationId;
         $this->applicationSecret = $applicationSecret;
 
-        $this->cache->deleteItem('jwt_token');
+        $this->cache->deleteItem($this->getItemKey());
     }
 
     private function isCachedTokenValid(?string $token): bool
@@ -114,5 +114,10 @@ class TokenProvider implements TokenProviderInterface
         $this->cache->save($cacheItem);
 
         return $newToken;
+    }
+
+    private function getItemKey(): string
+    {
+        return 'jwt_token_' . $this->applicationId;
     }
 }

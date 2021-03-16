@@ -3,7 +3,6 @@
 
 namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 
-use VentureLeap\ConfigurationService\Api\ConfigurationEntryApi;
 use VentureLeap\ConfigurationService\Api\TokenApi;
 use VentureLeap\ConfigurationService\Configuration;
 
@@ -12,15 +11,12 @@ use VentureLeap\ConfigurationService\Configuration;
  */
 class TokenApiProvider
 {
-    /**
-     * @var string
-     */
     private $endpoint;
 
     public function __construct(
-        string $endpoint
+        LeapOneConnectionCredentialsProviderInterface $leapOneConnectionCredentialsProvider
     ) {
-        $this->endpoint = $endpoint;
+        $this->endpoint = $leapOneConnectionCredentialsProvider->getEndpoint();
     }
 
     public function getTokenApi(): TokenApi
