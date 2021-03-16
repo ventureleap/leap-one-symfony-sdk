@@ -1,9 +1,5 @@
 <?php
 
-
-namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
-
-
 namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 
 class LeapOneConnectionCredentialsProvider implements LeapOneConnectionCredentialsProviderInterface
