@@ -99,6 +99,7 @@ services:
   leap_one.credentials_provider:
     class: VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\LeapOneConnectionCredentialsProvider
     public: true
+    arguments:
       $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
       $leapOneAppId: '%env(string:LEAP_ONE_APP_ID)%'
       $leapOneAppSecret: '%env(string:LEAP_ONE_APP_SECRET)%'
