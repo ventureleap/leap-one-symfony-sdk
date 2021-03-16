@@ -4,7 +4,9 @@
 namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 
 
-class LeapOneConnectionCredentialsProvider
+use AutoMapperPlus\AutoMapperPlusBundle\src\Services\ApiProvider\LeapOneConnectionCredentialsProviderInterface;
+
+class LeapOneConnectionCredentialsProvider implements LeapOneConnectionCredentialsProviderInterface
 {
     private string $endpoint;
     private string $applicationId;
