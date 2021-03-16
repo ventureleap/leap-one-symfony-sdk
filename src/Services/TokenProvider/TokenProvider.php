@@ -53,7 +53,7 @@ class TokenProvider implements TokenProviderInterface
 
     public function getToken(): string
     {
-        $cacheItem = $this->cache->getItem('jwt_token');
+        $cacheItem = $this->cache->getItem($this->getItemKey());
 
         if ($cacheItem->isHit() && $this->isCachedTokenValid($cacheItem->get())) {
             return $cacheItem->get();
@@ -69,7 +69,7 @@ class TokenProvider implements TokenProviderInterface
         $this->applicationId = $applicationId;
         $this->applicationSecret = $applicationSecret;
 
-        $this->cache->deleteItem('jwt_token');
+        $this->cache->deleteItem($this->getItemKey());
     }
 
     private function isCachedTokenValid(?string $token): bool
@@ -114,5 +114,10 @@ class TokenProvider implements TokenProviderInterface
         $this->cache->save($cacheItem);
 
         return $newToken;
+    }
+
+    private function getItemKey(): string
+    {
+        return 'jwt_token_' . $this->applicationId;
     }
 }
