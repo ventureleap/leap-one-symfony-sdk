@@ -101,8 +101,8 @@ services:
     public: true
     arguments:
       $endpoint: '%env(string:LEAP_ONE_ENDPOINT_URL)%'
-      $leapOneAppId: '%env(string:LEAP_ONE_APP_ID)%'
-      $leapOneAppSecret: '%env(string:LEAP_ONE_APP_SECRET)%'
+      $applicationId: '%env(string:LEAP_ONE_APP_ID)%'
+      $applicationSecret: '%env(string:LEAP_ONE_APP_SECRET)%'
 
   # FORM AUTHENTICATION
   leap_one.login_form_authenticator:
