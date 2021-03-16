@@ -3,8 +3,6 @@
 
 namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 
-use AutoMapperPlus\AutoMapperPlusBundle\src\Services\ApiProvider\LeapOneConnectionCredentialsProviderInterface;
-use VentureLeap\ConfigurationService\Api\ConfigurationEntryApi;
 use VentureLeap\ConfigurationService\Api\TokenApi;
 use VentureLeap\ConfigurationService\Configuration;
 

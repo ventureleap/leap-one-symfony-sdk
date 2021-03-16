@@ -1,8 +1,6 @@
 <?php
 
-
-namespace AutoMapperPlus\AutoMapperPlusBundle\src\Services\ApiProvider;
-
+namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 
 interface LeapOneConnectionCredentialsProviderInterface
 {

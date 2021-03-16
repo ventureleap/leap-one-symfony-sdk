@@ -4,7 +4,6 @@
 namespace VentureLeap\LeapOneSymfonySdk\Services\TokenProvider;
 
 
-use AutoMapperPlus\AutoMapperPlusBundle\src\Services\ApiProvider\LeapOneConnectionCredentialsProviderInterface;
 use Psr\Log\LoggerInterface;
 use Symfony\Component\Cache\Adapter\AdapterInterface;
 use Symfony\Component\Cache\CacheItem;
@@ -12,6 +11,7 @@ use VentureLeap\ConfigurationService\Api\TokenApi;
 use VentureLeap\ConfigurationService\ApiException;
 use VentureLeap\ConfigurationService\Model\Credentials;
 use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\ConfigurationApiProvider;
+use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\LeapOneConnectionCredentialsProviderInterface;
 use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\TokenApiProvider;
 
 class TokenProvider implements TokenProviderInterface
