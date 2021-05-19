@@ -26,6 +26,10 @@ class OrderFilter
     private ?string $dateOfValidityStrictlyBefore = null;
     private ?string $dateOfValidityAfter = null;
     private ?string $dateOfValidityStrictlyAfter = null;
+    private ?string $createdAtBefore = null;
+    private ?string $createdAtStrictlyBefore = null;
+    private ?string $createdAtAfter = null;
+    private ?string $createdAtStrictlyAfter = null;
     private ?string $orderStatus = null;
     private ?string $orderPaymentStatus = null;
     private ?string $orderCreatedAt = null;
@@ -235,6 +239,46 @@ class OrderFilter
     public function setDateOfValidityStrictlyAfter(?string $dateOfValidityStrictlyAfter): void
     {
         $this->dateOfValidityStrictlyAfter = $dateOfValidityStrictlyAfter;
+    }
+
+    public function getCreatedAtBefore(): ?string
+    {
+        return $this->createdAtBefore;
+    }
+
+    public function setCreatedAtBefore(?string $createdAtBefore): void
+    {
+        $this->createdAtBefore = $createdAtBefore;
+    }
+
+    public function getCreatedAtStrictlyBefore(): ?string
+    {
+        return $this->createdAtStrictlyBefore;
+    }
+
+    public function setCreatedAtStrictlyBefore(?string $createdAtStrictlyBefore): void
+    {
+        $this->createdAtStrictlyBefore = $createdAtStrictlyBefore;
+    }
+
+    public function getCreatedAtAfter(): ?string
+    {
+        return $this->createdAtAfter;
+    }
+
+    public function setCreatedAtAfter(?string $createdAtAfter): void
+    {
+        $this->createdAtAfter = $createdAtAfter;
+    }
+
+    public function getCreatedAtStrictlyAfter(): ?string
+    {
+        return $this->createdAtStrictlyAfter;
+    }
+
+    public function setCreatedAtStrictlyAfter(?string $createdAtStrictlyAfter): void
+    {
+        $this->createdAtStrictlyAfter = $createdAtStrictlyAfter;
     }
 
     public function getOrderStatus(): ?string
