@@ -26,12 +26,8 @@ class TokenProvider implements TokenProviderInterface
      * @var LoggerInterface
      */
     private $logger;
-    /**
-     * @var TokenApiProvider
-     */
-    private $tokenApiProvider;
-    private $applicationId;
-    private $applicationSecret;
+    private TokenApiProvider $tokenApiProvider;
+    private LeapOneConnectionCredentialsProviderInterface $leapOneConnectionCredentialsProvider;
 
     public function __construct(
         AdapterInterface $cache,
@@ -42,13 +38,12 @@ class TokenProvider implements TokenProviderInterface
         $this->cache = $cache;
         $this->logger = $logger;
         $this->tokenApiProvider = $tokenApiProvider;
-        $this->applicationId = $leapOneConnectionCredentialsProvider->getApplicationId();
-        $this->applicationSecret = $leapOneConnectionCredentialsProvider->getApplicationSecret();
+        $this->leapOneConnectionCredentialsProvider = $leapOneConnectionCredentialsProvider;
     }
 
     public function getApplicationId(): string
     {
-        return $this->applicationId;
+        return $this->leapOneConnectionCredentialsProvider->getApplicationId();
     }
 
     public function getToken(): string
@@ -66,9 +61,6 @@ class TokenProvider implements TokenProviderInterface
 
     public function updateCredentials(string $applicationId, string $applicationSecret): void
     {
-        $this->applicationId = $applicationId;
-        $this->applicationSecret = $applicationSecret;
-
         $this->cache->deleteItem($this->getItemKey());
     }
 
@@ -94,8 +86,8 @@ class TokenProvider implements TokenProviderInterface
     {
         $credentials = new Credentials(
             [
-                'app_id' => $this->applicationId,
-                'app_secret' => $this->applicationSecret,
+                'app_id' => $this->leapOneConnectionCredentialsProvider->getApplicationId(),
+                'app_secret' => $this->leapOneConnectionCredentialsProvider->getApplicationSecret(),
             ]
         );
 
@@ -118,6 +110,6 @@ class TokenProvider implements TokenProviderInterface
 
     private function getItemKey(): string
     {
-        return 'jwt_token_' . $this->applicationId;
+        return 'jwt_token_' . $this->leapOneConnectionCredentialsProvider->getApplicationId();
     }
 }
