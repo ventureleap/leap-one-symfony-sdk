@@ -108,10 +108,7 @@ class UserController extends AbstractController
     public function passwordResetByToken(
         Request $request,
         string $token,
-        UserManager $userManager,
-        LoginFormAuthenticator $authenticator,
-        GuardAuthenticatorHandler $guardHandler,
-        FirewallMap $firewallMap
+        UserManager $userManager
     ): Response
     {
         if (strlen($token) < 10) {
@@ -119,6 +116,23 @@ class UserController extends AbstractController
         }
 
         $user = $userManager->getUserByToken($token);
+
+        if (null === $user) {
+            throw new NotFoundHttpException();
+        }
+
+        return $this->redirectToRoute('leap_one_user_update_password', ['user' => $user->getUuid()]);
+    }
+
+    public function updatePassword(
+        Request $request,
+        string $userUuid,
+        UserManager $userManager,
+        LoginFormAuthenticator $authenticator,
+        GuardAuthenticatorHandler $guardHandler,
+        FirewallMap $firewallMap)
+    {
+        $user = $userManager->getUserByUuid($userUuid);
 
         if (null === $user) {
             throw new NotFoundHttpException();
