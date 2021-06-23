@@ -121,7 +121,7 @@ class UserController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        return $this->redirectToRoute('leap_one_user_update_password', ['user' => $user->getUuid()]);
+        return $this->redirectToRoute('leap_one_user_update_password', ['userUuid' => $user->getUuid()]);
     }
 
     public function updatePassword(
