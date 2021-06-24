@@ -108,7 +108,8 @@ class UserController extends AbstractController
     public function passwordResetByToken(
         Request $request,
         string $token,
-        UserManager $userManager
+        UserManager $userManager,
+        SessionInterface $session
     ): Response
     {
         if (strlen($token) < 10) {
@@ -121,18 +122,23 @@ class UserController extends AbstractController
             throw new NotFoundHttpException();
         }
 
-        return $this->redirectToRoute('leap_one_user_update_password', ['userUuid' => $user->getUuid()]);
+        $sessKey = time() . str_shuffle($user->getUuid());
+
+        $session->set($sessKey, $user);
+
+        return $this->redirectToRoute('leap_one_user_update_password', ['sessKey' => $sessKey]);
     }
 
     public function updatePassword(
         Request $request,
-        string $userUuid,
+        string $sessKey,
         UserManager $userManager,
         LoginFormAuthenticator $authenticator,
         GuardAuthenticatorHandler $guardHandler,
+        SessionInterface $session,
         FirewallMap $firewallMap)
     {
-        $user = $userManager->getUserByUuid($userUuid);
+        $user = $session->get($sessKey);
 
         if (null === $user) {
             throw new NotFoundHttpException();
@@ -147,6 +153,8 @@ class UserController extends AbstractController
             $this->addFlash('success', 'flash.passwordSaved');
 
             $firewallConfig = $firewallMap->getFirewallConfig($request);
+
+            $session->remove($sessKey);
 
             return $guardHandler->authenticateUserAndHandleSuccess(
                 $user,
