@@ -2,13 +2,9 @@
 
 namespace VentureLeap\LeapOneSymfonySdk\Services\ApiProvider;
 
-use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\User\User;
-use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\User\Account;
-use VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\Client\User\Address;
 use VentureLeap\StorageService\Api\FileApi;
-use VentureLeap\UserService\Api\ConfigurationEntryApi;
-use VentureLeap\UserService\Api\SocialAuthenticationApi;
-use VentureLeap\UserService\Configuration;
+use VentureLeap\StorageService\Api\ConfigurationEntryApi;
+use VentureLeap\StorageService\Configuration;
 
 class StorageApiProvider extends AbstractLeapOneApiProvider
 {
