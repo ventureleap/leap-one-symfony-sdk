@@ -92,7 +92,7 @@ services:
     factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\RatingApiProvider', 'getRatingApi' ]
 
   # STORAGE
-  VentureLeap\UserService\Api\FileApi:
+  VentureLeap\StorageService\Api\FileApi:
     factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\StorageApiProvider', 'getFileApi' ]
 
   leap_one.user_provider:
