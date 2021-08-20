@@ -91,6 +91,10 @@ services:
   VentureLeap\RatingService\Api\RatingApi:
     factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\RatingApiProvider', 'getRatingApi' ]
 
+  # STORAGE
+  VentureLeap\UserService\Api\FileApi:
+    factory: [ '@VentureLeap\LeapOneSymfonySdk\Services\ApiProvider\StorageApiProvider', 'getFileApi' ]
+
   leap_one.user_provider:
     class: VentureLeap\LeapOneSymfonySdk\Services\User\UserProvider
     public: true
