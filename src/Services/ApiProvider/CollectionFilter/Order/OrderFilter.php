@@ -40,6 +40,7 @@ class OrderFilter
     private int $page = 1;
     private ?int $itemsPerPage = null;
     private ?string $pagination = null;
+    private ?string $paymentReference = null;
 
     public function getProperties(): ?array
     {
@@ -379,5 +380,15 @@ class OrderFilter
     public function setPagination(?string $pagination): void
     {
         $this->pagination = $pagination;
+    }
+
+    public function getPaymentReference(): ?string
+    {
+        return $this->paymentReference;
+    }
+
+    public function setPaymentReference(?string $paymentReference): void
+    {
+        $this->paymentReference = $paymentReference;
     }
 }

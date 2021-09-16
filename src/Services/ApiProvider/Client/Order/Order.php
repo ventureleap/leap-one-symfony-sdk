@@ -43,7 +43,8 @@ class Order extends OrderApi
             $filter->getOrderCustomerUuid(),
             $filter->getPage(),
             $filter->getItemsPerPage(),
-            $filter->getPagination()
+            $filter->getPagination(),
+            $filter->getPaymentReference()
         );
     }
 
@@ -83,7 +84,8 @@ class Order extends OrderApi
             $filter->getOrderCustomerUuid(),
             $filter->getPage(),
             $filter->getItemsPerPage(),
-            $filter->getPagination()
+            $filter->getPagination(),
+            $filter->getPaymentReference()
         );
     }
 }
