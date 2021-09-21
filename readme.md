@@ -5,7 +5,7 @@ To easy up development in Symfony with the help of leap.one PHP SDK
 
 1. Require the bundle via:
 ```bash
-composer require ventureleap/leap-one-symfony-sdk dev-main
+composer require ventureleap/leap-one-symfony-sdk dev-2.0
 ```
 
 2. Add the following variables to your .env.local:
