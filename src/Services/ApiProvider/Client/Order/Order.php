@@ -17,6 +17,7 @@ class Order extends OrderApi
             $filter->getBillingAddressFullName(),
             $filter->getBillingAddressCompanyName(),
             $filter->getPaymentComment(),
+            $filter->getPaymentReference(),
             $filter->getOrderCode(),
             $filter->getStatus(),
             $filter->getPaymentStatus(),
@@ -43,8 +44,7 @@ class Order extends OrderApi
             $filter->getOrderCustomerUuid(),
             $filter->getPage(),
             $filter->getItemsPerPage(),
-            $filter->getPagination(),
-            $filter->getPaymentReference()
+            $filter->getPagination()
         );
     }
 
@@ -58,6 +58,7 @@ class Order extends OrderApi
             $filter->getBillingAddressFullName(),
             $filter->getBillingAddressCompanyName(),
             $filter->getPaymentComment(),
+            $filter->getPaymentReference(),
             $filter->getOrderCode(),
             $filter->getStatus(),
             $filter->getPaymentStatus(),
@@ -84,8 +85,7 @@ class Order extends OrderApi
             $filter->getOrderCustomerUuid(),
             $filter->getPage(),
             $filter->getItemsPerPage(),
-            $filter->getPagination(),
-            $filter->getPaymentReference()
+            $filter->getPagination()
         );
     }
 }
