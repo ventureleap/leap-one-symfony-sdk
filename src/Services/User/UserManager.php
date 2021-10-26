@@ -90,7 +90,7 @@ class UserManager implements UserManagerInterface
         return $this->autoMapper->map($leapOneApiUser, User::class);
     }
 
-    public function getUserByUsername(string $username): ?User
+    public function getUserByUsername(string $username, bool $isExactMatch = false): ?User
     {
         try {
             $usersForUsername = $this->userApi->getUserCollection($username);
@@ -98,7 +98,15 @@ class UserManager implements UserManagerInterface
             $decodedError = json_decode($e->getResponseBody(), true);
             throw new NotFoundHttpException($decodedError['hydra:description']);
         }
-        $leapOneUser = $usersForUsername->getHydramember()[0] ?? null;
+
+        if ($isExactMatch){
+            $leapOneUser = array_filter($usersForUsername->getHydramember(), function (UserJsonldUserRead $user) use ($username){
+                return $user->getUsername() === $username;
+            }, ARRAY_FILTER_USE_BOTH);
+            $leapOneUser = array_values($leapOneUser)[0] ?? null;
+        } else {
+            $leapOneUser = $usersForUsername->getHydramember()[0] ?? null;
+        }
 
         return $this->autoMapper->map($leapOneUser, User::class);
     }
