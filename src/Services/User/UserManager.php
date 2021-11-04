@@ -103,6 +103,23 @@ class UserManager implements UserManagerInterface
         return $this->autoMapper->map($leapOneUser, User::class);
     }
 
+    public function getUserByUsernameExactMatch(string $username): ?User
+    {
+        try {
+            $usersForUsername = $this->userApi->getUserCollection($username);
+        } catch (ApiException $e) {
+            $decodedError = json_decode($e->getResponseBody(), true);
+            throw new NotFoundHttpException($decodedError['hydra:description']);
+        }
+
+        $leapOneUser = array_filter($usersForUsername->getHydramember(), function (UserJsonldUserRead $user) use ($username){
+            return $user->getUsername() === $username;
+        }, ARRAY_FILTER_USE_BOTH);
+        $leapOneUser = array_values($leapOneUser)[0] ?? null;
+
+        return $this->autoMapper->map($leapOneUser, User::class);
+    }
+
     public function authenticate(array $credentials): ?User
     {
 
