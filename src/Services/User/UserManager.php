@@ -106,7 +106,19 @@ class UserManager implements UserManagerInterface
     public function getUserByUsernameExactMatch(string $username): ?User
     {
         try {
-            $usersForUsername = $this->userApi->getUserCollection($username);
+            $usersForUsername = $this->userApi->getUserCollection(
+                $username,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                null,
+                '1',
+                10,
+                false
+            );
         } catch (ApiException $e) {
             $decodedError = json_decode($e->getResponseBody(), true);
             throw new NotFoundHttpException($decodedError['hydra:description']);
