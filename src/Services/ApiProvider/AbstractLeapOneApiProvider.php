@@ -19,21 +19,15 @@ abstract class AbstractLeapOneApiProvider
 
     protected static $CONFIGURATION_ENTRY_API_CLASS = '';
 
-    /**
-     * @var string
-     */
-    protected $endpoint = '';
-    /**
-     * @var TokenProvider
-     */
-    protected $tokenProvider;
+    protected TokenProvider $tokenProvider;
+    private LeapOneConnectionCredentialsProviderInterface $leapOneConnectionCredentialsProvider;
 
     public function __construct(
         LeapOneConnectionCredentialsProviderInterface $leapOneConnectionCredentialsProvider,
         TokenProvider $tokenProvider
     ) {
-        $this->endpoint = $leapOneConnectionCredentialsProvider->getEndpoint();
         $this->tokenProvider = $tokenProvider;
+        $this->leapOneConnectionCredentialsProvider = $leapOneConnectionCredentialsProvider;
     }
 
     public function getConfigurationEntryApi(): object
@@ -50,7 +44,7 @@ abstract class AbstractLeapOneApiProvider
     {
         $configuration = new static::$CONFIGURATION_CLASS;
 
-        $configuration->setHost($this->endpoint);
+        $configuration->setHost($this->leapOneConnectionCredentialsProvider->getEndpoint());
         $configuration->setApiKey('Authorization', $this->tokenProvider->getToken());
         $configuration->setApiKeyPrefix('Authorization', 'Bearer');
 

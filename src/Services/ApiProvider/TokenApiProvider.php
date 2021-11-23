@@ -11,12 +11,12 @@ use VentureLeap\ConfigurationService\Configuration;
  */
 class TokenApiProvider
 {
-    private $endpoint;
+    private LeapOneConnectionCredentialsProviderInterface $leapOneConnectionCredentialsProvider;
 
     public function __construct(
         LeapOneConnectionCredentialsProviderInterface $leapOneConnectionCredentialsProvider
     ) {
-        $this->endpoint = $leapOneConnectionCredentialsProvider->getEndpoint();
+        $this->leapOneConnectionCredentialsProvider = $leapOneConnectionCredentialsProvider;
     }
 
     public function getTokenApi(): TokenApi
@@ -27,7 +27,7 @@ class TokenApiProvider
     protected function getConfiguration(): Configuration
     {
         $configuration = new Configuration();
-        $configuration->setHost($this->endpoint);
+        $configuration->setHost($this->leapOneConnectionCredentialsProvider->getEndpoint());
 
         return $configuration;
     }
